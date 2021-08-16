@@ -1,0 +1,22 @@
+{
+  "name": "dreamteam",
+  "version": "1.0.0",
+  "description": "IT Project-capstone 2021sem2",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ccharansingh/DreamTeam.git"
+  },
+  "author": "Olivia Ryan, Tash Ireland, Anagha Giri,Koosha Owji, Chirag Singh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ccharansingh/DreamTeam/issues"
+  },
+  "homepage": "https://github.com/ccharansingh/DreamTeam#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
