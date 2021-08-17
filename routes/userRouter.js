@@ -6,6 +6,10 @@ userRouter = express.Router()
 // require the user controller
 const userController = require('../controllers/userController.js')
 
+userRouter.get('/', (req, res) => {
+    res.send('info page')
+})
+
 // handle the GET request toget all users
 userRouter.get('/user-info', userController.getAllUsers)
 
