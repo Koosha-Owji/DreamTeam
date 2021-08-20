@@ -11,7 +11,8 @@ const mongoose = require("mongoose")
     phone_number: {type: String, required: false},
     description: {type: String, required: false},
     labels: {type: [Number], required: false},
-    contactid:{type:String, required:true}, // allows session to differentiate between customer and vendor
+    userid: {type: String, required: true}, // identifies the user to which the contact belongs
+    //contactid:{type: String, required: true}, // allows session to differentiate between customer and vendor
 })
 
 const Contact = mongoose.model("Contact", contactSchema)

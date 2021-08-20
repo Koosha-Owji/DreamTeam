@@ -27,5 +27,8 @@ const getOneUser = async (req, res) => {
         res.status(400)
         return res.send("Database query failed")
     }
-}// remember to export the functions
+}
+
+
+// remember to export the functions
 module.exports = {getAllUsers,getOneUser}
