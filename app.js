@@ -1,4 +1,4 @@
-const express = require('express')
+const express = require('express');
 const app = express();
 
 require('./models/db');
@@ -21,3 +21,4 @@ app.use('/contacts', contactRouter)
 app.listen(3000, () => {
     console.log('The CRM app is listening on port 3000!')
 })
+
