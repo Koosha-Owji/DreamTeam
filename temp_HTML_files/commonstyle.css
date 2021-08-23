@@ -41,6 +41,18 @@ input.form_input {
     outline: none;
 }
 
+input.form_input_large {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0 30px;
+    box-sizing: border-box;
+    height: 80px;
+    border: 2px solid var(--color-grey);
+    border-radius: 15px;
+    font-size: medium;
+    outline: none;
+}
+
 
 button {
     padding: 10px;
@@ -110,9 +122,24 @@ i#back_icon {
 /* cross icon 
         <a class="icon"id="clear_icon"><i class="material-icons">clear</i></a>
 */
-a#clearIcon {
+i#clearIcon {
     display: flex;
     justify-content: inherit;
+    float: right;
+}
+
+/*add icons*/
+div.material-icons {
+    font-size: 3rem;
+    color: var(--color-dark);
+    cursor: pointer;
+    user-select: none;
+}
+
+div#add_icon {
+    color: var(--color-blue);
+    float: right;
+    margin: 15px 15px;
 }
 
 
@@ -152,7 +179,8 @@ a#clearIcon {
 input.form_input_left {
     width: 48%;
     padding: 10px;
-    margin: 10px 0 30px;
+    margin: 10px 0px 30px;
+    margin-right: 4px;
     box-sizing: border-box;
     border: 2px solid var(--color-grey);
     border-radius: 15px;
@@ -164,7 +192,8 @@ input.form_input_left {
 input.form_input_right {
     width: 48%;
     padding: 10px;
-    margin: 10px 0 30px;
+    margin: 10px 0px 30px;
+    margin-left: 4px;
     box-sizing: border-box;
     border: 2px solid var(--color-grey);
     border-radius: 15px;
