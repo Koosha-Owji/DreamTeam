@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dream CRM</title>
+    <link rel="stylesheet" href="commonstyle.css">
+    <link rel="stylesheet" href="meetingsstyle.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+</head>
+<body>
+     <div class = "nav_bar">
+        <a href=""><i id="nav_icons"class="material-icons">account_circle</i></a>
+        <a href=""><i id="nav_icons"class="material-icons">note_add</i></a>
+        <a href=""><i id="nav_icons"class="material-icons">contact_page</i></a>
+        <a href=""><i id="nav_icons"class="material-icons">today</i></a>
+        <a href=""><i id="nav_icons"class="material-icons">shopping_cart</i></a>
+        <a href=""><i id="back_icon"class="material-icons">arrow_back</i></a>
+    </div>
+    <div class = "header">
+        <h1>Add New Meeting</h1>
+    </div>
+
+    <div class = "sign_up_container">
+        <form>
+            <input class="form_input" placeholder="Title">
+            <div id = "form_input_container">
+                <input class="form_input_left" placeholder="Date">
+                <input class="form_input_right" placeholder="Time">
+            </div>
+            <!--makes placeholder disappear on click and reappear upon clicking anything else-->
+            <input class = "form_input_large" placeholder="Agenda"onfocus="this.placeholder = ''" onblur="this.placeholder = 'Agenda'">
+        </form>
+
+        <!-- div for submit buttons -->
+        <div class="container_centre">
+            <ul>
+                <li>
+                    <p><a>Cancel</a></p>
+                    <button class="button_medium" type="submit" onclick="">Save</button>
+                </li>
+            </ul>
+            
+        </div>
+    </div>

@@ -1,0 +1,35 @@
+:root {
+    --text-big: 36px;
+    --text-medium: 24px;
+    --text-semibold: 20px;
+    --text-small: 16px;
+    --font-body: 'Arial', 'Helvetica', sans-serif;
+    --color-dark: #262014;
+    --color-blue: #8AC6E8;
+    --color-light: #FFFFFF;
+    --color-grey: #707070;
+}
+
+.container {
+    position: absolute;
+    right: 0;
+    margin: 20px;
+    max-width: 300px;
+    padding: 16px;
+    background-color: var(--color-light);
+}
+
+.bg-img {
+    /* The image used */
+    background-image: url("loginfull.jpg");
+
+    /* Control the height of the image */
+    min-height: 1080px;
+
+    /* Center and scale the image nicely */
+    background-position: left;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    display: flex;
+}
