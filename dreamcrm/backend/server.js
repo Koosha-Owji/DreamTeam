@@ -1,28 +1,23 @@
-require('dotenv').config()
-const mongoose = require("mongoose")
 
-// Connect to MongoDB -database login is retrieved from environment variables -YOU SHOULD USE YOUR OWN ATLAS CLUSTER
-CONNECTION_STRING="mongodb+srv://<username>:<password>@cluster0.dmj7x.mongodb.net/dreamTeamCRM?retryWrites=true&w=majority"
-MONGO_URL = CONNECTION_STRING.replace("<username>",process.env.MONGO_USERNAME).replace("<password>",process.env.MONGO_PASSWORD)
+import express from 'express';
+import mongoose from 'mongoose';
+import cors from 'cors';
 
-mongoose.connect(MONGO_URL || "mongodb://localhost", {
-    useNewUrlParser: true,
-    useCreateIndex: true,
-    useUnifiedTopology: true,
-    useFindAndModify: false,
-    dbName: "DreamTeamCRM"
-})
+import userRouter from "./routes/user.js";
 
-const db = mongoose.connection
-    
-db.on("error", err => {
-    console.error(err);
-    process.exit(1)
-})
+const app = express();
 
-db.once("open", async () => {
-    console.log("Mongo connection started on " + db.host + ":" + db.port)
-})
+app.use(express.json({ limit: '30mb', extended: true }))
+app.use(express.urlencoded({ limit: '30mb', extended: true }))
+app.use(cors());
 
-require("./models/user")
-require("./models/contact")
+app.use("/user", userRouter);
+
+const CONNECTION_URL = 'mongodb+srv://dreamteam:teamdream@cluster0.dmj7x.mongodb.net/DreamTeamCRM?retryWrites=true&w=majority'
+const PORT = process.env.PORT|| 5000;
+
+mongoose.connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => app.listen(PORT, () => console.log(`Server Running on Port: http://localhost:${PORT}`)))
+  .catch((error) => console.log(`${error} did not connect`));
+
+mongoose.set('useFindAndModify', false);

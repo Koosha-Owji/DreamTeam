@@ -1,6 +1,6 @@
-const mongoose = require("mongoose")
+import mongoose from "mongoose";
 
-const contactSchema = new mongoose.Schema({
+const contactSchema = mongoose.Schema({
     name: {
         first: {type: String, required: false}, 
         last: {type: String, required: false},
@@ -10,11 +10,8 @@ const contactSchema = new mongoose.Schema({
     email_address: {type: String, required: false}, 
     phone_number: {type: String, required: false},
     description: {type: String, required: false},
-    labels: {type: [Number], required: false},
-    userid: {type: String, required: true} // identifies the user to which the contact belongs
-    //contactid:{type: String, required: true}, // allows session to differentiate between customer and vendor
+    labelId: {type: [String], required: false},
+    userId: {type: String, required: true} // identifies the user to which the contact belongs
 })
 
-const Contact = mongoose.model("Contact", contactSchema)
-
-module.exports =Contact
+export default mongoose.model("Contact", contactSchema);
