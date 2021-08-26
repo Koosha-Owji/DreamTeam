@@ -1,0 +1,57 @@
+:root {
+    --text-big: 36px;
+    --text-medium: 24px;
+    --text-semibold: 20px;
+    --text-small: 16px;
+    --font-body: 'Arial', 'Helvetica', sans-serif;
+    --color-dark: #262014;
+    --color-blue: #8AC6E8;
+    --color-light: #FFFFFF;
+    --color-grey: #707070;
+}
+
+.flex-container{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+}
+
+div.notes{
+    width: 20%;
+    margin: 2%;
+    padding: 20px;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0px 3px 10px var(--color-grey);
+    cursor: pointer;
+    align-items: center;
+    text-align: center;
+    background-color: var(--color-light);
+    color: var(--color-grey);
+}
+
+div.material-icons {
+    font-size: 3rem;
+    color: var(--color-dark);
+    cursor: pointer;
+    user-select: none;
+}
+
+div#add_icon {
+    color: var(--color-blue);
+    float: right;
+    margin: 15px 15px;
+}
+
+div.notes h2 {
+    margin: 0px;
+    align-items: center;
+}
+
+div.notes h3 {
+    margin: 0px;
+}
+
+div.notes p {
+    align-items: center;
+}

@@ -1,0 +1,56 @@
+:root {
+    --text-big: 36px;
+    --text-medium: 24px;
+    --text-semibold: 20px;
+    --text-small: 16px;
+    --font-body: 'Arial', 'Helvetica', sans-serif;
+    --color-dark: #262014;
+    --color-blue: #8AC6E8;
+    --color-light: #FFFFFF;
+    --color-grey: #707070;
+}
+
+/* HOME SCREEN BOXES */
+#home_container {
+    width: 1080px;
+    background-color: var(--color-light);
+    margin: 100px 200px;
+}
+
+#home_box_left {
+    width: 42%;
+    margin: 20px 20px;
+    padding: 20px;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0px 3px 10px var(--color-grey);
+    cursor: pointer;
+    float: left
+}
+
+#home_box_right {
+    width: 42%;
+    margin: 20px 20px;
+    padding: 20px;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0px 3px 10px var(--color-grey);
+    cursor: pointer;
+    float: right
+}
+
+/* HOME SCREEN BOX CONTAINERS*/
+
+/* HOME SCREEN BOX ICONS */
+div.material-icons {
+    font-size: 6rem;
+    color: var(--color-dark);
+    cursor: pointer;
+    user-select: none;
+}
+
+div#home_icons {
+    color: var(--color-blue);
+    float: left;
+    margin: 15px 15px;
+}
