@@ -3,9 +3,13 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { createMuiTheme, ThemeProvider } from "@material-ui/core";
+import { createTheme, ThemeProvider } from "@material-ui/core";
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware, compose } from 'redux';
+import thunk from 'redux-thunk';
+import authReducer  from './reducers/auth';
 
-const theme = createMuiTheme({
+const theme = createTheme({
   palette: {
       primary: {
         light: '#8d98f2',
@@ -21,9 +25,13 @@ const theme = createMuiTheme({
       },
 }});
 
+const store = createStore(authReducer, compose(applyMiddleware(thunk)));
+
 ReactDOM.render(
   <React.StrictMode>
+    <Provider store={store}>
     <ThemeProvider theme={theme}><App /></ThemeProvider>
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );

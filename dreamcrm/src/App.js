@@ -17,7 +17,7 @@ function App() {
       <div className="container">
       <br/>
       <Route exact path="/home" component={Navbar} />
-      <Route exact path="/user" component={Login} />
+      <Route exact path="/" component={Login} />
       <Route exact path="/user/signup" component={SignUp} />
       </div>
     </Router>

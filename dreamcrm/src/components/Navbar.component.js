@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -10,6 +10,10 @@ import PermContactCalendarIcon from '@material-ui/icons/PermContactCalendar';
 import EmailIcon from '@material-ui/icons/Email';
 import TodayIcon from '@material-ui/icons/Today';
 import NoteIcon from '@material-ui/icons/Note';
+import ExitToAppOutlinedIcon from '@material-ui/icons/ExitToAppOutlined';
+import { Link, useHistory, useLocation } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import decode from 'jwt-decode';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -55,6 +59,27 @@ const useStyles = makeStyles((theme) => ({
 export default function TabsWrappedLabel() {
   const classes = useStyles();
   const [value, setValue] = React.useState('one');
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
+  const dispatch = useDispatch();
+  const location = useLocation();
+  const history = useHistory();
+  const logout = () => {
+    dispatch({ type: 'LOGOUT' });
+
+    history.push('/user');
+
+    setUser(null);
+  };
+  useEffect(() => {
+    const token = user?.token;
+
+    if (token) {
+      const decodedToken = decode(token);
+
+      if (decodedToken.exp * 1000 < new Date().getTime()) logout();
+    }
+    setUser(JSON.parse(localStorage.getItem('profile')));
+  }, [location]);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -67,7 +92,8 @@ export default function TabsWrappedLabel() {
           <Tab value="one" label="Contacts" icon= {<PermContactCalendarIcon/>}wrapped {...a11yProps('one')}/>
           <Tab value="two" label="Emails" icon= {<EmailIcon/>} {...a11yProps('two')}/>
           <Tab value="three" label="Calendar" icon= {<TodayIcon/>} {...a11yProps('three')} />
-          <Tab value="three" label="Notes"icon= {<NoteIcon/>} {...a11yProps('three')} />
+          <Tab value="four" label="Notes"icon= {<NoteIcon/>} {...a11yProps('four')} />
+          <Tab value="five" label="LogOut" to='/' component={Link}  icon= {<ExitToAppOutlinedIcon/>} onClick={logout} {...a11yProps('five')}/>
         </Tabs>
       </AppBar>
       <TabPanel value={value} index="one">
@@ -78,6 +104,12 @@ export default function TabsWrappedLabel() {
       </TabPanel>
       <TabPanel value={value} index="three">
         Item Three
+      </TabPanel>
+      <TabPanel value={value} index="four">
+        Item Four
+      </TabPanel>
+      <TabPanel value={value} index="five">
+        Bye
       </TabPanel>
     </div>
   );

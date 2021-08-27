@@ -59,7 +59,7 @@
 //     )
 //   }
 // }
-import React from 'react';
+import React, { useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -73,6 +73,11 @@ import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import { signin } from '../actions/auth';
+
+const initialState = { email_address: '', password: ''};
 
 function Copyright() {
   return (
@@ -120,6 +125,15 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignInSide() {
   const classes = useStyles();
+  const [form, setForm] = useState(initialState);
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(signin(form, history));
+  }
+  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
   return (
     <Grid container component="main" className={classes.root}>
@@ -133,15 +147,15 @@ export default function SignInSide() {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <form className={classes.form} noValidate>
+          <form className={classes.form} onSubmit={handleSubmit} noValidate>
             <TextField
               variant="outlined"
               margin="normal"
               required
               fullWidth
-              id="email"
               label="Email Address"
-              name="email"
+              name="email_address"
+              onChange={handleChange}
               autoComplete="email"
               autoFocus
             />
@@ -151,9 +165,9 @@ export default function SignInSide() {
               required
               fullWidth
               name="password"
+              onChange={handleChange}
               label="Password"
               type="password"
-              id="password"
               autoComplete="current-password"
             />
             <FormControlLabel
