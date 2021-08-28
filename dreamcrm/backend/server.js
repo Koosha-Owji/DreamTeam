@@ -4,6 +4,8 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 
 import userRouter from "./routes/user.js";
+// to remove //
+import noteRouter from "./routes/note.js";
 
 const app = express();
 
@@ -12,6 +14,8 @@ app.use(express.urlencoded({ limit: '30mb', extended: true }))
 app.use(cors());
 
 app.use("/user", userRouter);
+// to remove //
+app.use("/note", noteRouter);
 
 const CONNECTION_URL = 'mongodb+srv://dreamteam:teamdream@cluster0.dmj7x.mongodb.net/DreamTeamCRM?retryWrites=true&w=majority'
 const PORT = process.env.PORT|| 5000;
