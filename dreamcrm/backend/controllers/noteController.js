@@ -46,47 +46,6 @@ export const create_note = async (req, res) => {
     }
 };
 
-
-export const create_note2 = async (req, res) => {
-    
-    const user_id = req.body.user_id;
-
-    // set last_edited to the current time
-    req.body.last_edited = Date.now();
-
-    try {
-        // Check that the user with "user_id" exists
-        const user = await userModel.findOne({ _id: user_id });
-        if (! user) return res.status(400).json({ message: "User doesn't exist" });
-
-        // Check the meeting id exists if this note is assigned to a meeting
-        // try {
-        //     const meeting_id = req.body.meeting_id;
-        //     const meeting = await meetingModel.findOne({_id: meeting_id});
-        //     if (! meeting) return res.status(400).json({ message: "Meeting doesn't exist" });
-        //     console.log("This line should not print");
-        // } catch (err) {
-        //     console.log("Entered the inner catch block");
-        //     console.log(err) 
-        // }
-        // try {
-        //     const meeting = await meetingModel.findOne({_id: req.body.meeting_id});
-        //     if (! meeting) return res.status(400).json({ message: "Meeting doesn't exist" });
-        // } catch (err){
-        //     res.send("Entered the inner catch block")};
-
-        // Create the note and save it to the database
-        const newNote = noteModel.create(req.body);
-        (await newNote).save()
-            .then(() => res.json("Added new note!"))
-            .catch((err) => res.status(400).json(err));
-
-    } catch (error) {
-        res.status(500).json({ message: "Note creation failed" });
-        console.log(error);
-    }
-};
-
 // Delete an existing note
 export const delete_note = async (req, res) => {
     try {
@@ -136,20 +95,18 @@ export const get_one_note = async (req, res) => {
     }
 }
 
-
-// retrive a note from the db and update its content
+// updates the content of a note and sends the updated version back via res
 export const update_note = async (req, res) => {
     try {
-        const note = await noteModel.findById({_id: req.body.note_id});
+        // update the note
+        await noteModel.findByIdAndUpdate(req.body._id, 
+            {content: req.body.content}).exec();
+
+        // get the updated version
+        const note = await noteModel.findById(req.body._id).exec();
 
         // check that the note exists
         if (! note) return res.json("Note does not exist");
-
-        // if the note exists, update its content
-        note.content = req.body.content;
-
-        // update the last_updated to the current time
-        note.last_edited = Date.now();
 
         // return the update note
         return res.json(note);
@@ -160,18 +117,16 @@ export const update_note = async (req, res) => {
 }
 
 // Retrive a note from the db and update its name
-export const note_rename = async (req, res) => {
+export const rename_note = async (req, res) => {
     try {
-        const note = await noteModel.findById({_id: req.body.note_id});
+        await noteModel.findByIdAndUpdate(req.body._id, 
+            {title: req.body.title}).exec();
+        
+        // retrieve the updated note
+        const note = await noteModel.findById(req.body._id).exec();
 
         // check that the note exists
         if (! note) return res.json("Note does not exist");
-
-        // if the note exists, update its content
-        note.title = req.body.title;
-
-        // update the last_updated to the current time
-        note.last_edited = Date.now();
 
         // return the update note
         return res.json(note);
