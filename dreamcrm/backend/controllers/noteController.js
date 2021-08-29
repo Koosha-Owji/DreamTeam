@@ -1,10 +1,30 @@
 import noteModel from "../models/note.js";
-import userModel from "../models/user.js"
+import userModel from "../models/user.js";
+import meetingModel from "../models/meeting.js";
 
 // Create a new note 
+
 export const create_note = async (req, res) => {
     
     const user_id = req.body.user_id;
+    const meeting_exists = 0;
+
+    try {
+        const meeting_id = req.body.meeting_id;
+    } catch (err) {
+        // we reach the catch block if the note is unassigned to a meeting
+        // so we can treat the note as though it is attached to a valid meeting_id
+        meeting_exists = 1;
+    }
+
+    if (!meeting_exists) {
+        try {
+            const meeting = await meetingModel.findOne({_id: meeting_id});
+            //if (! meeting) return res.status(400).json({ message: "Meeting doesn't exist" });
+        } catch (err) {
+            res.status(400).json({ message: "Meeting doesn't exist" });
+        }
+    }
 
     // set last_edited to the current time
     req.body.last_edited = Date.now();
@@ -26,24 +46,67 @@ export const create_note = async (req, res) => {
     }
 };
 
+
+export const create_note2 = async (req, res) => {
+    
+    const user_id = req.body.user_id;
+
+    // set last_edited to the current time
+    req.body.last_edited = Date.now();
+
+    try {
+        // Check that the user with "user_id" exists
+        const user = await userModel.findOne({ _id: user_id });
+        if (! user) return res.status(400).json({ message: "User doesn't exist" });
+
+        // Check the meeting id exists if this note is assigned to a meeting
+        // try {
+        //     const meeting_id = req.body.meeting_id;
+        //     const meeting = await meetingModel.findOne({_id: meeting_id});
+        //     if (! meeting) return res.status(400).json({ message: "Meeting doesn't exist" });
+        //     console.log("This line should not print");
+        // } catch (err) {
+        //     console.log("Entered the inner catch block");
+        //     console.log(err) 
+        // }
+        // try {
+        //     const meeting = await meetingModel.findOne({_id: req.body.meeting_id});
+        //     if (! meeting) return res.status(400).json({ message: "Meeting doesn't exist" });
+        // } catch (err){
+        //     res.send("Entered the inner catch block")};
+
+        // Create the note and save it to the database
+        const newNote = noteModel.create(req.body);
+        (await newNote).save()
+            .then(() => res.json("Added new note!"))
+            .catch((err) => res.status(400).json(err));
+
+    } catch (error) {
+        res.status(500).json({ message: "Note creation failed" });
+        console.log(error);
+    }
+};
+
 // Delete an existing note
 export const delete_note = async (req, res) => {
     try {
         // attempt to delete the note that matches the user and note ids in the request
         noteModel.deleteOne({
             user_id: req.body.user_id,
-            _id: req.body._id})
+            _id: req.body._id}).exec()
 
-    } catch (err) {
+        res.send("Successfully deleted note (or note does not exist)");
+
+    } catch (error) {
         res.status(500).json({ message: "Note deletion failed" });
-        console.log(error);
+        //console.log(error);
     }
 };
 
 // Retrieve all notes belonging to a single user
-export const get_notes = async (req, res) => {
+export const get_all_notes = async (req, res) => {
     try {
-        const notes = await noteModel.findAll({user_id: req.body.user_id});
+        const notes = await noteModel.find({user_id: req.body.user_id}).exec();
 
         // if the user has no notes, return a message
         if (! notes) return res.json("No notes associated with this user");
@@ -57,6 +120,89 @@ export const get_notes = async (req, res) => {
     }
 }
 
-// Retrieve all notes that do not belong to a meeting
+// Retrieve a single note by its id
+export const get_one_note = async (req, res) => {
+    try {
+        const note = await noteModel.findById(req.body._id)
+            .exec();
 
-// Retrieve all notes that belong to a specific meeting
+        // check that the note exists
+        if (! note) return res.json("Note does not exist");
+        // if the note exists, return it
+        return res.json(note);
+
+    } catch (err) {
+        res.status(500).json({ message: "Note retrieval failed" });
+    }
+}
+
+
+// retrive a note from the db and update its content
+export const update_note = async (req, res) => {
+    try {
+        const note = await noteModel.findById({_id: req.body.note_id});
+
+        // check that the note exists
+        if (! note) return res.json("Note does not exist");
+
+        // if the note exists, update its content
+        note.content = req.body.content;
+
+        // update the last_updated to the current time
+        note.last_edited = Date.now();
+
+        // return the update note
+        return res.json(note);
+
+    } catch (err) {
+        res.status(500).json({ message: "Note update failed" });
+    }
+}
+
+// Retrive a note from the db and update its name
+export const note_rename = async (req, res) => {
+    try {
+        const note = await noteModel.findById({_id: req.body.note_id});
+
+        // check that the note exists
+        if (! note) return res.json("Note does not exist");
+
+        // if the note exists, update its content
+        note.title = req.body.title;
+
+        // update the last_updated to the current time
+        note.last_edited = Date.now();
+
+        // return the update note
+        return res.json(note);
+
+    } catch (err) {
+        res.status(500).json({ message: "Note rename failed" });
+    }
+}
+
+// Retrive a note from the db and update its meeting_id
+export const assign_to_meeting = async (req, res) => {
+    try {
+        const note = await noteModel.findById({_id: req.body.note_id});
+        const meeting = await meetingModel.findById({meeting_id: req.body.meeting_id});
+
+        // check that the note exists
+        if (! note) return res.json("Note does not exist");
+
+        // check that the meeting exists
+        if (! meeting) return res.json("Meeting does not exist");
+
+        // if the note exists, update its content
+        note.meeting_id = req.body.meeting_id;
+
+        // update the last_updated to the current time
+        note.last_edited = Date.now();
+
+        // return the update note
+        return res.json(note);
+
+    } catch (err) {
+        res.status(500).json({ message: "Note rename failed" });
+    }
+}
