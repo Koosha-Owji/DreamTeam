@@ -3,7 +3,6 @@ import userModel from "../models/user.js";
 import meetingModel from "../models/meeting.js";
 
 // Create a new note 
-
 export const create_note = async (req, res) => {
     
     const user_id = req.body.user_id;
@@ -20,14 +19,10 @@ export const create_note = async (req, res) => {
     if (!meeting_exists) {
         try {
             const meeting = await meetingModel.findOne({_id: meeting_id});
-            //if (! meeting) return res.status(400).json({ message: "Meeting doesn't exist" });
         } catch (err) {
             res.status(400).json({ message: "Meeting doesn't exist" });
         }
     }
-
-    // set last_edited to the current time
-    req.body.last_edited = Date.now();
 
     try {
         // Check that the user with "user_id" exists
@@ -42,7 +37,6 @@ export const create_note = async (req, res) => {
 
     } catch (error) {
         res.status(500).json({ message: "Note creation failed" });
-        console.log(error);
     }
 };
 
@@ -58,7 +52,6 @@ export const delete_note = async (req, res) => {
 
     } catch (error) {
         res.status(500).json({ message: "Note deletion failed" });
-        //console.log(error);
     }
 };
 
@@ -150,9 +143,6 @@ export const assign_to_meeting = async (req, res) => {
 
         // if the note exists, update its content
         note.meeting_id = req.body.meeting_id;
-
-        // update the last_updated to the current time
-        note.last_edited = Date.now();
 
         // return the update note
         return res.json(note);
