@@ -15,6 +15,8 @@ import { Link, useHistory, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import decode from 'jwt-decode';
 
+import contactsPage from './contact/contactsPage.component';
+
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -97,6 +99,7 @@ export default function TabsWrappedLabel() {
         </Tabs>
       </AppBar>
       <TabPanel value={value} index="one">
+        <contactsPage/>
         Item One
       </TabPanel>
       <TabPanel value={value} index="two">

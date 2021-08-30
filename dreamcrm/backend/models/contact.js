@@ -11,7 +11,7 @@ const contactSchema = mongoose.Schema({
     phone_number: {type: String, required: false},
     description: {type: String, required: false},
     labelId: {type: [String], required: false},
-    userId: {type: String, required: true} // identifies the user to which the contact belongs
+    //userId: {type: String, required: true} // identifies the user to which the contact belongs
 })
 
 export default mongoose.model("Contact", contactSchema);

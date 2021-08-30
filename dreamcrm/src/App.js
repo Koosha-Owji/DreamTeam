@@ -6,7 +6,8 @@ import { BrowserRouter as Router, Route} from "react-router-dom";
 import Login from "./components/Login.component";
 import SignUp from "./components/SignUp.component";
 import Navbar from "./components/Navbar.component";
-import ContactsPage from "./components/contactsPage.component";
+import ContactsPage from "./components/contact/contactsPage.component";
+import contact from "./components/contact/contacts";
 
 
 function App() {
@@ -20,7 +21,7 @@ function App() {
       <Route exact path="/home" component={Navbar} />
       <Route exact path="/" component={Login} />
       <Route exact path="/user/signup" component={SignUp} />
-      <Route exact path="/user/contacts" component={ContactsPage} />
+      <Route exact path="/contacts" component={contact} />
       </div>
     </Router>
     </div>
