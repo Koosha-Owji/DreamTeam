@@ -6,23 +6,23 @@ import meetingModel from "../models/meeting.js";
 export const create_note = async (req, res) => {
     
     const user_id = req.body.user_id;
-    const meeting_exists = 0;
+//    const meeting_exists = 0;
 
-    try {
-        const meeting_id = req.body.meeting_id;
-    } catch (err) {
-        // we reach the catch block if the note is unassigned to a meeting
-        // so we can treat the note as though it is attached to a valid meeting_id
-        meeting_exists = 1;
-    }
+    // try {
+    //     const meeting_id = req.body.meeting_id;
+    // } catch (err) {
+    //     // we reach the catch block if the note is unassigned to a meeting
+    //     // so we can treat the note as though it is attached to a valid meeting_id
+    //     meeting_exists = 1;
+    // }
 
-    if (!meeting_exists) {
-        try {
-            const meeting = await meetingModel.findOne({_id: meeting_id});
-        } catch (err) {
-            res.status(400).json({ message: "Meeting doesn't exist" });
-        }
-    }
+    // if (!meeting_exists) {
+    //     try {
+    //         const meeting = await meetingModel.findOne({_id: meeting_id});
+    //     } catch (err) {
+    //         res.status(400).json({ message: "Meeting doesn't exist" });
+    //     }
+    // }
 
     try {
         // Check that the user with "user_id" exists
@@ -68,7 +68,7 @@ export const get_all_notes = async (req, res) => {
 
     } catch (err) {
         res.status(500).json({ message: "Note retrieval failed" });
-        console.log(error);
+        console.log(" ");
     }
 }
 

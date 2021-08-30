@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import {createNote} from "../../actions/notes"
+import {createNote} from "../actions/notes"
 
-const intial_state = {title: '', content: '', user_id: ''}
+const intial_state = {title: '', content: '', userId: ''}
 
 
 
@@ -23,7 +23,6 @@ const AddNote = ({handleAddNote}) => {
         console.log(event.target.name);
         setNoteText({
             ...noteText,
-            user_id: user?.result?._id,
             [event.target.name]: value
         });
     }
