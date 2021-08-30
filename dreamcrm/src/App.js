@@ -6,6 +6,10 @@ import { BrowserRouter as Router, Route} from "react-router-dom";
 import Login from "./components/Login.component";
 import SignUp from "./components/SignUp.component";
 import Navbar from "./components/Navbar.component";
+<<<<<<< Updated upstream
+=======
+import NotesPage from "./components/Notes/NotePages"
+>>>>>>> Stashed changes
 
 
 function App() {
