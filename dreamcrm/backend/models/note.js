@@ -7,7 +7,7 @@ const noteSchema = mongoose.Schema({
     // if there is no meeting_id, this is a free note
     meeting_id: {type: String, required: false},
     // created_at and updated_at timestamps will be automatically handled by mongoose
-    timestamps: true
+    //timestamps: true
 });
 
 export default mongoose.model("Note", noteSchema);
