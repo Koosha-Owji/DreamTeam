@@ -14,3 +14,4 @@ export const signIn = (formData) => API.post('/user/signin', formData);
 export const signUp = (formData) => API.post('/user/signup', formData);
 
 export const createNote = (userText, history) => API.post('/note/add', userText, history);
+export const get_allNotes = (initial_state) => API.get('note/get_all', initial_state);

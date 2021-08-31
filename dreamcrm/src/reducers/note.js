@@ -1,9 +1,11 @@
-const noteReducer = (state = { noteData: null }, action) => {
+const noteReducer = (notes = [] , action) => {
     switch (action.type) {
       case 'CREATE':  
-        return { ...state, noteData: action.payload };
+        return [...notes, action.payload];
+      case 'GET_ALL':
+        return action.payload;
       default:
-        return state;
+        return notes;
     }
   };
   

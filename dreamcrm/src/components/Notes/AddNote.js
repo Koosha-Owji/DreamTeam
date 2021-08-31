@@ -1,26 +1,15 @@
 import { useState } from "react";
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import {createNote} from "../actions/notes"
-
-const intial_state = {title: '', content: '', userId: ''}
-
-
-
-
+import {createNote} from '../../actions/notes';
 
 
 const AddNote = ({handleAddNote}) => {
-    const user = JSON.parse(localStorage.getItem('profile'));
     const dispatch = useDispatch();
     const history = useHistory();
-    const [noteText, setNoteText] = useState({
-        intial_state
-    });
-
+    const [noteText, setNoteText] = useState();
     const handleChange = (event) => {
         const value = event.target.value
-        console.log(event.target.name);
         setNoteText({
             ...noteText,
             [event.target.name]: value
@@ -32,11 +21,6 @@ const AddNote = ({handleAddNote}) => {
             //handleAddNote(noteText);
             event.preventDefault();
             dispatch(createNote(noteText, history));
-            setNoteText({
-                ...noteText,
-                title: "", 
-                content: ""
-            });
         }
     };
 
@@ -48,7 +32,6 @@ const AddNote = ({handleAddNote}) => {
             cols ='10'
             placeholder = 'Title' 
             name = "title"
-            value = {noteText.title}
             onChange={handleChange}
         ></textarea>
         <textarea
@@ -56,7 +39,6 @@ const AddNote = ({handleAddNote}) => {
             cols ='10'
             placeholder = 'Type to add new note' 
             name = "content"
-            value = {noteText.content}
             onChange={handleChange}
         ></textarea>
         <div className = 'note_footer'>

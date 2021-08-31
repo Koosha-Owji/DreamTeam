@@ -1,38 +1,20 @@
 import React from "react";
 import { nanoid } from "nanoid";
 import NoteList from './NoteList'
+import { useDispatch } from 'react-redux';
+
+import { get_allNotes } from '../../actions/notes';
 
 
 function NotePages() {
-
-  const intial_state = {title: '', content: '', userId: ''}
-
+  const dispatch = useDispatch();
   // Notes from database will go here
-    const [notes, setNotes] = React.useState([{
-    Id: nanoid(),
-    title: "Note Title",
-    meetingId: "ID",
-    text: "This id the note one"
-  }, 
-  {
-    Id: nanoid(),
-    title: "Note Title",
-    meetingId: "ID",
-    text: "This id the note two"
-  },
-  {
-    Id: nanoid(),
-    title: "Note Title",
-    meetingId: "ID",
-    text: "This id the note three"
-  },
-  {
-    Id: nanoid(),
-    title: "Note Title",
-    meetingId: "ID",
-    text: "This id the note four"
-    }
-  ]); 
+  const [notes, setNotes] = React.useState([]);
+
+  React.useEffect(() => {
+    dispatch(get_allNotes());
+  }, [dispatch]);
+  
 
   //to be relaced by the backend function
   const AddNote = (userText) => {

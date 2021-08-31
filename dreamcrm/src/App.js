@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Route} from "react-router-dom";
 import Login from "./components/Login.component";
 import SignUp from "./components/SignUp.component";
 import Navbar from "./components/Navbar.component";
-import NotesPage from "./components/NotePages.js"
+import NotesPage from "./components/Notes/NotePages";
 
 
 function App() {
