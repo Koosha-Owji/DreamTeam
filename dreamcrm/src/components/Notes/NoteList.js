@@ -1,9 +1,7 @@
 import Note from './Note'
 import AddNote from './AddNote'
-import { useSelector } from 'react-redux'
 
 const NoteList = ({notes , handleAddNote, handleDeleteNote}) => {
-    notes = useSelector((state) => state.note);
     return (
         
         <div className = "noteList">

@@ -7,7 +7,7 @@ import {createNote} from '../../actions/notes';
 const AddNote = ({handleAddNote}) => {
     const dispatch = useDispatch();
     const history = useHistory();
-    const [noteText, setNoteText] = useState();
+    const [noteText, setNoteText] = useState({title: '',content: ''});
     const handleChange = (event) => {
         const value = event.target.value
         setNoteText({
@@ -21,6 +21,7 @@ const AddNote = ({handleAddNote}) => {
             //handleAddNote(noteText);
             event.preventDefault();
             dispatch(createNote(noteText, history));
+            setNoteText({title: '', content: '' });
         }
     };
 
@@ -32,6 +33,7 @@ const AddNote = ({handleAddNote}) => {
             cols ='10'
             placeholder = 'Title' 
             name = "title"
+            value = {noteText.title}
             onChange={handleChange}
         ></textarea>
         <textarea
@@ -39,6 +41,7 @@ const AddNote = ({handleAddNote}) => {
             cols ='10'
             placeholder = 'Type to add new note' 
             name = "content"
+            value = {noteText.content}
             onChange={handleChange}
         ></textarea>
         <div className = 'note_footer'>
