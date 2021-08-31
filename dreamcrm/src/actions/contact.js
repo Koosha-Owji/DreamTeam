@@ -1,8 +1,8 @@
 import * as api from '../api/index.js';
 
-export const createContact = (userText, router) => async (dispatch) => {
+export const create_contact = (contact) => async (dispatch) => {
     try {
-      const { data } = await api.createContact(userText);
+      const { data } = await api.create_contact(contact);
   
       dispatch({ type: 'CREATE', Payload: data });
   
@@ -13,11 +13,11 @@ export const createContact = (userText, router) => async (dispatch) => {
   };
 
   
-export const getContacts = () => async (dispatch) => {
+export const get_all_contacts = () => async (dispatch) => {
   try {
-    const { data } = await api.fetchContacts();
+    const { data } = await api.get_all_contacts();
 
-    dispatch({ type: FETCH_ALL, payload: data });
+    dispatch({ type: 'FETCH_ALL', payload: data });
   } catch (error) {
     console.log(error.message);
   }

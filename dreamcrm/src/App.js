@@ -7,10 +7,9 @@ import Login from "./components/Login.component";
 import SignUp from "./components/SignUp.component";
 import Navbar from "./components/Navbar.component";
 import ContactsPage from "./components/contact/contactsPage.component";
-import contact from "./components/contact/contacts";
 
-
-function App() {
+const App = () => {
+  
   return (
     <div className="App" >
         <h1>Dream Team CRM</h1>
@@ -21,7 +20,7 @@ function App() {
       <Route exact path="/home" component={Navbar} />
       <Route exact path="/" component={Login} />
       <Route exact path="/user/signup" component={SignUp} />
-      <Route exact path="/contacts" component={contact} />
+      <Route exact path="/contacts" component={ContactsPage} />
       </div>
     </Router>
     </div>

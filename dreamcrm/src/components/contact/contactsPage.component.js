@@ -62,214 +62,138 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const Contact = props => (
-  <tr>
-    <td>{props.contacts.first_name}</td>
-    <td>{props.contacts.last_name}</td>
-    <td>{props.contacts.business}</td>
-    <td>{props.contacts.relationship}</td>
-    <td>{props.contacts.phone_number}</td>
-    <td>{props.contacts.description}</td>
-{/* 
 
-    <td>
-      <Link to={"/edit/"+props.exercise._id}>edit</Link> | <a href="#" onClick={() => { props.deleteExercise(props.exercise._id) }}>delete</a>
-    </td> */}
-  </tr>
-)
+export default function ContactsPage() {
+  const classes = useStyles();
 
-export default class ContactsPage extends Component {
-  constructor(props) {
-    super(props);
+  const [open, setOpen] = React.useState(false);
 
-    // this.deleteExercise = this.deleteExercise.bind(this)
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
 
-    this.state = {contacts: []};
-  }
-
-  componentDidMount() {
-    axios.get('http://localhost:5000/contacts/')
-      .then(response => {
-        this.setState({ contacts: response.data })
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-  }
-
-  // deleteExercise(id) {
-  //   axios.delete('http://localhost:5000/exercises/'+id)
-  //     .then(response => { console.log(response.data)});
-
-  //   this.setState({
-  //     exercises: this.state.exercises.filter(el => el._id !== id)
-  //   })
-  // }
-
-  contactList() {
-    return this.state.contacts.map(currentcontact => {
-      return <Contact contact={currentcontact} key={currentcontact._id}/>;
-    })
-  }
-
-  render() {
-    return (
-      <div>
-        <h3>Logged Exercises</h3>
-        <table className="table">
-          <thead className="thead-light">
-            <tr>
-              <th>Username</th>
-              <th>Description</th>
-              <th>Duration</th>
-              <th>Date</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            { this.contactList() }
-          </tbody>
-        </table>
-      </div>
-    )
-  }
-}
+  const handleClose = () => {
+    setOpen(false);
+  };
 
 
-
-
-
-// export default function ContactsPage() {
-//   const classes = useStyles();
-
-//   const [open, setOpen] = React.useState(false);
-
-//   const handleClickOpen = () => {
-//     setOpen(true);
-//   };
-
-//   const handleClose = () => {
-//     setOpen(false);
-//   };
-
-
-//   return (
-//     <div className={classes.root}>
-//         <div className = {classes.addContact}>
-//             <Fab color="primary" aria-label="add"  onClick={handleClickOpen}>
-//                 <AddIcon />
-//             </Fab>
-//             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-//         <DialogTitle id="form-dialog-title">Add a new contact</DialogTitle>
-//         <addContact />
-//         <DialogContent>
-//           <DialogContentText>
-//             Please enter contact information below.
-//           </DialogContentText>
-//           <TextField
-//             autoFocus
-//             margin="dense"
-//             id="name"
-//             label="First Name"
-//             type="first_name"
-//             fullWidth
-//           />
-//           <TextField
-//             autoFocus
-//             margin="dense"
-//             id="name"
-//             label="Last Name"
-//             type="last_name"
-//             fullWidth
-//           />
-//           <TextField
-//             autoFocus
-//             margin="dense"
-//             id="name"
-//             label="Email Address"
-//             type="email"
-//             fullWidth
-//           />
-//           <TextField
-//             autoFocus
-//             margin="dense"
-//             id="name"
-//             label="Business"
-//             type="business"
-//             fullWidth
-//           />
-//           <TextField
-//             autoFocus
-//             margin="dense"
-//             id="name"
-//             label="Relationship"
-//             type="relationship"
-//             fullWidth
-//           />
-//           <TextField
-//             autoFocus
-//             margin="dense"
-//             id="name"
-//             label="Phone number"
-//             type="phone_number"
-//             fullWidth
-//           />
-//           <TextField
-//             autoFocus
-//             margin="dense"
-//             id="name"
-//             label="Description"
-//             type="description"
-//             fullWidth
-//           />
-//         </DialogContent>
-//         <DialogActions>
-//           <Button onClick={handleClose} color="primary">
-//             Cancel
-//           </Button>
-//           <Button onClick={handleClose} color="primary">
-//             Add to Contacts
-//           </Button>
-//         </DialogActions>
-//       </Dialog>
-//         </div>
+  return (
+    <div className={classes.root}>
+        <div className = {classes.addContact}>
+            <Fab color="primary" aria-label="add"  onClick={handleClickOpen}>
+                <AddIcon />
+            </Fab>
+            <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+        <DialogTitle id="form-dialog-title">Add a new contact</DialogTitle>
+        <addContact />
+        <DialogContent>
+          <DialogContentText>
+            Please enter contact information below.
+          </DialogContentText>
+          <TextField
+            autoFocus
+            margin="dense"
+            id="name"
+            label="First Name"
+            type="first_name"
+            fullWidth
+          />
+          <TextField
+            autoFocus
+            margin="dense"
+            id="name"
+            label="Last Name"
+            type="last_name"
+            fullWidth
+          />
+          <TextField
+            autoFocus
+            margin="dense"
+            id="name"
+            label="Email Address"
+            type="email"
+            fullWidth
+          />
+          <TextField
+            autoFocus
+            margin="dense"
+            id="name"
+            label="Business"
+            type="business"
+            fullWidth
+          />
+          <TextField
+            autoFocus
+            margin="dense"
+            id="name"
+            label="Relationship"
+            type="relationship"
+            fullWidth
+          />
+          <TextField
+            autoFocus
+            margin="dense"
+            id="name"
+            label="Phone number"
+            type="phone_number"
+            fullWidth
+          />
+          <TextField
+            autoFocus
+            margin="dense"
+            id="name"
+            label="Description"
+            type="description"
+            fullWidth
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={handleClose} color="primary">
+            Add to Contacts
+          </Button>
+        </DialogActions>
+      </Dialog>
+        </div>
         
-//       <Accordion defaultExpanded>
-//         <AccordionSummary
-//           expandIcon={<ExpandMoreIcon />}
-//           aria-controls="panel1c-content"
-//           id="panel1c-header"
-//         >
-//           <div className={classes.column}>
-//             <Typography className={classes.heading}>Contact</Typography>
-//           </div>
-//           <div className={classes.column}>
-//             <Typography className={classes.secondaryHeading}>Information</Typography>
-//           </div>
-//         </AccordionSummary>
-//         <AccordionDetails className={classes.details}>
-//           <div className={classes.column} />
-//           <div className={classes.column}>
-//             <Chip label="Contractor" onDelete={() => {}} />
-//           </div>
-//           <div className={clsx(classes.column, classes.helper)}>
-//             <Typography variant="caption">
-//               Actions
-//               <br />
-//               <a href="#secondary-heading-and-columns" className={classes.link}>
-//                 Email
-//               </a>
-//             </Typography>
-//           </div>
-//         </AccordionDetails>
-//         <Divider />
-//         <AccordionActions>
-//           <Button size="small">Cancel</Button>
-//           <Button size="small" color="primary" href="/contacts/add">
-//             Save
-//           </Button>
-//         </AccordionActions>
-//       </Accordion>
-//     </div>
-//   );
-// }
+      <Accordion defaultExpanded>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel1c-content"
+          id="panel1c-header"
+        >
+          <div className={classes.column}>
+            <Typography className={classes.heading}>Contact</Typography>
+          </div>
+          <div className={classes.column}>
+            <Typography className={classes.secondaryHeading}>Information</Typography>
+          </div>
+        </AccordionSummary>
+        <AccordionDetails className={classes.details}>
+          <div className={classes.column} />
+          <div className={classes.column}>
+            <Chip label="Contractor" onDelete={() => {}} />
+          </div>
+          <div className={clsx(classes.column, classes.helper)}>
+            <Typography variant="caption">
+              Actions
+              <br />
+              <a href="#secondary-heading-and-columns" className={classes.link}>
+                Email
+              </a>
+            </Typography>
+          </div>
+        </AccordionDetails>
+        <Divider />
+        <AccordionActions>
+          <Button size="small">Cancel</Button>
+          <Button size="small" color="primary" href="/contacts/add">
+            Save
+          </Button>
+        </AccordionActions>
+      </Accordion>
+    </div>
+  );
+}

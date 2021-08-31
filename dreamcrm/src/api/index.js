@@ -13,5 +13,5 @@ API.interceptors.request.use((req) => {
 export const signIn = (formData) => API.post('/user/signin', formData);
 export const signUp = (formData) => API.post('/user/signup', formData);
 
-export const create_contact = (newContact)=>API.post('http://localhost:5000/contacts/add', newContact);
-export const get_all_contacts = () => axios.get('http://localhost:5000/contacts');
+export const create_contact = (newContact)=>API.post('/contacts', newContact);
+export const get_all_contacts = () => axios.get('/contacts');

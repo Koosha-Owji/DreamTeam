@@ -1,11 +1,13 @@
-const contactReducer = (state = { contactData: null }, action) => {
-    switch (action.type) {
+const contactReducer = (contacts = { contactData: null }, action) => {
+    
+  
+  switch (action.type) {
       case 'CREATE':  
-        return [ ...state, action.payload ];
+        return [ ...contacts, action.payload ];
       case 'FETCH_ALL':
         return action.payload;
       default:
-        return state;
+        return contacts;
     }
   };
   
