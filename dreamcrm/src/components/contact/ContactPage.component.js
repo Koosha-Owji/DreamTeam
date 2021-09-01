@@ -19,8 +19,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-import { Link } from 'react-router-dom';
-import axios from 'axios';
+import AddContact from './addContact.component';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -77,6 +76,7 @@ export default function ContactsPage() {
   };
 
 
+
   return (
     <div className={classes.root}>
         <div className = {classes.addContact}>
@@ -85,76 +85,13 @@ export default function ContactsPage() {
             </Fab>
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Add a new contact</DialogTitle>
-        <addContact />
-        <DialogContent>
-          <DialogContentText>
-            Please enter contact information below.
-          </DialogContentText>
-          <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            label="First Name"
-            type="first_name"
-            fullWidth
-          />
-          <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            label="Last Name"
-            type="last_name"
-            fullWidth
-          />
-          <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            label="Email Address"
-            type="email"
-            fullWidth
-          />
-          <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            label="Business"
-            type="business"
-            fullWidth
-          />
-          <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            label="Relationship"
-            type="relationship"
-            fullWidth
-          />
-          <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            label="Phone number"
-            type="phone_number"
-            fullWidth
-          />
-          <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            label="Description"
-            type="description"
-            fullWidth
-          />
-        </DialogContent>
+        <AddContact />
         <DialogActions>
           <Button onClick={handleClose} color="primary">
             Cancel
           </Button>
-          <Button onClick={handleClose} color="primary">
-            Add to Contacts
-          </Button>
         </DialogActions>
+        
       </Dialog>
         </div>
         

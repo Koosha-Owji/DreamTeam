@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 export default class AddContact extends Component {
 
@@ -25,6 +26,7 @@ export default class AddContact extends Component {
         description:''
         }
       }
+      
       onSubmit(e) {
         e.preventDefault();
 
@@ -37,8 +39,12 @@ export default class AddContact extends Component {
           phone_number:this.state.phone_number,
           description:this.state.description
         };
-      console.log(contact);
-      window.location = '/';
+      
+        console.log(contact);
+        axios.post('http://localhost:5000/contacts', contact)
+      .then(res => console.log(res.data));
+      
+        window.location = '/contacts';
       }
 
 

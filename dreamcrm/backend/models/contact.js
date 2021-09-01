@@ -14,7 +14,7 @@ const contactSchema = mongoose.Schema({
     // identifies the user to which the contact belongs
     //userId: {type: String, required: true}, 
     // created_at and updated_at timestamps will be automatically handled by mongoose
-    timestamps: true
+    //timestamps: true
 })
 
 export default mongoose.model("Contact", contactSchema, "contact");
