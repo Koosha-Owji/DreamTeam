@@ -8,6 +8,7 @@ import SignUp from "./components/SignUp.component";
 import Navbar from "./components/Navbar.component";
 import ContactsPage from "./components/contact/contactsPage.component";
 import AddContact from './components/contact/addContact1.component';
+import NotesPage from "./components/Notes/NotePages";
 
 const App = () => {
   
@@ -23,6 +24,7 @@ const App = () => {
       <Route exact path="/user/signup" component={SignUp} />
       <Route exact path="/contacts1" component={ContactsPage} />
       <Route exact path="/contacts" component={AddContact} />
+      <Route exact path="/user/notes" component= {NotesPage}/>
       </div>
     </Router>
     </div>

@@ -78,10 +78,10 @@ export default function TabsWrappedLabel() {
     if (token) {
       const decodedToken = decode(token);
 
-      if (decodedToken.exp * 1000 < new Date().getTime()) logout();
+      if (decodedToken.exp * 1000 < new Date().getTime())logout();
     }
     setUser(JSON.parse(localStorage.getItem('profile')));
-  }, [location]);
+  }, [location,user?.token]);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -94,7 +94,7 @@ export default function TabsWrappedLabel() {
           <Tab value="one" label="Contacts" icon= {<PermContactCalendarIcon/>}wrapped {...a11yProps('one')}/>
           <Tab value="two" label="Emails" icon= {<EmailIcon/>} {...a11yProps('two')}/>
           <Tab value="three" label="Calendar" icon= {<TodayIcon/>} {...a11yProps('three')} />
-          <Tab value="four" label="Notes"icon= {<NoteIcon/>} {...a11yProps('four')} />
+          <Tab value="four" label="Notes" to='/user/notes' component={Link} icon= {<NoteIcon/>} {...a11yProps('four')} />
           <Tab value="five" label="LogOut" to='/' component={Link}  icon= {<ExitToAppOutlinedIcon/>} onClick={logout} {...a11yProps('five')}/>
         </Tabs>
       </AppBar>

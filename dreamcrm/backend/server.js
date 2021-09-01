@@ -5,6 +5,7 @@ import cors from 'cors';
 
 import userRouter from "./routes/user.js";
 import contactRouter from "./routes/contactRouter.js"
+import noteRouter from "./routes/note.js";
 
 const app = express();
 
@@ -14,6 +15,7 @@ app.use(cors());
 
 app.use("/user", userRouter);
 app.use("/contacts", contactRouter)
+app.use("/note", noteRouter);
 
 const CONNECTION_URL = 'mongodb+srv://dreamteam:teamdream@cluster0.dmj7x.mongodb.net/DreamTeamCRM?retryWrites=true&w=majority'
 const PORT = process.env.PORT|| 5000;

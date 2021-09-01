@@ -10,6 +10,11 @@ const contactSchema = mongoose.Schema({
     description: {type: String, required: false},
     //labelId: {type: [String], required: false},
     //userId: {type: String, required: true} // identifies the user to which the contact belongs
+    labelId: {type: [String], required: false},
+    // identifies the user to which the contact belongs
+    //userId: {type: String, required: true}, 
+    // created_at and updated_at timestamps will be automatically handled by mongoose
+    timestamps: true
 })
 
 export default mongoose.model("Contact", contactSchema, "contact");
