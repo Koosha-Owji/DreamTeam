@@ -61,7 +61,7 @@ const useStyles = makeStyles((theme) => ({
       padding:'10px'
   }
 }));
-const classes = useStyles();
+//const classes = useStyles();
 
 export default class AddContact extends Component {
    
@@ -149,7 +149,7 @@ onChangeemail_address(e) {
             <Fab color="primary" aria-label="add"  onClick={handleClickOpen}>
                 <AddIcon />
             </Fab>
-            <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+            {/* <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Add a new contact</DialogTitle>
         <addContact />
         <DialogContent>
@@ -227,15 +227,15 @@ onChangeemail_address(e) {
             onChange={this.onChangeemail_address}
           />
         </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} color="primary">
+        <DialogActions> */}
+          {/* <Button onClick={handleClose} color="primary">
             Cancel
           </Button>
           <Button onClick={this.onSubmit} color="primary">
             Add to Contacts
           </Button>
         </DialogActions>
-      </Dialog>
+      </Dialog> */}
         </div>
      </div>
   )

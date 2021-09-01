@@ -22,7 +22,6 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-import AddContact from "./addContact.component";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -88,8 +87,7 @@ export default function ContactsPage() {
         <DialogTitle id="form-dialog-title">Add a new contact</DialogTitle>
         <addContact />
         <DialogContent>
-          <AddContact />
-          {/* <DialogContentText>
+          <DialogContentText>
             Please enter contact information below.
           </DialogContentText>
           <TextField
@@ -147,7 +145,7 @@ export default function ContactsPage() {
             label="Description"
             type="description"
             fullWidth
-          /> */}
+          />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">

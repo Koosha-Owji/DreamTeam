@@ -79,12 +79,13 @@ export default class AddContact extends Component {
         });
       
       }
+      
 
   render() {
     return (
       <div>
         <textarea
-                rows = '2'
+                rows = '8'
                 cols ='10'
                 placeholder = 'First Name' 
                 name = "first name"
