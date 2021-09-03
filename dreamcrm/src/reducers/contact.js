@@ -1,4 +1,4 @@
-const contactReducer = (contacts = { contactData: null }, action) => {
+const contactReducer = (contacts = { contactData: [] }, action) => {
     
   
   switch (action.type) {

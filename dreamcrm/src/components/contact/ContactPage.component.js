@@ -19,7 +19,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-import ContactList from './ContactList2.component';
+import ContactList from './contactList.component';
 
 import AddContact from './addContact.component';
 
@@ -97,7 +97,7 @@ export default function ContactsPage() {
       </Dialog>
         </div>
         
-      <Accordion defaultExpanded>
+      {/* <Accordion defaultExpanded>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1c-content"
@@ -132,7 +132,7 @@ export default function ContactsPage() {
             Save
           </Button>
         </AccordionActions>
-      </Accordion>
+      </Accordion> */}
       <ContactList />
     </div>
   );

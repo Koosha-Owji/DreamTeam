@@ -11,7 +11,7 @@ import Chip from '@material-ui/core/Chip';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import axios from 'axios';
-//import Contact from './Contact.component';
+import Contact from './Contact.component';
 
 // const useStyles = makeStyles((theme) => ({
 //   root: {
@@ -47,21 +47,21 @@ import axios from 'axios';
   //   },
   // },
 // }));
-const Contact = props =>(
-  <tr>
-    <td>{props.contactDetails.first_name}</td>
-    <td>{props.contactDetails.last_name}</td>
-    <td>{props.contactDetails.business}</td>
-    <td>{props.contactDetails.relationship}</td>
-    <td>{props.contactDetails.phone_number}</td>
-    <td>{props.contactDetails.email_address}</td>
-    <td>{props.contactDetails.description}</td>
-    </tr>
-  )
+// const Contact = props =>(
+//   <tr>
+//     <td>{props.contactDetails.first_name}</td>
+//     <td>{props.contactDetails.last_name}</td>
+//     <td>{props.contactDetails.business}</td>
+//     <td>{props.contactDetails.relationship}</td>
+//     <td>{props.contactDetails.phone_number}</td>
+//     <td>{props.contactDetails.email_address}</td>
+//     <td>{props.contactDetails.description}</td>
+//     </tr>
+//   )
 
 
 export default class ContactCard extends Component{
-//   const classes = useStyles();
+// const classes = useStyles();
 constructor(props){
     super(props);
     this.state = {contacts: []};
@@ -72,18 +72,29 @@ componentDidMount() {
       .then(response => {
         this.setState({ contacts: response.data })
       })
+      .then(console.log('contacts received'))
       .catch((error) => {
         console.log(error);
       })
   }
 
-    contactList(){
-    return this.state.contacts.map(currentContact => {
-     <Contact contact={currentContact}  key={currentContact._id}/>;
-    })
+  //   
+
+  displayContactList=(contacts)=>{
+    if(!contacts.length) return null;
+
+    return contacts.map((contact, index)=>(
+      <div key = {index}>
+        <text>{contact.first_name}, {contact.last_name}</text>
+      </div>
+    ));
+
   }
 
   render(){
+
+      console.log('State: ', this.state);
+
       return(
     // <div className={classes.root}>
     //     {/* <div>
@@ -129,22 +140,8 @@ componentDidMount() {
     //       </Button>
     //     </AccordionActions> 
 
-    <div>
-    <h3>Logged Exercises</h3>
-    <table className="table">
-      <thead className="thead-light">
-        <tr>
-          <th>first_name</th>
-          <th>last_name</th>
-          <th>description</th>
-          <th>email_address</th>
-          <th>phone_number</th>
-        </tr>
-      </thead>
-      <tbody>
-        { this.contactList() }
-      </tbody>
-    </table>
+    <div className ='contactList'>
+    {this.displayContactList(this.state.contacts)}
   </div>
     //  </div>
      

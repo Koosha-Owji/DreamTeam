@@ -6,7 +6,7 @@ export const create_contact = (contact) => async (dispatch) => {
   
       dispatch({ type: 'CREATE', Payload: data });
   
-      router.push('/contacts');
+      //router.push('/contacts');
     } catch (error) {
       console.log(error);
     }
