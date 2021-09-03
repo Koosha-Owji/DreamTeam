@@ -184,8 +184,8 @@ export default class AddContact extends Component {
                 label="Email Address"
                 type="email"
                 fullWidth
-                value = {this.state.description}
-                onChange={this.onChangedescription}
+                value = {this.state.email_address}
+                onChange={this.onChangeemail_address}
             ></TextField>
              <TextField
                 autoFocus

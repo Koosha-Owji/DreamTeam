@@ -13,11 +13,11 @@ export const create_contact = (contact) => async (dispatch) => {
   };
 
   
-export const get_all_contacts = () => async (dispatch) => {
+export const get_all_contacts = (contacts) => async (dispatch) => {
   try {
-    const { data } = await api.get_all_contacts();
+    const { data } = await api.get_all_contacts(contacts);
 
-    dispatch({ type: 'FETCH_ALL', payload: data });
+    dispatch({ type: 'GET_ALL', payload: data });
   } catch (error) {
     console.log(error.message);
   }
