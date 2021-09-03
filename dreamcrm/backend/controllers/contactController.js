@@ -33,3 +33,10 @@ export const get_all_contacts = async (req, res) => {
     .then(contacts => res.json(contacts))
     .catch(err => res.status(400).json('Error: ' + err));
 };
+
+export const delete_contact = async(req,res)=>{
+    Contact.findByIdAndDelete(req.params.id)
+    .then(() => res.json('Contact deleted.'))
+    .then(console.log('contact deleted'))
+    .catch(err => res.status(400).json('Error: ' + err));
+}

@@ -1,27 +1,13 @@
 import React, {Component} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import clsx from 'clsx';
-import Accordion from '@material-ui/core/Accordion';
-import AccordionDetails from '@material-ui/core/AccordionDetails';
-import AccordionSummary from '@material-ui/core/AccordionSummary';
-import AccordionActions from '@material-ui/core/AccordionActions';
-import Typography from '@material-ui/core/Typography';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import Chip from '@material-ui/core/Chip';
-import Button from '@material-ui/core/Button';
-import Divider from '@material-ui/core/Divider';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
-import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-import ContactList from './contactList.component';
+import ContactList from './ContactList.component';
 
-import AddContact from './addContact.component';
+import AddContact from './AddContact.component';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -82,57 +68,16 @@ export default function ContactsPage() {
   return (
     <div className={classes.root}>
         <div className = {classes.addContact}>
-            <Fab color="primary" aria-label="add"  onClick={handleClickOpen}>
-                <AddIcon />
+            <Fab color="primary" aria-label="add" variant='extended' onClick={handleClickOpen}>
+            <AddIcon className={classes.extendedIcon}/>
+                Add New Contact
             </Fab>
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Add a new contact</DialogTitle>
         <AddContact />
-        <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            Cancel
-          </Button>
-        </DialogActions>
         
       </Dialog>
         </div>
-        
-      {/* <Accordion defaultExpanded>
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel1c-content"
-          id="panel1c-header"
-        >
-          <div className={classes.column}>
-            <Typography className={classes.heading}>Contact</Typography>
-          </div>
-          <div className={classes.column}>
-            <Typography className={classes.secondaryHeading}>Information</Typography>
-          </div>
-        </AccordionSummary>
-        <AccordionDetails className={classes.details}>
-          <div className={classes.column} />
-          <div className={classes.column}>
-            <Chip label="Contractor" onDelete={() => {}} />
-          </div>
-          <div className={clsx(classes.column, classes.helper)}>
-            <Typography variant="caption">
-              Actions
-              <br />
-              <a href="#secondary-heading-and-columns" className={classes.link}>
-                Email
-              </a>
-            </Typography>
-          </div>
-        </AccordionDetails>
-        <Divider />
-        <AccordionActions>
-          <Button size="small">Cancel</Button>
-          <Button size="small" color="primary" href="/contacts/add">
-            Save
-          </Button>
-        </AccordionActions>
-      </Accordion> */}
       <ContactList />
     </div>
   );

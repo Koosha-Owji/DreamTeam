@@ -22,3 +22,12 @@ export const get_all_contacts = (contacts) => async (dispatch) => {
     console.log(error.message);
   }
 };
+
+export const delete_contact = (contact) =>async (dispatch)=>{
+  try{
+    await api.delete_contact(contact);
+    dispatch({type:'DELETE', payload:contact});
+  } catch(error){
+    console.log(error.message);
+  }
+};
