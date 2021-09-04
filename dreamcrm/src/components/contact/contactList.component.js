@@ -72,7 +72,6 @@ componentDidMount() {
         <UpdateContact id ={contact._id}/>
         </Grid>
         <Grid item xs={1}>
-          <p>{contact._id}</p>
         <DeleteContact id={contact._id} deleteContact={this.deleteContact}/>
         </Grid>
         </AccordionSummary>

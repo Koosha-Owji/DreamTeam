@@ -44,12 +44,9 @@ const useStyles = makeStyles((theme) => ({
     return (
         <div className={classes.root}>
             <div className = {classes.deleteContact}>
-                <Fab color="primary" aria-label="delete" href='/emails'style={{display:'flex'}}>
-                    
-                </Fab>
+                
                 <Fab color="primary" aria-label="update"  onClick={handleClickOpen}>
                   <UpdateIcon/>
-                Add New Contact
                 </Fab>
                 <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
                   <DialogTitle id="form-dialog-title">Update contact</DialogTitle>
