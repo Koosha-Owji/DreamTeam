@@ -23,11 +23,20 @@ export const get_all_contacts = (contacts) => async (dispatch) => {
   }
 };
 
-export const delete_contact = (contact) =>async (dispatch)=>{
+export const delete_contact = (id) =>async (dispatch)=>{
   try{
-    await api.delete_contact(contact);
-    dispatch({type:'DELETE', payload:contact});
+    await api.delete_contact(id);
+    dispatch({type:'DELETE', payload:id});
   } catch(error){
     console.log(error.message);
   }
 };
+
+export const update_contact = (id, contact) => async(dispatch)=>{
+  try{
+    const {data} = await api.update_contact(id, contact);
+    dispatch({type:'UPDATE', payload:data})
+  }catch(error){
+    console.log(error.message);
+  }
+}

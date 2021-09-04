@@ -40,3 +40,21 @@ export const delete_contact = async(req,res)=>{
     .then(console.log('contact deleted'))
     .catch(err => res.status(400).json('Error: ' + err));
 }
+
+export const update_contact = async(req, res)=>{
+    Contact.findById(req.params.id)
+    .then(contact =>{
+        contact.first_name = req.body.first_name;
+        contact.last_name = req.body.last_name;
+        contact.business = req.body.business;
+        contact.relationship=req.body.relationship;
+        contact.email_address = req.body.email_address;
+        contact.phone_number = req.body.phone_number;
+        contact.description = req.body.description;
+
+        contact.save()
+        .then(() => res.json('Contact updated!'))
+        .catch(err => res.status(400).json('Error: ' + err));
+    })
+    .catch(err=>res.status(400).json('Error: ' +err));
+}

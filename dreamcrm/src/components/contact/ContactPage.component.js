@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
@@ -63,6 +63,19 @@ export default function ContactsPage() {
     setOpen(false);
   };
 
+  // const dispatch = useDispatch();
+  // const [contactList, setContactList]=React.useState([]);
+  // const contacts = useSelector((state)=>state.contact);
+  // React.useEffect(()=>{
+  //   dispatch(get_all_contacts());
+  //   if(contacts)setContactList(contacts);
+  // }, [dispatch, contacts])
+
+  // const delete_contact = (id) => {
+  //   const newContacts = contactList.filter((contactList) => contactList._id !== id);
+	// 	setContactList(newContacts);
+  //   // to dispatch delete Notes here with Id being Note ID
+  // }
 
 
   return (

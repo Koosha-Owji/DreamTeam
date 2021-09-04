@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 
 
-export default class AddContact extends Component {
+export default class UpdateContactPopUp extends Component {
 
     constructor(props) {
         super(props);
@@ -31,6 +31,27 @@ export default class AddContact extends Component {
         description:''
         }
       }
+    //   +this.props.match.params._id
+      componentDidMount() {
+        axios.get('http://localhost:5000/contacts/')
+          .then(response => {
+            this.setState({
+              first_name: response.data.first_name,
+              last_name: response.data.last_name,
+              business:response.data.business,
+              phone_number:response.data.phone_number,
+              email_address:response.data.email_address,
+              relationship:response.data.relationship,
+              description: response.data.description,
+            })   
+          })
+          .catch(function (error) {
+            console.log(error);
+          })
+
+          window.location = '/contacts';
+    
+      }
       
       onSubmit(e) {
         e.preventDefault();
@@ -46,7 +67,7 @@ export default class AddContact extends Component {
         };
       
         console.log(contact);
-        axios.post('http://localhost:5000/contacts', contact)
+        axios.post('http://localhost:5000/contacts/'+this.props.match.params._id, contact)
         .then(res => console.log(res.data));
       
         window.location = '/contacts';
@@ -166,7 +187,7 @@ export default class AddContact extends Component {
                 onChange={this.onChangedescription}
             ></TextField>
             <div className = 'note_footer'>
-                <Button className = "Add to contacts" onClick={this.onSubmit}>Save</Button>
+                <Button className = "Update Contact" onClick={this.onSubmit}>Save</Button>
             </div>
       </div>
       </Container>

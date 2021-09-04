@@ -2,6 +2,12 @@ import Fab from '@material-ui/core/Fab';
 import React, {Component} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import UpdateIcon from '@material-ui/icons/Update';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import UpdateContactPopUp from './UpdateContactPopUp.component';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -17,15 +23,38 @@ const useStyles = makeStyles((theme) => ({
   }));
   
   
-  export default function UpdateContact() {
+  export default function UpdateContact(id) {
     const classes = useStyles();
+
+    const [open, setOpen] = React.useState(false);
+  
+    const handleClickOpen = () => {
+      setOpen(true);
+    };
+  
+    const handleClose = () => {
+      setOpen(false);
+    };
+
+    // function finaliseDelete(id){
+    //   deleteContact(id);
+    //   handleClose();
+    // }
   
     return (
         <div className={classes.root}>
             <div className = {classes.deleteContact}>
                 <Fab color="primary" aria-label="delete" href='/emails'style={{display:'flex'}}>
-                    <UpdateIcon/>
+                    
                 </Fab>
+                <Fab color="primary" aria-label="update"  onClick={handleClickOpen}>
+                  <UpdateIcon/>
+                Add New Contact
+                </Fab>
+                <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+                  <DialogTitle id="form-dialog-title">Update contact</DialogTitle>
+                  <UpdateContactPopUp/>
+                  </Dialog>
                 
             </div>
             </div>
