@@ -12,10 +12,13 @@ import DeleteContact from './DeleteContact.component';
 import SendContactEmail from './SendContactEmail.component';
 import UpdateContact from './UpdateContact.component';
 import ContactLabel from './ContactLabel.component';
+import { Button } from '@material-ui/core';
 
 export default class ContactCard extends Component{
 constructor(props){
     super(props);
+
+    this.deleteContact = this.deleteContact.bind(this)
     this.state = {contacts: []};
 }
 
@@ -28,6 +31,15 @@ componentDidMount() {
       .catch((error) => {
         console.log(error);
       })
+  }
+
+  deleteContact(id){
+    axios.delete('http://localhost:5000/contacts/delete/'+id)
+    .then(response =>{  console.log(response.data)});
+
+    this.setState({
+      contacts:this.state.contacts.filter(el =>el._id !== id)
+    })
   }
 
   
@@ -59,7 +71,8 @@ componentDidMount() {
         <UpdateContact/>
         </Grid>
         <Grid item xs={1}>
-        <DeleteContact/>
+        <DeleteContact id={contact._id} deleteContact={this.deleteContact}/>
+        
         </Grid>
         </AccordionSummary>
 

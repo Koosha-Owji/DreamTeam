@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
   }));
   
   
-  export default function DeleteContact({contact}) {
+  export default function DeleteContact({id, deleteContact}) {
     const classes = useStyles();
     const dispatch = useDispatch();
   
@@ -38,6 +38,11 @@ const useStyles = makeStyles((theme) => ({
     const handleClose = () => {
       setOpen(false);
     };
+
+    function finaliseDelete(id){
+      deleteContact(id);
+      handleClose();
+    }
     return (
         <div className={classes.root}>
             <div className = {classes.deleteContact}>
@@ -47,7 +52,10 @@ const useStyles = makeStyles((theme) => ({
                 <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
             <DialogTitle id="form-dialog-title">Are you sure you want to remove this contact?</DialogTitle>
             <DialogActions>
-              <Button onClick={()=>dispatchEvent(delete_contact(contact._id))} color="primary">
+              {/* <Button onClick= {() => deleteContact(id)} color="primary">
+                Delete
+              </Button> */}
+              <Button onClick= {()=> finaliseDelete(id)} color="primary">
                 Delete
               </Button>
               <Button onClick={handleClose} color="primary">
