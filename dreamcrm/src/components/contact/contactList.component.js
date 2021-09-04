@@ -34,7 +34,7 @@ componentDidMount() {
   }
 
   deleteContact=(id)=>{
-    axios.post('http://localhost:5000/contacts/delete'+id)
+    axios.post('http://localhost:5000/contacts/delete/'+id)
     .then(response =>{  console.log(response.data)});
 
     this.setState({
