@@ -23,10 +23,20 @@ const useStyles = makeStyles((theme) => ({
   }));
   
   
-  export default function UpdateContact(id) {
+  export default function UpdateContact({id}) {
     const classes = useStyles();
 
     const [open, setOpen] = React.useState(false);
+
+    const [data, setData]=React.useState('');
+
+    
+
+    const passId=(id)=>{
+      setData(id)
+      console.log(id);
+      handleClickOpen();
+    }
   
     const handleClickOpen = () => {
       setOpen(true);
@@ -36,24 +46,22 @@ const useStyles = makeStyles((theme) => ({
       setOpen(false);
     };
 
-    // function finaliseDelete(id){
-    //   deleteContact(id);
-    //   handleClose();
-    // }
   
     return (
         <div className={classes.root}>
             <div className = {classes.deleteContact}>
                 
-                <Fab color="primary" aria-label="update"  onClick={handleClickOpen}>
+                <Fab color="primary" aria-label="update"  onClick={()=>passId(id)} >
                   <UpdateIcon/>
                 </Fab>
                 <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
                   <DialogTitle id="form-dialog-title">Update contact</DialogTitle>
-                  <UpdateContactPopUp/>
-                  </Dialog>
+                  <UpdateContactPopUp passId={data}/>
+                  
+                </Dialog>
                 
             </div>
             </div>
   );
 }
+

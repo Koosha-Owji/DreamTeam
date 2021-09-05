@@ -6,6 +6,7 @@ import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 
 
+
 export default class UpdateContactPopUp extends Component {
 
     constructor(props) {
@@ -28,12 +29,13 @@ export default class UpdateContactPopUp extends Component {
         relationship: '',
         email_address:'', 
         phone_number:'', 
-        description:''
+        description:'',
         }
       }
     //   +this.props.match.params._id
       componentDidMount() {
-        axios.get('http://localhost:5000/contacts/')
+        axios.get('http://localhost:5000/contacts/'+this.props.setData)
+          .then(console.log(this.props.setData))
           .then(response => {
             this.setState({
               first_name: response.data.first_name,
@@ -49,7 +51,7 @@ export default class UpdateContactPopUp extends Component {
             console.log(error);
           })
 
-          window.location = '/contacts';
+          // window.location = '/contacts';
     
       }
       
@@ -67,7 +69,7 @@ export default class UpdateContactPopUp extends Component {
         };
       
         console.log(contact);
-        axios.post('http://localhost:5000/contacts/'+this.props.match.params._id, contact)
+        axios.post('http://localhost:5000/contacts/update/'+this.props.setData, contact)
         .then(res => console.log(res.data));
       
         window.location = '/contacts';

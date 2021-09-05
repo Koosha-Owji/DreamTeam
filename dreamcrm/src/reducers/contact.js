@@ -9,7 +9,9 @@ const contactReducer = (contacts = { contactData: [] }, action) => {
       case 'DELETE':
         return contacts.filter((contact)=>contact._id !== action.payload);
       case 'UPDATE':
-          return contacts.map((contact)=>(contact._id === action.payload._id ? action.payload :contact))
+          return contacts.map((contact)=>(contact._id === action.payload._id ? action.payload :contact));
+      case 'GET':
+          return action.payload;
       default:
         return contacts;
     }

@@ -40,3 +40,13 @@ export const update_contact = (id, contact) => async(dispatch)=>{
     console.log(error.message);
   }
 }
+
+export const get_contact = (id)=>async(dispatch)=>{
+  try {
+    const { data } = await api.get_contact(id);
+
+    dispatch({ type: 'GET', payload: data });
+  } catch (error) {
+    console.log(error.message);
+  }
+};

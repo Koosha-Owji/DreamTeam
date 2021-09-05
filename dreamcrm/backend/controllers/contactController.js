@@ -1,6 +1,6 @@
 import Contact from "../models/contact.js";
 import userModel from "../models/user.js";
-
+import mongoose from 'mongoose';
 export const create_contact = async (req, res) =>{
     
     
@@ -42,6 +42,7 @@ export const delete_contact = async(req,res)=>{
 }
 
 export const update_contact = async(req, res)=>{
+
     Contact.findById(req.params.id)
     .then(contact =>{
         contact.first_name = req.body.first_name;
@@ -53,8 +54,15 @@ export const update_contact = async(req, res)=>{
         contact.description = req.body.description;
 
         contact.save()
-        .then(() => res.json('Contact updated!'))
+        .then(() => res.json(contact))
         .catch(err => res.status(400).json('Error: ' + err));
     })
     .catch(err=>res.status(400).json('Error: ' +err));
+}
+         
+
+export const get_contact= async(req,res)=>{
+    Contact.findById(req.params.id)
+    .then(contact => res.json(contact))
+    .catch(err => res.status(400).json('Error: ' + err));
 }
