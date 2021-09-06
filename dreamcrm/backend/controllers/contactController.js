@@ -12,15 +12,15 @@ export const create_contact = async (req, res) =>{
    const phone_number = req.body.phone_number;
    const description = req.body.description;
    const labelID = req.body.labelID;
+   const user = await userModel.findOne({ _id: req.user_id});
+   if (! user) return res.status(400).json({ message: "User doesn't exist" });
    
    const newContact =new Contact({
        first_name,
         last_name, business, relationship,
        email_address, phone_number, description,
-       labelID
+       labelID, user_id: req.user_id
    });
-    console.log(req.body)
-    console.log(newContact)
 
    newContact.save()
    .then(() => res.json("Added new contact!"))
@@ -29,7 +29,7 @@ export const create_contact = async (req, res) =>{
 
 // Retrieve all contacts belonging to a single user
 export const get_all_contacts = async (req, res) => {
-    Contact.find()
+    Contact.find({user_id: req.user_id})
     .then(contacts => res.json(contacts))
     .catch(err => res.status(400).json('Error: ' + err));
 };

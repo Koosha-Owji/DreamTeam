@@ -9,7 +9,7 @@ const contactSchema = mongoose.Schema({
     phone_number: {type: String, required: false},
     description: {type: String, required: false},
     //labelId: {type: [String], required: false},
-    //userId: {type: String, required: true} // identifies the user to which the contact belongs
+    user_id: {type: String, required: true}, // identifies the user to which the contact belongs
     labelId: {type: [String], required: false},
     // identifies the user to which the contact belongs
     //userId: {type: String, required: true}, 

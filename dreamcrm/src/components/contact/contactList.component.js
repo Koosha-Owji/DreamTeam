@@ -5,13 +5,14 @@ import AccordionSummary from '@material-ui/core/AccordionSummary';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Divider from '@material-ui/core/Divider';
-import axios from 'axios';
+//import axios from 'axios';
 import Grid from '@material-ui/core/Grid';
 
 import DeleteContact from './DeleteContact.component';
 import SendContactEmail from './SendContactEmail.component';
 import ContactLabel from './ContactLabel.component';
 import Update from './UpdateContact.component';
+import {get_all_contacts,delete_contact} from '../../api/index';
 
 export default class ContactCard extends Component{
 constructor(props){
@@ -22,7 +23,8 @@ constructor(props){
 }
 
 componentDidMount() {
-    axios.get('http://localhost:5000/contacts')
+    //axios.get('http://localhost:5000/contacts')
+    get_all_contacts()
       .then(response => {
         this.setState({ contacts: response.data })
       })
@@ -33,7 +35,8 @@ componentDidMount() {
   }
 
   deleteContact=(id)=>{
-    axios.post('http://localhost:5000/contacts/delete/'+id)
+    //axios.post('http://localhost:5000/contacts/delete/'+id)
+    delete_contact(id)
     .then(response =>{  console.log(response.data)});
 
     this.setState({

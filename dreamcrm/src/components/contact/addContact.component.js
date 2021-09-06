@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+//import axios from 'axios';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
+import {create_contact} from '../../api/index'
 
 
 export default class AddContact extends Component {
@@ -45,10 +46,11 @@ export default class AddContact extends Component {
         };
       
         console.log(contact);
-        axios.post('http://localhost:5000/contacts', contact)
-        .then(res => console.log(res.data));
+        create_contact(contact);
+        //axios.post('http://localhost:5000/contacts', contact)
+        //.then(res => console.log(res.data));
       
-        window.location = '/contacts';
+        window.location = '/home';
       }
 
       onChangefirst_name(e) {
