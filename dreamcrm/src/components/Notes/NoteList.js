@@ -1,19 +1,18 @@
 import Note from './Note'
-import AddNote from './AddNote'
 
-const NoteList = ({notes , handleAddNote, handleDeleteNote}) => {
+const NoteList = ({notes , handleDeleteNote, setCurrentId}) => {
     return (
-        
+        !Array.isArray(notes) ? "you have no notes" :(
         <div className = "noteList">
-            {notes.map((notes) => (
-                <Note Id = {notes.Id} title = {notes.title}
-                    meetingId = {notes.meetingId} text = {notes.content}
-                    handleDeleteNote = {handleDeleteNote}/>
+            {notes.map((note) => (
+                <Note Id = {note._id} title = {note.title}
+                    meetingId = {note.meetingId} text = {note.content}
+                    handleDeleteNote = {handleDeleteNote}
+                    setCurrentId = {setCurrentId}/>
             ))}
-            <AddNote handleAddNote = {handleAddNote}/>
         </div>
 
-        
+         )  
     );
 }; 
 
