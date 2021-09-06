@@ -22,8 +22,6 @@ export const update_contact = (id, contact) =>API.patch(`contacts/update/${id}`,
 export const get_contact =(id)=>API.get('/contacts/:id');
 
 export const createNote = (userText, history) => API.post('/note/add', userText, history);
-export const get_allNotes = (initial_state) => API.get('note/get_all', initial_state);
-export const createNote = (userText) => API.post('/note/add', userText);
 export const get_allNotes = () => API.get('note/get_all');
 export const updateNote = (id, updatedNote) => API.patch(`${noteURL}/update/${id}`, updatedNote);
 export const deleteNote = (id) => API.delete(`${noteURL}/delete/${id}`);
