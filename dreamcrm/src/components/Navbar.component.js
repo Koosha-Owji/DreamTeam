@@ -16,7 +16,6 @@ import { useDispatch } from 'react-redux';
 import decode from 'jwt-decode';
 
 import ContactsPage from './contact/ContactPage.component';
-import NotesPage from './Notes/NotePages';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;

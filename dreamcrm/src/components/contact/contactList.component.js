@@ -10,9 +10,8 @@ import Grid from '@material-ui/core/Grid';
 
 import DeleteContact from './DeleteContact.component';
 import SendContactEmail from './SendContactEmail.component';
-import UpdateContact from './UpdateContact.component';
 import ContactLabel from './ContactLabel.component';
-
+import Update from './UpdateContact.component';
 
 export default class ContactCard extends Component{
 constructor(props){
@@ -43,8 +42,6 @@ componentDidMount() {
   }
   
 
-  
-
   displayContactList=(contacts)=>{
     if(!contacts.length) return null;
 
@@ -68,8 +65,8 @@ componentDidMount() {
         <Grid item xs={1}>
         <SendContactEmail/> 
         </Grid>
-        <Grid item xs={1}>
-        <UpdateContact id ={contact._id}/>
+        <Grid item xs={1} textA>
+        <Update currId ={contact._id} allContacts={contacts}/>
         </Grid>
         <Grid item xs={1}>
         <DeleteContact id={contact._id} deleteContact={this.deleteContact}/>
@@ -77,8 +74,7 @@ componentDidMount() {
         </AccordionSummary>
 
 
-        <AccordionDetails className='contactExpand'style={{display:'block'}}>
-        
+        <AccordionDetails className='contactExpand'style={{display:'block'}}> 
         <Typography className='email_address' style={{textAlign:'left'}}>Email {contact.email_address}</Typography>
         <Typography className='phone_number' style={{textAlign:'left'}}>Phone Number      {contact.phone_number}</Typography>
         <Typography className='relationship' style={{textAlign:'left'}}>Relationship      {contact.relationship}</Typography>
