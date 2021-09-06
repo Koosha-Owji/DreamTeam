@@ -11,3 +11,100 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.note {
+  background-color: #fef68a;
+  margin: 2%;
+  border-radius: 10px;
+  padding: 1rem;
+  min-height: 300px;
+  min-width: 240px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.note.new {
+  background-color: #bbdefb;
+
+}
+
+.note.new textarea {
+  border: none;
+  resize: none;
+  background-color: #bbdefb;
+}
+
+textarea:focus {
+  outline: none;
+}
+
+.note textarea {
+  border: none;
+  resize: none;
+  outline: none;
+  background-color: #fef68a;
+
+}
+
+
+
+
+.save {
+  background-color: #eeffff;
+  border: none;
+  border-radius: 15px;
+  padding: 5 10 5;
+  cursor: pointer;
+}
+
+.save:hover {
+  background-color: aquamarine;
+
+}
+
+
+.note_footer {
+  display: flex;
+  float: right;
+  cursor: pointer;
+  justify-content: space-between;
+}
+
+
+.note h2 {
+  margin: 0%;
+}
+
+/*.note h3{
+  margin-top: 0%;
+  margin-bottom: 5%;
+}*/
+
+
+.noteList {
+  display: flex;
+  flex-flow: row wrap;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  justify-content: space-around;
+}
+
+.flex_container {
+  max-width: 75%;
+  float: left;
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: 10px;
+  padding-left: 10px;
+  min-height: 100vh;
+}
+
+.right_container{
+  float: right;
+  width: 23%;
+  display: flex;
+  flex-flow: row wrap;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  justify-content: space-around;
+  padding: 10px;
+}

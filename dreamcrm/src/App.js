@@ -12,7 +12,7 @@ function App() {
   return (
     <div className="App" >
         <h1>Dream Team CRM</h1>
-      {/* <Navbar/> */}
+      {/* <Navbar/>  */}
       <Router>
       <div className="container">
       <br/>

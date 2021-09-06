@@ -7,7 +7,7 @@ import { createTheme, ThemeProvider } from "@material-ui/core";
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
-import authReducer  from './reducers/auth';
+import { reducers } from './reducers';
 
 const theme = createTheme({
   palette: {
@@ -25,7 +25,8 @@ const theme = createTheme({
       },
 }});
 
-const store = createStore(authReducer, compose(applyMiddleware(thunk)));
+const store = createStore(reducers, compose(applyMiddleware(thunk)));
+
 
 ReactDOM.render(
   <React.StrictMode>
