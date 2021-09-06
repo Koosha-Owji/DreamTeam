@@ -16,6 +16,8 @@ import { useDispatch } from 'react-redux';
 import decode from 'jwt-decode';
 import NotePages from './Notes/NotePages';
 
+import ContactsPage from './contact/ContactPage.component';
+
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -98,13 +100,12 @@ export default function TabsWrappedLabel() {
         </Tabs>
       </AppBar>
       <TabPanel value={value} index="one">
-        Item One
+        <ContactsPage/>
       </TabPanel>
       <TabPanel value={value} index="two">
         Item Two
       </TabPanel>
       <TabPanel value={value} index="three">
-        Item Three
       </TabPanel>
       <TabPanel value={value} index="four">
         <NotePages/>

@@ -23,6 +23,7 @@ const theme = createTheme({
         dark: '#8aacc8',
         contrastText: '#000',
       },
+      
 }});
 
 const store = createStore(reducers, compose(applyMiddleware(thunk)));
