@@ -17,7 +17,7 @@ export const signin = async (req, res) => {
 
     if (!isPasswordCorrect) return res.status(400).json({ message: "Invalid credentials" });
 
-    const token = jwt.sign({ email_address: oldUser.email, id: oldUser._id }, secret, { expiresIn: "1h" });
+    const token = jwt.sign({ email_address: oldUser.email, id: oldUser._id }, secret, { expiresIn: "4h" });
 
     res.status(200).json({ result: oldUser, token });
   } catch (err) {
@@ -37,7 +37,7 @@ export const signup = async (req, res) => {
 
     const result = await UserModel.create({first_name,last_name, email_address,department,role, password: hashedPassword });
 
-    const token = jwt.sign( { email_address: result.email, id: result._id }, secret, { expiresIn: "1h" } );
+    const token = jwt.sign( { email_address: result.email, id: result._id }, secret, { expiresIn: "4h" } );
 
     res.status(201).json({ result, token });
   } catch (error) {

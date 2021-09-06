@@ -1,27 +1,51 @@
-import { useState } from "react";
-import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
-import {createNote} from '../../actions/notes';
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from 'react-redux';
+import {createNote, updateNote} from '../../actions/notes';
 
 
-const AddNote = ({handleAddNote}) => {
+
+const AddNote = ({currentId, setCurrentId}) => {
     const dispatch = useDispatch();
-    const history = useHistory();
     const [noteText, setNoteText] = useState({title: '',content: ''});
-    const handleChange = (event) => {
-        const value = event.target.value
+    
+    const note = useSelector((state) => currentId ? state.note.find((n) => n._id === currentId) : null);
+    
+    // everytime someone clicks edit, change the add note to edit the current note
+    useEffect(() => {
+        if (note){
         setNoteText({
             ...noteText,
-            [event.target.name]: value
-        });
+            title: note.title,
+            content:note.content
+        })
+         }
+    }, [currentId])
+
+    // clear all the fields 
+    const clear = () => {
+        setCurrentId(null);
+        setNoteText({title: '', content: ''})
     }
+
 
     const handleSaveClick = (event) => {
         if (noteText.content.trim().length > 0){
-            //handleAddNote(noteText);
+            
+            // IF THE NOTE IS BEING UPDATED  
+            if (currentId) {
+              dispatch (updateNote (currentId, noteText))
+             clear();
+            // getpost after updating
+            }
+
+            // IF ITS A NEW NOTE BEING ADDED
+            else{
             event.preventDefault();
-            dispatch(createNote(noteText, history));
-            setNoteText({title: '', content: '' });
+            dispatch(createNote(noteText));
+            clear();
+            //setNoteText({title: '', content: '' });
+            // setCurrentId('');
+            }
         }
     };
 
@@ -32,9 +56,9 @@ const AddNote = ({handleAddNote}) => {
             rows = '2'
             cols ='10'
             placeholder = 'Title' 
-            name = "title"
+            name = 'title'
             value = {noteText.title}
-            onChange={handleChange}
+            onChange={(e) => setNoteText({...noteText, title:e.target.value})}
         ></textarea>
         <textarea
             rows = '8'
@@ -42,10 +66,11 @@ const AddNote = ({handleAddNote}) => {
             placeholder = 'Type to add new note' 
             name = "content"
             value = {noteText.content}
-            onChange={handleChange}
+            onChange={(e) => setNoteText({...noteText, content:e.target.value})}
         ></textarea>
         <div className = 'note_footer'>
-            <small>New Note</small>
+            <small>{currentId ? 'Edit ' : 'New '}Note</small>
+            <button className = "save" onClick={clear}>Cancel</button>
             <button className = "save" onClick={handleSaveClick}>Save</button>
         </div>
 

@@ -33,7 +33,7 @@ export const create_note = async (req, res) => {
         // Create the note and save it to the database
         const newNote = noteModel.create({...req.body, user_id: req.user_id});
         (await newNote).save()
-            .then(() => res.json("Added new note!"))
+            .then((newNote) => res.json(newNote))
             .catch((err) => res.status(400).json(err));
 
     } catch (error) {
@@ -46,8 +46,8 @@ export const delete_note = async (req, res) => {
     try {
         // attempt to delete the note that matches the user and note ids in the request
         noteModel.deleteOne({
-            user_id: req.body.user_id,
-            _id: req.body._id}).exec()
+            // user_id: req.body.user_id,
+            _id: req.params.id}).exec()
 
         res.send("Successfully deleted note (or note does not exist)");
 
@@ -62,7 +62,7 @@ export const get_all_notes = async (req, res) => {
         const notes = await noteModel.find({user_id: req.user_id});
         //const notes = await noteModel.find();
         // if the user has no notes, return a message
-        if (!notes.length) return res.json("No notes associated with this user");
+        if (!notes.length) return res.json("");
 
         // if the user has notes, return the notes
         return res.json(notes);
@@ -94,11 +94,11 @@ export const get_one_note = async (req, res) => {
 export const update_note = async (req, res) => {
     try {
         // update the note
-        await noteModel.findByIdAndUpdate(req.body._id, 
-            {content: req.body.content}).exec();
+        await noteModel.findByIdAndUpdate(req.params.id, 
+            {title: req.body.title, content: req.body.content}).exec();
 
         // get the updated version
-        const note = await noteModel.findById(req.body._id).exec();
+        const note = await noteModel.findById(req.params.id).exec();
 
         // check that the note exists
         if (! note) return res.json("Note does not exist");

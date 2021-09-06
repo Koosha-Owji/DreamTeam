@@ -11,10 +11,10 @@ import {
     rename_note } from "../controllers/noteController.js"
 
 noteRouter.post("/add",auth, create_note);
-noteRouter.post("/delete", delete_note);
-noteRouter.get("/get_one", get_one_note);
+noteRouter.delete("/delete/:id",auth, delete_note);
+noteRouter.get("/get_one",auth, get_one_note);
 noteRouter.get("/get_all",auth, get_all_notes);
-noteRouter.post("/update", update_note);
-noteRouter.post("/edit_title", rename_note);
+noteRouter.patch("/update/:id",auth, update_note);
+noteRouter.post("/edit_title",auth, rename_note);
 
 export default noteRouter;
