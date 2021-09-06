@@ -5,9 +5,8 @@ import AddIcon from '@material-ui/icons/Add';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-import ContactList from './contactList.component';
-
-import AddContact from './addContact.component';
+import ContactList from './ContactList.component';
+import AddContact from './AddContact.component';
 
 
 const useStyles = makeStyles((theme) => ({

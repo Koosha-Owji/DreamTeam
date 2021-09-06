@@ -100,7 +100,6 @@ export default function TabsWrappedLabel() {
       </AppBar>
       <TabPanel value={value} index="one">
         <ContactsPage/>
-        Item One
       </TabPanel>
       <TabPanel value={value} index="two">
         Item Two
