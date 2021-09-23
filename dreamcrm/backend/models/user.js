@@ -7,6 +7,7 @@ const userSchema = mongoose.Schema({
   department: {type: String, required: true},
   role: {type: String, required: true},
   password: { type: String, required: true },
+  refresh_token:{ type:String, required: false},
 });
 
 export default mongoose.model("User", userSchema);
