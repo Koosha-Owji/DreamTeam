@@ -1,10 +1,9 @@
 import { GoogleLogin } from 'react-google-login';
-import { Button, Paper, Grid, Typography, Container,TextField } from '@material-ui/core';
+import { Button, Grid, Typography, Container,TextField } from '@material-ui/core';
 import useStyles from './Styles';
 import React,{ useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
-import { sendEmail } from '../../actions/email';
+import { sendEmail,linkEmail } from '../../actions/email';
 
 const Icon = () => (
     <svg style={{ width: '20px', height: '20px' }} viewBox="0 0 24 24">
@@ -22,18 +21,16 @@ const Google = () => {
     const classes = useStyles();
     const [form, setForm] = useState(initialState);
     const dispatch = useDispatch();
-    const history = useHistory();
 
     const googleSuccess = async (res) => {
         const result = res?.code;
-        localStorage.setItem('profileG', JSON.stringify({code:result}));
+        setForm({...form, code:result});
+        dispatch(linkEmail(form));
     };
     const googleError = () => alert('Google Sign In was unsuccessful. Try again later');
     const handleSubmit = (e) => {
-        e.preventDefault();
-        const test = JSON.parse(localStorage.getItem('profileG')).code;
-        setForm({...form, code:test});
-        dispatch(sendEmail(form, history));
+        e.preventDefault(); 
+        dispatch(sendEmail(form));
       };
       const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
@@ -43,7 +40,7 @@ return (
             clientId="678095570684-gnjgmcakmnmd64lmb3qom978v31jfucg.apps.googleusercontent.com"
             render={(renderProps) => (
                 <Button className={classes.googleButton} color="primary" fullWidth onClick={renderProps.onClick} disabled={renderProps.disabled} startIcon={<Icon />} variant="contained">
-                  Link your Google account
+                  Link to DreamTeam CRM
                 </Button>
               )}
             responseType="code"
@@ -53,7 +50,22 @@ return (
             onSuccess={googleSuccess}
             onFailure={googleError}
             cookiePolicy="single_host_origin"
-          />           
+          />
+          <GoogleLogin
+            clientId="678095570684-gnjgmcakmnmd64lmb3qom978v31jfucg.apps.googleusercontent.com"
+            render={(renderProps) => (
+                <Button className={classes.googleButton} color="primary" fullWidth onClick={renderProps.onClick} disabled={renderProps.disabled} startIcon={<Icon />} variant="contained">
+                  Sign In Email
+                </Button>
+              )}
+            responseType="code"
+            redirectUri="postmessage"
+            scope="https://mail.google.com/"
+            accessType="offline"
+            onSuccess={googleSuccess}
+            onFailure={googleError}
+            cookiePolicy="single_host_origin"
+          />            
           <Typography component="h1" variant="h5">
           Send Email
         </Typography>
