@@ -27,4 +27,4 @@ export const updateNote = (id, updatedNote) => API.patch(`${noteURL}/update/${id
 export const deleteNote = (id) => API.delete(`${noteURL}/delete/${id}`);
 
 export const sendEmail = (formData) => API.post('/email/send',formData);
-export const linkEmail = (formData) => API.patch('email/link',formData);
+export const linkEmail = (formData) => API.post('email/link',formData);

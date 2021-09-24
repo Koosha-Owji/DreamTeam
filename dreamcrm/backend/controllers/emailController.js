@@ -1,8 +1,8 @@
 import nodemailer from 'nodemailer';
-import {google} from 'googleapis';
 import userModel from "../models/user.js";
+import {OAuth2Client} from 'google-auth-library';
 
-const oauth2Client = new google.auth.OAuth2(
+const oauth2Client = new OAuth2Client(
     "678095570684-gnjgmcakmnmd64lmb3qom978v31jfucg.apps.googleusercontent.com",
     "yN3jabn4R1nESLCbJXYTj_cg",
     'postmessage'
@@ -11,8 +11,7 @@ const oauth2Client = new google.auth.OAuth2(
 export const link_email = async (req,res) => {
   try {
     const user = await userModel.findOne({ _id: req.user_id});
-    const code = req.body.code;
-    const {tokens} = await oauth2Client.getToken(code);
+    const {tokens} = await oauth2Client.getToken(req.body.code);
     if(!user.refresh_token&&tokens.refresh_token!=null){
       const idToken = tokens.id_token;
       const ticket = await oauth2Client.verifyIdToken({
@@ -49,8 +48,8 @@ export const send_email = async (req, res) => {
         subject: req.body.Subject,
         text: req.body.message,
       };
-      const result = await transport.sendMail(mailOptions);
-      return res.status(200).json({ result});
+      await transport.sendMail(mailOptions);
+      return res.status(200).json({message:"Email sent!"});
     } catch (error) {
         res.status(500).json({ error});
     }

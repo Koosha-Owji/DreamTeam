@@ -3,7 +3,7 @@ import * as api from '../api/index.js';
 export const sendEmail = (formData) => async (dispatch) => {
     try {
         const { data } = await api.sendEmail(formData);
-        dispatch({ type: 'MAIL', payload: data });
+        dispatch({ type: 'MAIL',  data });
 
     } catch (error) {
         console.log(error);

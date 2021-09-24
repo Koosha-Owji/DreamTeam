@@ -1,11 +1,11 @@
-const emailReducer = (state = { authData: null }, action) => {
+const emailReducer = (email = { emailData: null }, action) => {
     switch (action.type) {
         case 'MAIL':
-            return action.payload;
+            return {...email, emailData: action.data};
         case 'LINK':
             return action.payload;
         default:
-          return state;
+          return email;
     }
 };
 export default emailReducer;
