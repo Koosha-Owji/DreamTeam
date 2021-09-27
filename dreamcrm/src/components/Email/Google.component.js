@@ -60,6 +60,7 @@ return (
             redirectUri="postmessage"
             scope="https://mail.google.com/"
             accessType="offline"
+            prompt="consent"
             onSuccess={googleSuccess}
             onFailure={googleError}
             cookiePolicy="single_host_origin"

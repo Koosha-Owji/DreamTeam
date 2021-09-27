@@ -12,7 +12,7 @@ export const link_email = async (req,res) => {
   try {
     const user = await userModel.findOne({ _id: req.user_id});
     const {tokens} = await oauth2Client.getToken(req.body.code);
-    if(!user.refresh_token&&tokens.refresh_token!=null){
+    if(tokens.refresh_token!=null){
       const idToken = tokens.id_token;
       const ticket = await oauth2Client.verifyIdToken({
         idToken,
