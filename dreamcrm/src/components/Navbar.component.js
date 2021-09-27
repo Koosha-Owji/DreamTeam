@@ -15,6 +15,7 @@ import { Link, useHistory, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import decode from 'jwt-decode';
 import NotePages from './Notes/NotePages';
+import Google from './Email/Google.component';
 
 import ContactsPage from './contact/ContactPage.component';
 
@@ -103,7 +104,7 @@ export default function TabsWrappedLabel() {
         <ContactsPage/>
       </TabPanel>
       <TabPanel value={value} index="two">
-        Item Two
+        <Google/>
       </TabPanel>
       <TabPanel value={value} index="three">
       </TabPanel>

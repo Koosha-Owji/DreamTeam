@@ -25,3 +25,6 @@ export const createNote = (userText, history) => API.post('/note/add', userText,
 export const get_allNotes = () => API.get('note/get_all');
 export const updateNote = (id, updatedNote) => API.patch(`${noteURL}/update/${id}`, updatedNote);
 export const deleteNote = (id) => API.delete(`${noteURL}/delete/${id}`);
+
+export const sendEmail = (formData) => API.post('/email/send',formData);
+export const linkEmail = (formData) => API.post('email/link',formData);
