@@ -28,9 +28,6 @@ jobs:
         cache: 'npm'
     - name: Install dependencies
       run: npm install
-
-    - name: Build React
-      run: npm run build
       
     - name: Git deploy to Heroku
       uses: akhileshns/heroku-deploy@v3.12.12
