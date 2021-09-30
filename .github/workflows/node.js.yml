@@ -16,7 +16,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [14.x]
+        node-version: [16.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
@@ -28,7 +28,6 @@ jobs:
         cache: 'npm'
     - name: Install dependencies
       run: npm install
-      working-directory: ./backend
 
     - name: Build React
       run: npm run build
