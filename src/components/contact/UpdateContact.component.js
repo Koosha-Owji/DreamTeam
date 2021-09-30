@@ -40,7 +40,8 @@ const useStyles = makeStyles((theme) => ({
     relationship: '',
     email_address:'', 
     phone_number:'', 
-    description:''
+    description:'',
+    count:''
     });
 
     const contact = useSelector((state) => currId ? allContacts.find((n) => n._id === currId) : null);
@@ -49,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
 
     useEffect(() => {
         if (contact){
-        setContactDetails({
+        setContactDetails(contactDetails=>({
             ...contactDetails,
             first_name:contact.first_name, 
             last_name:contact.last_name,
@@ -58,9 +59,9 @@ const useStyles = makeStyles((theme) => ({
             phone_number: contact.phone_number,
             email_address:contact.email_address, 
             description:contact.description
-        })
-         }
-    }, [currId])
+        }));
+        }
+    }, [currId,contact,contactDetails.count])
 
     const handleSaveClick = (event) => {
       console.log(contactDetails);
