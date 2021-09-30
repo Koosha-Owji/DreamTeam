@@ -38,9 +38,9 @@ jobs:
   # uses: CDNievas/heroku-action@c9cf9c85571e67583e44ec92c0d1113f66b0e838
       uses: onekiloparsec/heroku-node-deploy-subfolder@v1.1.0
       with:
-        api_key: a982f082-c32f-4ceb-8279-c1831741ff71
-        email: kowji@student.unimelb.edu.au
-        app_name: dream-team-crm
+        api_key: "a982f082-c32f-4ceb-8279-c1831741ff71"
+        email: "kowji@student.unimelb.edu.au"
+        app_name: "dream-team-crm"
         heroku_branch: "main"
         subfolder: "backend"
       
