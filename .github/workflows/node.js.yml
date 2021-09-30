@@ -36,12 +36,12 @@ jobs:
     - name: Git deploy to Heroku
   # You may pin to the exact commit or the version.
   # uses: CDNievas/heroku-action@c9cf9c85571e67583e44ec92c0d1113f66b0e838
-      uses: onekiloparsec/heroku-node-deploy-subfolder@v1.1.0
+      uses: akhileshns/heroku-deploy@v3.12.12
       with:
-        api_key: "a982f082-c32f-4ceb-8279-c1831741ff71"
-        email: "kowji@student.unimelb.edu.au"
-        app_name: "dream-team-crm"
-        heroku_branch: "main"
-        subfolder: "backend"
+        heroku_api_key: "a982f082-c32f-4ceb-8279-c1831741ff71"
+        heroku_email: "kowji@student.unimelb.edu.au"
+        heroku_app_name: "dream-team-crm"
+        appdir: "backend"
+        procfile: "web:node backend/server.js"
       
 
