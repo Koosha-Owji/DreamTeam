@@ -16,7 +16,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [14.x, 16.x]
+        node-version: [14.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
@@ -34,12 +34,12 @@ jobs:
       run: npm run build
       
     - name: Git deploy to Heroku
-      uses: onekiloparsec/heroku-node-deploy-subfolder@v1.0.4
+      uses: akhileshns/heroku-deploy@v3.12.12
       with:
-        api_key: "a982f082-c32f-4ceb-8279-c1831741ff71"
-        email: "kowji@student.unimelb.edu.au"
-        app_name: "dream-team-crm"
-        branch: "main"
-        subfolder: "build"
+        heroku_api_key: "a982f082-c32f-4ceb-8279-c1831741ff71"
+        heroku_email: "kowji@student.unimelb.edu.au"
+        heroku_app_name: "dream-team-crm"
+        appdir: "backend"
+        procfile: "web:node backend/server.js"
       
 
