@@ -30,19 +30,20 @@ jobs:
       run: npm install
       working-directory: ./backend
 
-    - name: Build
+    - name: Build React
       run: npm run build
       
+    - name: Build 
+      run: npm run build
+      working-directory: ./backend
+      
     - name: Git deploy to Heroku
-  # You may pin to the exact commit or the version.
-  # uses: CDNievas/heroku-action@c9cf9c85571e67583e44ec92c0d1113f66b0e838
-      uses: CDNievas/heroku-action@v1.0
+      uses: onekiloparsec/heroku-node-deploy-subfolder@v1.0.4
       with:
-        heroku_api_key: "a982f082-c32f-4ceb-8279-c1831741ff71"
-        heroku_email: "kowji@student.unimelb.edu.au"
-        heroku_app_name: "dream-team-crm"
+        api_key: "a982f082-c32f-4ceb-8279-c1831741ff71"
+        email: "kowji@student.unimelb.edu.au"
+        app_name: "dream-team-crm"
         branch: "main"
-        appdir: "backend"
-        procfile: "web:node backend/server.js"
+        subfolder: "build"
       
 
