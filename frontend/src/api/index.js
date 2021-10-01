@@ -27,6 +27,22 @@ export const delete_contact = (id)=>API.post(`/contact/delete/${id}`);
 export const update_contact = (id, contact) =>API.patch(`contact/update/${id}`, contact);
 export const get_contact =(id)=>API.get('/contact/:id');
 
+//Takes in label id and contact
+export const add_contact_label=(id, contact)=>API.patch(`/label/${contact}`,id);
+export const delete_contact_label=(id, contact)=>API.patch(`/label/${contact}`, id);
+export const get_labels_by_contact=(contact_id)=>API.get(`label/by-contact/${contact_id}`)
+
+export const create_label = (newLabel)=>API.post('/label', newLabel);
+export const get_all_labels = () => API.get('/label');
+export const delete_label = (id)=>API.post(`/label/delete/${id}`);
+export const get_label =(id)=>API.get(`/label/${id}`);
+
+export const create_order = (order)=>API.post('/orders',order);
+export const get_all_orders = () => API.get('/orders');
+export const delete_order = (id)=>API.post(`/orders/delete/${id}`);
+export const update_order = (id, order) =>API.patch(`orders/update/${id}`, order);
+export const get_order =(id)=>API.get('/orders/:id');
+
 export const createNote = (userText, history) => API.post('/note/add', userText, history);
 export const get_allNotes = () => API.get('note/get_all');
 export const updateNote = (id, updatedNote) => API.patch(`${noteURL}/update/${id}`, updatedNote);

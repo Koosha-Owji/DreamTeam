@@ -1,8 +1,10 @@
 
-import React from 'react';
+import React, {Component} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
 import Chip from '@material-ui/core/Chip';
-
+import Grid from '@material-ui/core/Grid';
+import { get_labels_by_contact } from '../../api/index';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -16,16 +18,49 @@ const useStyles = makeStyles((theme) => ({
     }
   }));
   
-  
-  export default function SendContactEmail() {
-    const classes = useStyles();
-  
-    return (
-        <div className={classes.root}>
-            <div className = {classes.contactLabel}>
-            <Chip label="label" onDelete={() => {}} />
-                
-            </div>
-            </div>
-  );
-}
+  export default class ContactLabel extends Component{
+    constructor(props){
+      super(props);
+      this.state = {labels: []};
+      this.contact_id=this.props.contact_id;
+      this.get_labels_by_contact=this.GetLabelsByContact.bind(this);
+
+  }
+  componentDidMount() {
+    //axios.get('http://localhost:5000/contacts')
+    console.log(this.contact_id)
+    get_labels_by_contact(this.contact_id)
+      .then(response => {
+        this.setState({ labels: response.data })
+      })
+      .then(console.log(this.state.labels, 'labels received'))
+      .catch((error) => {
+        console.log(error);
+      })
+  }
+
+
+  GetLabelsByContact=(labels)=>{
+     console.log( labels)
+      return labels.map((item,index)=>(
+        <Grid>
+        <div key = {index} className ='labelListItem' style={{padding:'10px'}}>
+          <Chip label={item.title} color={item.colour} variant="outlined" style ={{backgroundColor:`${item.colour}`}} 
+  onDelete={() => {}}/>
+        </div>
+        </Grid>
+      )
+      )
+  }
+  render(){
+
+    console.log('State: ', this.state);
+
+    return(
+  <div className ='labelList'>
+  {this.GetLabelsByContact(this.state.labels)}
+</div>
+
+    );
+  }
+  } 

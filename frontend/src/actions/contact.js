@@ -55,3 +55,12 @@ export const get_contact = (id)=>async(dispatch)=>{
     console.log(error.message);
   }
 };
+
+export const delete_contact_label = (id, label)=> async(dispatch)=>{
+  try{
+    const {data} = await api.delete_contact_label(id, label);
+    dispatch({type:'UPDATE', payload:data})
+  }catch(error){
+    console.log(error.message);
+  }
+}

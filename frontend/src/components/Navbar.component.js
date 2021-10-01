@@ -10,6 +10,7 @@ import PermContactCalendarIcon from '@material-ui/icons/PermContactCalendar';
 import EmailIcon from '@material-ui/icons/Email';
 import TodayIcon from '@material-ui/icons/Today';
 import NoteIcon from '@material-ui/icons/Note';
+import WorkIcon from '@material-ui/icons/Work';
 import ExitToAppOutlinedIcon from '@material-ui/icons/ExitToAppOutlined';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -18,6 +19,7 @@ import NotePages from './Notes/NotePages';
 import Google from './Email/Google.component';
 
 import ContactsPage from './contact/ContactPage.component';
+import OrderPage from './order/OrderPage.component';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -97,7 +99,8 @@ export default function TabsWrappedLabel() {
           <Tab value="two" label="Emails" icon= {<EmailIcon/>} {...a11yProps('two')}/>
           <Tab value="three" label="Calendar" icon= {<TodayIcon/>} {...a11yProps('three')} />
           <Tab value="four" label="Notes" icon= {<NoteIcon/>} {...a11yProps('four')} />
-          <Tab value="five" label="LogOut" to='/' component={Link}  icon= {<ExitToAppOutlinedIcon/>} onClick={logout} {...a11yProps('five')}/>
+          <Tab value="five" label="Orders" icon= {<WorkIcon/>} {...a11yProps('five')} />
+          <Tab value="six" label="LogOut" to='/' component={Link}  icon= {<ExitToAppOutlinedIcon/>} onClick={logout} {...a11yProps('five')}/>
         </Tabs>
       </AppBar>
       <TabPanel value={value} index="one">
@@ -112,6 +115,9 @@ export default function TabsWrappedLabel() {
         <NotePages/>
       </TabPanel>
       <TabPanel value={value} index="five">
+      <OrderPage/>
+      </TabPanel>
+      <TabPanel value={value} index="six">
         Bye
       </TabPanel>
     </div>

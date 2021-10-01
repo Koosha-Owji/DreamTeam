@@ -13,7 +13,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Typography from '@material-ui/core/Typography';
 import ContactList from './contactList.component';
 import AddContact from './addContact.component';
-
+import ManageLabel from './../label/ManageLabels.component';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -49,41 +49,62 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   addContact:{
-      marginLeft:'70%',
-      padding:'10px'
-  }
+    marginLeft:'60%',
+    padding:'10px',
+    display:'flex', 
+},
+manageLabel:{
+  marginLeft:'60%',
+    padding:'10px',
+    display:'flex', 
+}
 }));
 
 
 export default function ContactsPage() {
   const classes = useStyles();
 
-  const [open, setOpen] = React.useState(false);
+  const [open1, setOpen1] = React.useState(false);
+  const [open2, setOpen2] = React.useState(false);
 
-  const handleClickOpen = () => {
-    setOpen(true);
+  const handleClickOpen1 = () => {
+    setOpen1(true);
   };
 
-  const handleClose = () => {
-    setOpen(false);
+  const handleClose1 = () => {
+    setOpen1(false);
   };
 
+  const handleClickOpen2 = () => {
+    setOpen2(true);
+  };
+  const handleClose2 = () => {
+    setOpen2(false);
+  };
 
 
   return (
     <div className={classes.root}>
         <div className = {classes.addContact}>
-            <Fab color="primary" aria-label="add" variant='extended' onClick={handleClickOpen}>
-            <AddIcon className={classes.extendedIcon}/>
+            <Fab color="primary" aria-label="add" variant='extended' onClick={handleClickOpen1}>
+              <AddIcon className={classes.extendedIcon}/>
                 Add New Contact
             </Fab>
-            <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title">Add a new contact</DialogTitle>
-        <Typography variant="caption" style={{marginLeft:'5%'}}>Mandatory field are marked with a (*)</Typography>
-        <AddContact />
-        
-      </Dialog>
-        </div>
+            <Dialog open={open1} onClose={handleClose1} aria-labelledby="form-dialog-title">
+              <DialogTitle id="form-dialog-title">Add a new contact</DialogTitle>
+            <AddContact />
+            </Dialog>
+            </div>
+            <div className = {classes.manageLabel}>
+            <Fab color="primary" aria-label="add" variant='extended' onClick={handleClickOpen2}>
+            <AddIcon className={classes.extendedIcon}/>
+                Manage Labels
+            </Fab>
+            <Dialog open={open2} onClose={handleClose2} aria-labelledby="form-dialog-title" fullWidth='true'>
+              <DialogTitle id="form-dialog-title" >Manage Labels</DialogTitle>
+            <ManageLabel/>
+            </Dialog>
+            </div>
       <ContactList />
     </div>
   );

@@ -30,7 +30,7 @@ constructor(props){
 componentDidMount() {
     get_all_contacts()
       .then(response => {
-        this.setState({ contacts: response.data })
+        this.setState({ contacts: [response.data] })
       })
       .then(console.log('contacts received'))
       .catch((error) => {
@@ -67,7 +67,7 @@ componentDidMount() {
             <Typography className='business' style={{textAlign:'left'}}>{contact.business}</Typography>
         </Grid>
         <Grid item xs={6}>
-        <ContactLabel/>
+        <ContactLabel contact_id={contact._id}/>
         </Grid>
         <Grid item xs={1}>
         <SendContactEmail/> 
