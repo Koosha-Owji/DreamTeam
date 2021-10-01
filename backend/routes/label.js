@@ -13,7 +13,7 @@ import {
 //label_router.post('/', auth, create_label);
 label_router.post('/', create_label);
 label_router.patch('/delete', delete_label);
-label_router.get('/all-labels', get_all_labels);
-label_router.get('/by-contact', get_labels_by_contact);
+label_router.get('/', get_all_labels);
+label_router.get('/by-contact/:id', get_labels_by_contact);
 
 export default label_router;

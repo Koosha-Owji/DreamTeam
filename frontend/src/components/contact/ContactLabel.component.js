@@ -34,9 +34,9 @@ import { get_labels_by_contact } from '../../api/index';
         this.setState({ labels: response.data })
       })
       .then(console.log(this.state.labels, 'labels received'))
-      .catch((error) => {
-        console.log(error);
-      })
+      // .catch((error) => {
+      //   console.log(error);
+      // })
   }
 
 
@@ -46,7 +46,7 @@ import { get_labels_by_contact } from '../../api/index';
         <Grid>
         <div key = {index} className ='labelListItem' style={{padding:'10px'}}>
           <Chip label={item.title} color={item.colour} variant="outlined" style ={{backgroundColor:`${item.colour}`}} 
-  onDelete={() => {}}/>
+            onDelete={() => {}}/>
         </div>
         </Grid>
       )

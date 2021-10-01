@@ -29,25 +29,24 @@ export const create_contact = async (req, res) =>{
     const email_address = req.body.email_address;
     const phone_number = req.body.phone_number;
     const description = req.body.description;
-    const labelID = req.body.labelID;
+    const label_id = req.body.label_id;
+    const labels=[];
 
 
-    if (!req.user_id) return res.status(400).json({ message: "User doesn't exist" });
-    //Find authenticated user
-   const user = await userModel.findOne({ _id: req.user_id});
-   //If not authenticated: return error message
-   if (!user) return res.status(400).json({ message: "User doesn't exist" });
+    const user = await userModel.findOne({ _id: req.user_id});
+    if (! user) return res.status(400).json({ message: "User doesn't exist" });
    
-   //Create new contact
-   const newContact =new Contact({
-       first_name,last_name, business, relationship,
-       email_address, phone_number, description,
-       labelID, user_id: req.user_id
-   });
-
-   newContact.save()
-   .then(() => res.json("Added new contact!"))
-   .catch((err) => res.status(500).json({ message: "save contact failed" }));
+    const newContact =new Contact({
+        first_name,
+        last_name, business, relationship,
+        email_address, phone_number, description, labels, user_id: req.user_id
+    });
+    newContact.labels.push(label_id)
+    console.log(mongoose.Types.ObjectId(label_id), first_name);
+    newContact.save()
+    
+    .then(() => res.json("Added new contact!"))
+    .catch((err) => res.status(400).json(err));
 };
 
 /**
@@ -56,9 +55,15 @@ export const create_contact = async (req, res) =>{
  * @returns {all contacts}  
  */
 export const get_all_contacts = async (req, res) => {
-    Contact.find({user_id: req.user_id})
-    .then(contacts => res.status(200).json(contacts))
-    .catch(err => res.status(400).json('Error: ' + err));
+    console.log("hello")
+    try {
+        const contacts = await Contact.find({user_id: req.user_id});
+       console.log(contacts);
+        return res.json(contacts);
+    } catch (err) {
+        return res.status(400).json({message: "contact retrieval failed"});
+    }
+
 };
 
 /**

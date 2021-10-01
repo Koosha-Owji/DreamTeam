@@ -10,7 +10,6 @@ import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
-//import Typography from '@material-ui/core/Typography';
 import ContactList from './contactList.component';
 import AddContact from './addContact.component';
 import ManageLabel from './../label/ManageLabels.component';

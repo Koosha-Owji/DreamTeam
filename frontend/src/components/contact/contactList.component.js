@@ -28,18 +28,18 @@ constructor(props){
 }
 
 componentDidMount() {
+  console.log("mounted")
     get_all_contacts()
       .then(response => {
-        this.setState({ contacts: [response.data] })
+        this.setState({ contacts: response.data })
       })
-      .then(console.log('contacts received'))
-      .catch((error) => {
-        console.log(error);
-      })
+      .then(console.log('contacts received', this.state.contacts))
+      // .catch((error) => {
+      //   console.log(error);
+      // })
   }
 
   deleteContact=(id)=>{
-    //axios.post('http://localhost:5000/contacts/delete/'+id)
     delete_contact(id)
     .then(response =>{  console.log(response.data)});
 
