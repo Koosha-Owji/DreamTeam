@@ -28,6 +28,7 @@ jobs:
     - run: npm ci
       working-directory: ./backend
     - run: npm run build --if-present
+      working-directory: ./backend
     - run: npm test
       working-directory: ./backend
   deploy:
@@ -40,4 +41,5 @@ jobs:
           heroku_api_key: "a982f082-c32f-4ceb-8279-c1831741ff71"
           heroku_app_name: "dream-team-crm"
           heroku_email: "kowji@student.unimelb.edu.au"
+          appdir: "backend"
           procfile: "web:npm run start"
