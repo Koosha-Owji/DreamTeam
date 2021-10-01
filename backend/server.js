@@ -21,7 +21,7 @@ app.get('*', function(request, response) {
 });
 
 app.use("/user", userRouter);
-app.get("/contact", contactRouter)
+app.use("/contact", contactRouter)
 app.use("/note", noteRouter);
 app.use("/email",emailRouter);
 
