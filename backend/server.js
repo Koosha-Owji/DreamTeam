@@ -10,15 +10,15 @@ import noteRouter from "./routes/note.js";
 import emailRouter from "./routes/email.js";
 
 const app = express();
-const __dirname = path.resolve();
+//const __dirname = path.resolve();
 
 app.use(express.json({ limit: '30mb', extended: true }))
 app.use(express.urlencoded({ limit: '30mb', extended: true }))
 app.use(cors());
-app.use(express.static(path.resolve(__dirname, '../frontend/build')));
-app.get('*', function(request, response) {
-  response.sendFile(path.resolve(__dirname, '../frontend/build', 'index.html'));
-});
+// app.use(express.static(path.resolve(__dirname, '../frontend/build')));
+// app.get('*', function(request, response) {
+//   response.sendFile(path.resolve(__dirname, '../frontend/build', 'index.html'));
+// });
 
 app.use("/user", userRouter);
 app.use("/contact", contactRouter)

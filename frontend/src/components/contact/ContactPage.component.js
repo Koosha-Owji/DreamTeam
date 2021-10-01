@@ -90,7 +90,7 @@ export default function ContactsPage() {
               <AddIcon className={classes.extendedIcon}/>
                 Add New Contact
             </Fab>
-            <Dialog open={open1} onClose={handleClose1} aria-labelledby="form-dialog-title">
+           <Dialog open={open1} onClose={handleClose1} aria-labelledby="form-dialog-title">
               <DialogTitle id="form-dialog-title">Add a new contact</DialogTitle>
             <AddContact />
             </Dialog>
