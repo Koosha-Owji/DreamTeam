@@ -15,7 +15,7 @@ app.use(express.urlencoded({ limit: '30mb', extended: true }))
 app.use(cors());
 
 app.use("/user", userRouter);
-app.use("/contacts", contactRouter)
+app.use("/contact", contactRouter)
 app.use("/note", noteRouter);
 app.use("/email",emailRouter);
 

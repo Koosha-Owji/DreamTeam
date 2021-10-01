@@ -21,11 +21,11 @@ const noteURL = 'http://localhost:5000/note';
 export const signIn = (formData) => API.post('/user/signin', formData);
 export const signUp = (formData) => API.post('/user/signup', formData);
 
-export const create_contact = (newContact)=>API.post('/contacts', newContact);
-export const get_all_contacts = () => API.get('/contacts');
-export const delete_contact = (id)=>API.post(`/contacts/delete/${id}`);
-export const update_contact = (id, contact) =>API.patch(`contacts/update/${id}`, contact);
-export const get_contact =(id)=>API.get('/contacts/:id');
+export const create_contact = (newContact)=>API.post('/contact', newContact);
+export const get_all_contacts = () => API.get('/contact');
+export const delete_contact = (id)=>API.post(`/contact/delete/${id}`);
+export const update_contact = (id, contact) =>API.patch(`contact/update/${id}`, contact);
+export const get_contact =(id)=>API.get('/contact/:id');
 
 export const createNote = (userText, history) => API.post('/note/add', userText, history);
 export const get_allNotes = () => API.get('note/get_all');
