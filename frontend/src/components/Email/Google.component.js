@@ -28,7 +28,9 @@ const Google = () => {
         alert('Success');
         dispatch(linkEmail(result));
     };
-    const googleError = () => alert('Google Sign In was unsuccessful. Try again later');
+    const googleError = (res) => {
+        console.log(res);
+    };
     const handleSubmit = (e) => {
         e.preventDefault(); 
         if(form.toEmail!=null&&form.message!=null&&form.Subject!=null)
