@@ -36,9 +36,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: akhileshns/heroku-deploy@v3.12.12
+      - uses: onekiloparsec/heroku-node-deploy-subfolder@v1.1.0
         with:
-          heroku_api_key: "a982f082-c32f-4ceb-8279-c1831741ff71"
-          heroku_app_name: "dream-team-crm"
-          heroku_email: "kowji@student.unimelb.edu.au"
-          procfile: "web:npm run start"
+          api_key: "a982f082-c32f-4ceb-8279-c1831741ff71"
+          email: "kowji@student.unimelb.edu.au"
+          app_name: "dream-team-crm"
+          heroku_branch: "master"
+          subfolder: "backend"
