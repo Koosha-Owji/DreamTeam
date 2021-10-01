@@ -12,12 +12,15 @@ import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
-
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
 import DeleteContact from './DeleteContact.component';
 import SendContactEmail from './SendContactEmail.component';
 import ContactLabel from './ContactLabel.component';
 import Update from './UpdateContact.component';
 import {get_all_contacts,delete_contact} from '../../api/index';
+import AddContactLabel from '../label/AddContactLabel.component';
+
 
 export default class ContactCard extends Component{
 constructor(props){
@@ -47,6 +50,8 @@ componentDidMount() {
       contacts:this.state.contacts.filter(el =>el._id !== id)
     })
   }
+
+  
   
 
   displayContactList=(contacts)=>{
@@ -66,9 +71,18 @@ componentDidMount() {
         <Grid item xs={6}>
             <Typography className='business' style={{textAlign:'left'}}>{contact.business}</Typography>
         </Grid>
+        
         <Grid item xs={6}>
         <ContactLabel contact_id={contact._id}/>
+        
         </Grid>
+        <Grid item xs={6}>
+        <Fab color="primary" aria-label="add" variant='extended'style={{display:'flex', verticalAlign: 'bottom'}} >
+              <AddIcon />
+                Label
+            </Fab>
+            <AddContactLabel/>
+            </Grid>
         <Grid item xs={1}>
         <SendContactEmail/> 
         </Grid>

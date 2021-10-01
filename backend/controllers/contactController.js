@@ -42,7 +42,6 @@ export const create_contact = async (req, res) =>{
         email_address, phone_number, description, labels, user_id: req.user_id
     });
     newContact.labels.push(label_id)
-    console.log(mongoose.Types.ObjectId(label_id), first_name);
     newContact.save()
     
     .then(() => res.json("Added new contact!"))
@@ -136,8 +135,8 @@ export const get_contact= async(req,res)=>{
         await Contact.updateOne(
             {_id: req.params.id,
             // only add the label id if it isn't already in the array
-            labelId:{$ne: label_id}}, 
-            {$push: {labelId: label_id}})
+            labels:{$ne: label_id}}, 
+            {$push: {labels: label_id}})
 
         const contact = await Contact.findById(req.params.id).exec();
         return res.json(contact);
@@ -156,15 +155,16 @@ export const get_contact= async(req,res)=>{
  * @returns {the response}
  */
 export const delabel_contact = async (req, res) => {
-    
+    console.log("Delabel contact")
     try {
         // retrieve the contact by its id and delete the lable id from the labelId
         // array of the contact
         await Contact.updateOne(
-            {_id: req.params.id}, 
-            {$pull: {labelId: req.body.label_id}})
+            {_id: req.params.contact_id}, 
+            {$pull: {labels: req.params.label_id}})
 
-        const contact = await Contact.findById(req.params.id).exec();
+        const contact = await Contact.findById(req.params.contact_id).exec();
+        console.log(contact, req.params.label_id, req.params.contact_id)
         return res.json(contact);
 
     } catch (err) {

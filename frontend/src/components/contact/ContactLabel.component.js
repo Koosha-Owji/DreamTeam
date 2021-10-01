@@ -4,7 +4,7 @@ import React, {Component} from 'react';
 //import Typography from '@material-ui/core/Typography';
 import Chip from '@material-ui/core/Chip';
 import Grid from '@material-ui/core/Grid';
-import { get_labels_by_contact } from '../../api/index';
+import { get_labels_by_contact, add_contact_label, delete_contact_label } from '../../api/index';
 
 /*const useStyles = makeStyles((theme) => ({
     root: {
@@ -39,6 +39,14 @@ import { get_labels_by_contact } from '../../api/index';
       // })
   }
 
+  unassignContactLabel=(label_id, id)=>{
+    delete_contact_label(label_id, id)
+    .then(response =>{  console.log(response.data)});
+    this.setState({
+      labels:this.state.labels.filter(el =>el._id !== id)
+    })
+  }
+
 
   GetLabelsByContact=(labels)=>{
      console.log( labels)
@@ -46,7 +54,7 @@ import { get_labels_by_contact } from '../../api/index';
         <Grid>
         <div key = {index} className ='labelListItem' style={{padding:'10px'}}>
           <Chip label={item.title} color={item.colour} variant="outlined" style ={{backgroundColor:`${item.colour}`}} 
-            onDelete={() => {}}/>
+            onDelete={() => this.unassignContactLabel(item._id, this.contact_id)}/>
         </div>
         </Grid>
       )
