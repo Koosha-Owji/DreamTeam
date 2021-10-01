@@ -16,7 +16,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [16.x]
+        node-version: [14.x,16.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
@@ -25,17 +25,23 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    - name: Install dependencies
-      run: npm install
-      
-    - name: Git deploy to Heroku
-      uses: akhileshns/heroku-deploy@v3.12.12
-      with:
-        heroku_api_key: "a982f082-c32f-4ceb-8279-c1831741ff71"
-        heroku_email: "kowji@student.unimelb.edu.au"
-        heroku_app_name: "dream-team-crm"
-        appdir: "backend"
-        procfile: "web:node backend/server.js"
+    - run: npm ci
+      working-directory: ./backend
+    - run: npm run build --if-present
+      working-directory: ./backend
+    - run: npm test
+      working-directory: ./backend
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: akhileshns/heroku-deploy@v3.12.12
+        with:
+          heroku_api_key: "a982f082-c32f-4ceb-8279-c1831741ff71"
+          heroku_app_name: "dream-team-crm"
+          heroku_email: "kowji@student.unimelb.edu.au"
+          appdir: "backend"
+          procfile: "web:npm run start"
       
 
