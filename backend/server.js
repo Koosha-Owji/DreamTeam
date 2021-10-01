@@ -2,7 +2,6 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
-import path from 'path';
 
 import userRouter from "./routes/user.js";
 import contactRouter from "./routes/contactRouter.js"
@@ -14,10 +13,6 @@ const app = express();
 app.use(express.json({ limit: '30mb', extended: true }))
 app.use(express.urlencoded({ limit: '30mb', extended: true }))
 app.use(cors());
-app.use(express.static(path.join(__dirname, 'build')));
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, 'build','index.html'));
- });
 
 app.use("/user", userRouter);
 app.use("/contacts", contactRouter)

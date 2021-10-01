@@ -5,19 +5,24 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "nodemon server.js",
+    "test": "mocha"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
+    "chai": "^4.3.4",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "faker": "^5.5.3",
     "googleapis": "^87.0.0",
     "jsonwebtoken": "^8.5.1",
+    "mocha": "^9.1.2",
     "mongoose": "^5.9.29",
-    "nodemailer": "^6.6.3"
+    "nodemailer": "^6.6.3",
+    "sinon": "^11.1.2"
   },
   "devDependencies": {
     "nodemon": "^2.0.12"
