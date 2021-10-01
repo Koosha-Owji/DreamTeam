@@ -114,3 +114,55 @@ export const get_contact= async(req,res)=>{
     .then(contact => res.json(contact))
     .catch(err => res.status(400).json('Error: ' + err));
 }
+
+/**
+ * Given a contact id and a label id, insert the label id into a labelId array stored
+ * in the contact. 
+ * @param {request with "label_id" in the body and "id" (the contact_id) in the params} req 
+ * @param {response by which the updated contact json object will be sent} res 
+ * @returns {the response}
+ */
+ export const label_contact = async (req, res) => {
+    
+    try {
+        // retrieve the contact by its id and insert the lable id into the labelId
+        // array of the contact
+        const label_id = req.body.label_id
+        await Contact.updateOne(
+            {_id: req.params.id,
+            // only add the label id if it isn't already in the array
+            labelId:{$ne: label_id}}, 
+            {$push: {labelId: label_id}})
+
+        const contact = await Contact.findById(req.params.id).exec();
+        return res.json(contact);
+
+    } catch (err) {
+        res.status(400).json(err);
+    }
+
+}
+
+/**
+ * Given a contact id and a label id, remove the label id from the labelId array stored
+ * in the contact. 
+ * @param {request with "label_id" in the body and "id" (the contact_id) in the params} req 
+ * @param {response by which the updated contact json object will be sent} res 
+ * @returns {the response}
+ */
+export const delabel_contact = async (req, res) => {
+    
+    try {
+        // retrieve the contact by its id and delete the lable id from the labelId
+        // array of the contact
+        await Contact.updateOne(
+            {_id: req.params.id}, 
+            {$pull: {labelId: req.body.label_id}})
+
+        const contact = await Contact.findById(req.params.id).exec();
+        return res.json(contact);
+
+    } catch (err) {
+        res.status(400).json('Error: ' + err);
+    }
+}
