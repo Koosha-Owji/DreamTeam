@@ -1,12 +1,12 @@
 
 import React, {Component} from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
+//import { makeStyles } from '@material-ui/core/styles';
+//import Typography from '@material-ui/core/Typography';
 import Chip from '@material-ui/core/Chip';
 import Grid from '@material-ui/core/Grid';
 import { get_labels_by_contact } from '../../api/index';
 
-const useStyles = makeStyles((theme) => ({
+/*const useStyles = makeStyles((theme) => ({
     root: {
       width: '100%',
       margin: theme.spacing(1),
@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
       height: 20,
       width: 20,
     }
-  }));
+  }));*/
   
   export default class ContactLabel extends Component{
     constructor(props){

@@ -6,7 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
-import AddOrder from './AddOrder.component';
+//import AddOrder from './AddOrder.component';
 import DeleteOrder from './DeleteOrder.component';
 import UpdateOrderStatus from './UpdateOrderStatus.component';
 import { get_all_orders, delete_order,  } from '../../api/index';
