@@ -21,7 +21,7 @@ import { createNote, updateNote } from "../../actions/notes";
  */
 const AddNote = ({ currentId, setCurrentId }) => {
   const dispatch = useDispatch();
-  const [noteText, setNoteText] = useState({ title: "", content: "" });
+  const [noteText, setNoteText] = useState({ title: "", content: "" , count:""});
 
   const note = useSelector((state) =>
     currentId ? state.note.find((n) => n._id === currentId) : null
@@ -30,13 +30,13 @@ const AddNote = ({ currentId, setCurrentId }) => {
   // everytime someone clicks edit, change the add note to edit the current note
   useEffect(() => {
     if (note) {
-      setNoteText({
+      setNoteText(noteText=>({
         ...noteText,
         title: note.title,
         content: note.content,
-      });
+      }));
     }
-  }, [currentId]);
+  }, [currentId,noteText.count,note]);
 
   /**
    * Clears the information in the note Text, i.e, the information displayed in the Add Note component

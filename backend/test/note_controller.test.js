@@ -90,7 +90,7 @@ describe("Notes Controller", function () {
        const stub = sinon.stub(noteModel, "find").resolves([]);
        newReq = { user_id: "613ab597cbf2623120614c98" };
        await get_all_notes(newReq, res);
-       expect(status.args[0][0]).equal(400);
+       expect(status.args[0][0]).equal(200);
      });
   });
 

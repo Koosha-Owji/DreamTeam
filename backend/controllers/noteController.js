@@ -64,7 +64,7 @@ export const get_all_notes = async (req, res) => {
     try {
         const notes = await noteModel.find({user_id: req.user_id});
         // if the user has no notes, return a message
-        if (!notes.length) return res.status(400).json("");
+        if (!notes.length) return res.status(200).json("");
 
         // if the user has notes, return the notes
         return res.status(200).json(notes);

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -67,13 +67,13 @@ export default function TabsWrappedLabel() {
   const dispatch = useDispatch();
   const location = useLocation();
   const history = useHistory();
-  const logout = () => {
+  const logout = useCallback(() => {
     dispatch({ type: 'LOGOUT' });
 
     history.push('/user');
 
     setUser(null);
-  };
+  },[dispatch,history])
   useEffect(() => {
     const token = user?.token;
 
@@ -83,7 +83,7 @@ export default function TabsWrappedLabel() {
       if (decodedToken.exp * 4000 < new Date().getTime())logout();
     }
     setUser(JSON.parse(localStorage.getItem('profile')));
-  }, [location,user?.token]);
+  }, [location,user?.token,logout]);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
