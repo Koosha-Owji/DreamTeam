@@ -1,7 +1,7 @@
 import express from "express";
 import auth from "../middleware/auth.js";
 
-const labelRouter = express.Router();
+const label_router = express.Router();
 
 import {
     create_label,
@@ -16,4 +16,4 @@ label_router.patch('/delete', delete_label);
 label_router.get('/all-labels', get_all_labels);
 label_router.get('/by-contact', get_labels_by_contact);
 
-export default labelRouter;
+export default label_router;
