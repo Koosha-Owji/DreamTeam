@@ -64,7 +64,6 @@
    const classes = useStyles();
  
    const [open1, setOpen1] = React.useState(false);
-   const [open2, setOpen2] = React.useState(false);
  
    const handleClickOpen1 = () => {
      setOpen1(true);
@@ -72,13 +71,6 @@
  
    const handleClose1 = () => {
      setOpen1(false);
-   };
- 
-   const handleClickOpen2 = () => {
-     setOpen2(true);
-   };
-   const handleClose2 = () => {
-     setOpen2(false);
    };
  
  

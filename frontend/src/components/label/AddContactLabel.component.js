@@ -5,21 +5,12 @@
  * Implemented by DreamTeam: Anagha Giri, Koosha Owji, Chirag Singh, Olivia Ryan, Natasha Ireland
  */
  import React, { Component } from 'react';
- import TextField from '@material-ui/core/TextField';
  import Button from '@material-ui/core/Button';
  import Container from '@material-ui/core/Container';
- import {create_contact} from '../../api/index'
- //import CreateLabelButtonPage from '../label/CreateLabelButton.component';
  import InputLabel from '@material-ui/core/InputLabel';
  import MenuItem from '@material-ui/core/MenuItem';
  import FormControl from '@material-ui/core/FormControl';
  import Select from '@material-ui/core/Select';
- import Dialog from '@material-ui/core/Dialog';
-  import DialogTitle from '@material-ui/core/DialogTitle';
-  import Fab from '@material-ui/core/Fab';
-  import AddIcon from '@material-ui/icons/Add';
-  import { makeStyles } from '@material-ui/core/styles';
- import { Typography } from '@material-ui/core';
  import {get_all_labels, add_contact_label} from './../../api/index';
  
  
@@ -51,18 +42,15 @@
        
        onSubmit(e) {
          e.preventDefault();
-         const newLabel = this.state.label_id;
-         const cont=this.contact_id;
-         console.log("contact", cont)
-         add_contact_label(newLabel, cont);
+         add_contact_label(this.state.label_id, this.contact_id);
          window.location = '/home';
        }
  
       
        onChangeLabel(e){
-        this.state.label_id=e.target.value;
-        console.log(this.state.label_id)
-           //this.label_id= e.target.value
+         this.setState({
+           label_id:e.target.value
+         })
          
        }
    

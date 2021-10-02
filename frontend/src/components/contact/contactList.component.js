@@ -12,15 +12,12 @@ import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
-import Fab from '@material-ui/core/Fab';
-import AddIcon from '@material-ui/icons/Add';
 import DeleteContact from './DeleteContact.component';
 import SendContactEmail from './SendContactEmail.component';
 import ContactLabel from './ContactLabel.component';
 import Update from './UpdateContact.component';
 import {get_all_contacts,delete_contact} from '../../api/index';
 import AddContactLabel from '../label/AddContactLabel.component';
-import Google from '../Email/Google.component'
 
 
 export default class ContactCard extends Component{

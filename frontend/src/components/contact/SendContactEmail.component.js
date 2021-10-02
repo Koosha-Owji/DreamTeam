@@ -2,8 +2,7 @@ import Fab from '@material-ui/core/Fab';
 import React/*, {Component} */from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import EmailIcon from '@material-ui/icons/Email';
-import Google from '../Email/Google.component'
-import DeleteIcon from '@material-ui/icons/Delete';
+import Google from '../Email/Google.component';
 
 import Dialog from '@material-ui/core/Dialog';
 

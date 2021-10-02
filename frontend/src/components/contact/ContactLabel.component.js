@@ -1,22 +1,9 @@
 
 import React, {Component} from 'react';
-//import { makeStyles } from '@material-ui/core/styles';
-//import Typography from '@material-ui/core/Typography';
 import Chip from '@material-ui/core/Chip';
 import Grid from '@material-ui/core/Grid';
-import { get_labels_by_contact, add_contact_label, delete_contact_label } from '../../api/index';
+import { get_labels_by_contact, delete_contact_label } from '../../api/index';
 
-/*const useStyles = makeStyles((theme) => ({
-    root: {
-      width: '100%',
-      margin: theme.spacing(1),
-    },
-    icon: {
-      verticalAlign: 'bottom',
-      height: 20,
-      width: 20,
-    }
-  }));*/
   
   export default class ContactLabel extends Component{
     constructor(props){
@@ -27,16 +14,12 @@ import { get_labels_by_contact, add_contact_label, delete_contact_label } from '
 
   }
   componentDidMount() {
-    //axios.get('http://localhost:5000/contacts')
     console.log(this.contact_id)
     get_labels_by_contact(this.contact_id)
       .then(response => {
         this.setState({ labels: response.data })
       })
       .then(console.log(this.state.labels, 'labels received'))
-      // .catch((error) => {
-      //   console.log(error);
-      // })
   }
 
   unassignContactLabel=(label_id, id)=>{

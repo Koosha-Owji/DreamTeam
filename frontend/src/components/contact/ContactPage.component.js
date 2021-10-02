@@ -13,7 +13,6 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import ContactList from './contactList.component';
 import AddContact from './addContact.component';
 import ManageLabel from './../label/ManageLabels.component';
-import Grid from '@material-ui/core/Grid';
 
 const useStyles = makeStyles((theme) => ({
   root: {
