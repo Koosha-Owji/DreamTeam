@@ -54,10 +54,10 @@ export const create_contact = async (req, res) =>{
  * @returns {all contacts}  
  */
 export const get_all_contacts = async (req, res) => {
-    console.log("hello")
+    console.log("get all contacts")
     try {
         const contacts = await Contact.find({user_id: req.user_id});
-       console.log(contacts);
+     
         return res.json(contacts);
     } catch (err) {
         return res.status(400).json({message: "contact retrieval failed"});
@@ -131,14 +131,16 @@ export const get_contact= async(req,res)=>{
     try {
         // retrieve the contact by its id and insert the lable id into the labelId
         // array of the contact
-        const label_id = req.body.label_id
+        const label_id = req.params.label_id
+        console.log("adding label to contact", req.params.label_id, req.params.contact_id)
         await Contact.updateOne(
-            {_id: req.params.id,
+            {_id: req.params.contact_id},
             // only add the label id if it isn't already in the array
-            labels:{$ne: label_id}}, 
+            //labels:{$ne: label_id}}, 
             {$push: {labels: label_id}})
-
-        const contact = await Contact.findById(req.params.id).exec();
+        
+        const contact = await Contact.findById(req.params.contact_id).exec();
+        console.log(contact)
         return res.json(contact);
 
     } catch (err) {

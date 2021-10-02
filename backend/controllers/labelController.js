@@ -76,9 +76,8 @@
   */
  export const get_all_labels = async (req, res) => {
      try {
-         console.log(req.body.user_id);
+         console.log("Get all labels");
          const labels = await label_model.find();
-        console.log(labels);
          return res.json(labels);
      } catch (err) {
          return res.status(400).json({message: "label retrieval failed"});
@@ -105,22 +104,18 @@ export const get_labels_by_contact = async (req, res) => {
     var newlabels = [];
 
     try {
-        console.log( req.params)
+        console.log( "Get labels by contacts")
         // retrieve the contact form the db and extract the labels list
         const contact = await contact_model.findById(req.params.id);
-        console.log(contact );
         // extract the array of label ids from the contact
         const { labels } = contact;
-        console.log(labels);
         // retrieve each label from the db and insert into labels array
         const num_labels = labels.length;
-        console.log(num_labels);
         for (var i=0; i<num_labels; i++) {
             const label_id = labels[i];
             const label = await label_model.findById({_id: label_id}).exec()
             newlabels.push( label )
         }
-        console.log(newlabels);
         res.json(newlabels);
 
     } catch (err) {

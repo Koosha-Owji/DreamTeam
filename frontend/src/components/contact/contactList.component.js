@@ -71,18 +71,14 @@ componentDidMount() {
         <Grid item xs={6}>
             <Typography className='business' style={{textAlign:'left'}}>{contact.business}</Typography>
         </Grid>
-        
+        <Grid item xs={4}>
+            <AddContactLabel contact_id={contact._id}/>
+            </Grid>
         <Grid item xs={6}>
         <ContactLabel contact_id={contact._id}/>
         
         </Grid>
-        <Grid item xs={6}>
-        <Fab color="primary" aria-label="add" variant='extended'style={{display:'flex', verticalAlign: 'bottom'}} >
-              <AddIcon />
-                Label
-            </Fab>
-            <AddContactLabel/>
-            </Grid>
+        
         <Grid item xs={1}>
         <SendContactEmail/> 
         </Grid>

@@ -45,6 +45,7 @@ import { get_labels_by_contact, add_contact_label, delete_contact_label } from '
     this.setState({
       labels:this.state.labels.filter(el =>el._id !== id)
     })
+    window.location = '/home';
   }
 
 

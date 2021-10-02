@@ -14,22 +14,30 @@
  import MenuItem from '@material-ui/core/MenuItem';
  import FormControl from '@material-ui/core/FormControl';
  import Select from '@material-ui/core/Select';
+ import Dialog from '@material-ui/core/Dialog';
+  import DialogTitle from '@material-ui/core/DialogTitle';
+  import Fab from '@material-ui/core/Fab';
+  import AddIcon from '@material-ui/icons/Add';
+  import { makeStyles } from '@material-ui/core/styles';
  import { Typography } from '@material-ui/core';
- import {get_all_labels, add_contact_label} from './../../api/index'
+ import {get_all_labels, add_contact_label} from './../../api/index';
  
+ 
+
  export default class AddContactLabel extends Component {
  
         constructor(props){
             super(props);
             this.onChangeLabel=this.onChangeLabel.bind(this);
+            this.onSubmit = this.onSubmit.bind(this);
             this.state = {
-                labels:[]
+                labels:[],
+                label_id:''
               };
             this.contact_id=this.props.contact_id;
-            this.label_id='';
-            }
-      
+            //this.label_id='';
         
+            }
     
        componentDidMount() {
          get_all_labels()
@@ -44,14 +52,19 @@
        
        onSubmit(e) {
          e.preventDefault();
-         add_contact_label(this.label_id,  this.contact_id);
+         const newLabel = this.state.label_id;
+         const cont=this.contact_id;
+         console.log("contact", cont)
+         add_contact_label(newLabel, cont);
        
-         window.location = '/home';
+          window.location = '/home';
        }
  
       
        onChangeLabel(e){
-           this.label_id= e.target.value
+        this.state.label_id=e.target.value;
+        console.log(this.state.label_id)
+           //this.label_id= e.target.value
          
        }
    
@@ -69,10 +82,9 @@
      return (
          <Container component="main" maxWidth="xs">
            <div>
-              <Typography variant="h6">Assign a label </Typography>
  
                  <FormControl fullWidth variant="standard" sx={{ m: 1, minWidth: 120 }}>
-                 <InputLabel id="demo-simple-select-filled-label">Label</InputLabel>
+                 <InputLabel id="demo-simple-select-filled-label">Add new label</InputLabel>
                  <Select
                  labelId="demo-simple-select-filled-label"
                  id="demo-simple-select-filled"
