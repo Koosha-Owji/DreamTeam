@@ -56,7 +56,7 @@ export const update_order = async(req, res)=>{
 
     orderModel.findById(req.params.id)
     .then(orders =>{
-        orders.order_date = req.body.order;
+        orders.order_date = req.body.order_date;
         orders.due_date = req.body.due_date;
         orders.product = req.body.product;
         orders.stage =req.body.stage;

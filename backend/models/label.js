@@ -11,8 +11,6 @@ const colours = [
 ]
 
 const labelSchema = mongoose.Schema({
-    //colour: {type: rgb_type, enum: colours, required: true},
-    //colour: {type: String, enum: colours, required: true},
     colour: {type: String, enum: ["#e57373", "#b39ddb", "#fff176", "#ff8a65", "#81c784", "#90caf9"], required: true},
     title: {type: String, required: true},
     user_id: {type: String, required: false}

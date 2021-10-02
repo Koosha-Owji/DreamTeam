@@ -60,10 +60,11 @@ componentDidMount() {
                 <Typography className='dueDate' style={{textAlign:'left'}}>Due {order.due_date}</Typography>
             </Grid>
             <Grid item xs={3}>
-              <Typography className='status' style={{textAlign:'left'}}>Status: {order.status}</Typography>
+              <Typography className='status' style={{textAlign:'left'}}>Status: {order.stage}</Typography>
+              
             </Grid>
             <Grid item xs={1} >
-              {/* <UpdateOrderStatus currId ={order._id} allOrders={this.state.orders}/> */}
+              <UpdateOrderStatus currId ={order._id} allOrders={orders} />
               </Grid>
              <Grid item xs={1}>
                 <DeleteOrder id={order._id} deleteOrder={this.deleteOrder}/>
