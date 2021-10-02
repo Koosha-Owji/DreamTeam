@@ -1,92 +1,100 @@
-import React, {Component} from 'react';
-import Accordion from '@material-ui/core/Accordion';
-import AccordionDetails from '@material-ui/core/AccordionDetails';
-import AccordionSummary from '@material-ui/core/AccordionSummary';
-import Typography from '@material-ui/core/Typography';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import Divider from '@material-ui/core/Divider';
-import Grid from '@material-ui/core/Grid';
-//import AddOrder from './AddOrder.component';
-import DeleteOrder from './DeleteOrder.component';
-import UpdateOrderStatus from './UpdateOrderStatus.component';
-import { get_all_orders, delete_order,  } from '../../api/index';
-
-export default class OrderPage extends Component{
-constructor(props){
-    super(props);
-    this.state = {orders: []};
-    this.delete_order = this.deleteOrder.bind(this);
-
-}
-
-componentDidMount() {
-    get_all_orders()
-      .then(response => {
-        this.setState({ orders: response.data })
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-  }
-
-  deleteOrder=(id)=>{
-    delete_order(id)
-    .then(response =>{  console.log(response.data)});
-
-    this.setState({
-      orders:this.state.orders.filter(el =>el._id !== id)
-    })
-  }
-
-  displayOrders=(orders)=>{
-    if(!orders.length) return null;
-
-    return orders.map((order, index)=>(
-      <div key = {index} className ='orderListItem' style={{padding:'10px'}}>
-        <Accordion>
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel1c-content"
-          id="panel1c-header"
-        >
-      <Grid item xs={6}>
-      <Typography className='dateOrdered' style={{textAlign:'left'}}>Date ordered: {order.date}</Typography>
-        </Grid>
-        <Grid item xs={6}>
-            <Typography className='client' style={{textAlign:'left'}}>{order.contact}</Typography>
-        </Grid>
-        <Grid item xs={6}>
-        <Typography className='status' style={{textAlign:'left'}}>Status;{order.status}</Typography>
-        </Grid>
-        <Grid item xs={1} textA>
-        <UpdateOrderStatus currId ={order._id} allOrders={this.state.orders}/>
-        </Grid>
-        <Grid item xs={1}>
-        <DeleteOrder id={order._id} deleteOrder={this.delete_order}/>
-        </Grid>
-        </AccordionSummary>
-
-
-        <AccordionDetails className='orderExpand'style={{display:'block'}}> 
-        <Typography className='email_address' style={{textAlign:'left'}}>More details to go here {order.business}</Typography>
-        </AccordionDetails>
-        <Divider />
-        </Accordion>
-
-      </div>
-    ));
-
-  }
-
-  render(){
-
-      console.log('State: ', this.state);
-
-      return(
-    <div className ='orderList'>
-    {this.displayOrders(this.state.orders)}
-  </div>
-
-      );
-    }
-} 
+/**
+ * contactPage.component.js, component that stores contact components (contactList, delete, add)
+ * Created for IT Project COMP30022, Semester 2 2021
+ * The University of Melbourne
+ * Implemented by DreamTeam: Anagha Giri, Koosha Owji, Chirag Singh, Olivia Ryan, Natasha Ireland
+ */
+ import React from 'react';
+ import { makeStyles } from '@material-ui/core/styles';
+ import Fab from '@material-ui/core/Fab';
+ import AddIcon from '@material-ui/icons/Add';
+ import Dialog from '@material-ui/core/Dialog';
+ import DialogTitle from '@material-ui/core/DialogTitle';
+ import AddOrder from './AddOrder.component';
+ import OrderList from './OrderList.component';
+ 
+ 
+ const useStyles = makeStyles((theme) => ({
+   root: {
+     width: '100%',
+   },
+   heading: {
+     fontSize: theme.typography.pxToRem(15),
+   },
+   secondaryHeading: {
+     fontSize: theme.typography.pxToRem(15),
+     color: theme.palette.text.secondary,
+   },
+   icon: {
+     verticalAlign: 'bottom',
+     height: 20,
+     width: 20,
+   },
+   details: {
+     alignItems: 'center',
+   },
+   column: {
+     flexBasis: '33.33%',
+   },
+   helper: {
+     borderLeft: `2px solid ${theme.palette.divider}`,
+     padding: theme.spacing(1, 2),
+   },
+   link: {
+     color: theme.palette.primary.main,
+     textDecoration: 'none',
+     '&:hover': {
+       textDecoration: 'underline',
+     },
+   },
+   addContact:{
+     marginLeft:'60%',
+     padding:'10px',
+     display:'flex', 
+ },
+ manageLabel:{
+   marginLeft:'60%',
+     padding:'10px',
+     display:'flex', 
+ }
+ }));
+ 
+ 
+ export default function ContactsPage() {
+   const classes = useStyles();
+ 
+   const [open1, setOpen1] = React.useState(false);
+   const [open2, setOpen2] = React.useState(false);
+ 
+   const handleClickOpen1 = () => {
+     setOpen1(true);
+   };
+ 
+   const handleClose1 = () => {
+     setOpen1(false);
+   };
+ 
+   const handleClickOpen2 = () => {
+     setOpen2(true);
+   };
+   const handleClose2 = () => {
+     setOpen2(false);
+   };
+ 
+ 
+   return (
+     <div className={classes.root}>
+         <div className = {classes.addOrder}>
+             <Fab color="primary" aria-label="add" variant='extended' onClick={handleClickOpen1}>
+               <AddIcon className={classes.extendedIcon}/>
+                 Add New Order
+             </Fab>
+            <Dialog open={open1} onClose={handleClose1} aria-labelledby="form-dialog-title">
+               <DialogTitle id="form-dialog-title">Add a new order</DialogTitle>
+             <AddOrder/>
+             </Dialog>
+             </div>
+       <OrderList />
+     </div>
+   );
+ }
