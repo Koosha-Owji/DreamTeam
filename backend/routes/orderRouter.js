@@ -1,6 +1,6 @@
 import express from "express";
 
-import Order from './../models/order.js'
+import Order from '../models/order.js'
 import auth  from '../middleware/auth.js'
 
 // add our router const user
