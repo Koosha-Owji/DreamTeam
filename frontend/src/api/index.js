@@ -25,7 +25,7 @@ export const create_contact = (newContact)=>API.post('/contacts', newContact);
 export const get_all_contacts = () => API.get('/contacts/');
 export const delete_contact = (id)=>API.post(`/contacts/delete/${id}`);
 export const update_contact = (id, contact) =>API.patch(`contacts/update/${id}`, contact);
-export const get_contact =(id)=>API.get('/contacts/:id');
+export const get_contact =(id)=>API.get(`contacts/${id}`);
 
 //Takes in label id and contact
 export const add_contact_label=(label_id, id)=>API.patch(`contacts/update/${id}/label/${label_id}`);

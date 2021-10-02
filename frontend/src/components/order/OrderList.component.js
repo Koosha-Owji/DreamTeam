@@ -9,12 +9,15 @@ import Grid from '@material-ui/core/Grid';
 //import AddOrder from './AddOrder.component';
 import DeleteOrder from './DeleteOrder.component';
 import UpdateOrderStatus from './UpdateOrderStatus.component';
-import { get_all_orders, delete_order  } from '../../api/index';
+import { get_all_orders, delete_order, get_contact } from '../../api/index';
+import OrderContact from './OrderContact.component';
 
 export default class OrderList extends Component{
 constructor(props){
     super(props);
-    this.state = {orders: []};
+    this.state = {
+      orders: []
+    };
     this.delete_order = this.deleteOrder.bind(this);
 
 }
@@ -27,6 +30,7 @@ componentDidMount() {
       .catch((error) => {
         console.log(error);
       })
+
   }
 
   deleteOrder=(id)=>{
@@ -37,6 +41,7 @@ componentDidMount() {
       orders:this.state.orders.filter(el =>el._id !== id)
     })
   }
+    
 
   displayOrders=(orders)=>{
     if(!orders.length) return null;
@@ -47,31 +52,37 @@ componentDidMount() {
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1c-content"
-          id="panel1c-header"
-        >
-      <Grid item xs={6}>
-      <Typography className='dateOrdered' style={{textAlign:'left'}}>Date ordered: {order.date}</Typography>
-        </Grid>
-        <Grid item xs={6}>
-            <Typography className='client' style={{textAlign:'left'}}>{order.contact}</Typography>
-        </Grid>
-        <Grid item xs={6}>
-        <Typography className='status' style={{textAlign:'left'}}>Status;{order.status}</Typography>
-        </Grid>
-        <Grid item xs={1} textA>
-        <UpdateOrderStatus currId ={order._id} allOrders={this.state.orders}/>
-        </Grid>
-        <Grid item xs={1}>
-        <DeleteOrder id={order._id} deleteOrder={this.delete_order}/>
-        </Grid>
-        </AccordionSummary>
-
-
-        <AccordionDetails className='orderExpand'style={{display:'block'}}> 
-        <Typography className='email_address' style={{textAlign:'left'}}>More details to go here {order.business}</Typography>
-        </AccordionDetails>
-        <Divider />
-        </Accordion>
+          id="panel1c-header">
+            <Grid item xs={3}>
+                <OrderContact contact_id={order.contact_id}/>
+            </Grid>
+            <Grid item xs={3}>
+                <Typography className='dueDate' style={{textAlign:'left'}}>Due {order.due_date}</Typography>
+            </Grid>
+            <Grid item xs={3}>
+              <Typography className='status' style={{textAlign:'left'}}>Status: {order.status}</Typography>
+            </Grid>
+            <Grid item xs={1} >
+              {/* <UpdateOrderStatus currId ={order._id} allOrders={this.state.orders}/> */}
+              </Grid>
+             <Grid item xs={1}>
+                <DeleteOrder id={order._id} deleteOrder={this.deleteOrder}/>
+              </Grid>
+              </AccordionSummary>
+              <AccordionDetails className='orderExpand'> 
+              <Grid item xs={3}>
+              <Typography className='dateOrdered' style={{textAlign:'left'}}>Date ordered: {order.order_date}</Typography>
+              </Grid>
+              <Grid item xs={3}>
+              <Typography className='amount' style={{textAlign:'left'}}>Amount: {order.amount}</Typography>
+              </Grid>
+              <Grid item xs={3}>
+              <Typography className='product' style={{textAlign:'left'}}>Product: {order.product}</Typography>
+              </Grid>
+        
+        
+              </AccordionDetails>
+              </Accordion>
 
       </div>
     ));

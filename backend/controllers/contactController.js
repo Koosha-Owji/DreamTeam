@@ -114,9 +114,18 @@ export const update_contact = async(req, res)=>{
  * @returns {contact} 
  */
 export const get_contact= async(req,res)=>{
-    Contact.findById(req.params.id)
-    .then(contact => res.json(contact))
-    .catch(err => res.status(400).json('Error: ' + err));
+    try {
+        const contact = await Contact.findById(req.params.id).exec();
+        console.log("found contact", contact);
+
+        // check that the note exists
+        if (!contact) return res.json("contact does not exist");
+        // if the note exists, return it
+        return res.json(contact);
+
+    } catch (err) {
+        res.status(500).json({ message: "contact retrieval failed" });
+    }
 }
 
 /**
