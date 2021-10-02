@@ -35,7 +35,6 @@
                 label_id:''
               };
             this.contact_id=this.props.contact_id;
-            //this.label_id='';
         
             }
     
@@ -56,6 +55,7 @@
          const cont=this.contact_id;
          console.log("contact", cont)
          add_contact_label(newLabel, cont);
+         window.location = '/home';
        }
  
       

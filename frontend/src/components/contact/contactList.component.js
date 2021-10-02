@@ -20,6 +20,7 @@ import ContactLabel from './ContactLabel.component';
 import Update from './UpdateContact.component';
 import {get_all_contacts,delete_contact} from '../../api/index';
 import AddContactLabel from '../label/AddContactLabel.component';
+import Google from '../Email/Google.component'
 
 
 export default class ContactCard extends Component{
@@ -80,7 +81,7 @@ componentDidMount() {
         </Grid>
         
         <Grid item xs={1}>
-        <SendContactEmail/> 
+          <SendContactEmail/>
         </Grid>
         <Grid item xs={1} textA>
         <Update currId ={contact._id} allContacts={contacts}/>
@@ -92,10 +93,21 @@ componentDidMount() {
 
 
         <AccordionDetails className='contactExpand'style={{display:'block'}}> 
-        <Typography className='email_address' style={{textAlign:'left'}}>Email {contact.email_address}</Typography>
-        <Typography className='phone_number' style={{textAlign:'left'}}>Phone Number      {contact.phone_number}</Typography>
-        <Typography className='relationship' style={{textAlign:'left'}}>Relationship      {contact.relationship}</Typography>
-        <Typography className='description' style={{textAlign:'left'}}>Description      {contact.description}</Typography>
+        <Grid item xs={1}>
+
+        </Grid>
+        <Grid item xs={3}>
+          <Typography className='email_address' style={{textAlign:'left'}}>Email {contact.email_address}</Typography>
+        </Grid>
+        <Grid item xs={3}>
+          <Typography className='phone_number' style={{textAlign:'left'}}>Phone Number      {contact.phone_number}</Typography>
+        </Grid>
+        <Grid item xs={3}>
+          <Typography className='relationship' style={{textAlign:'left'}}>Relationship      {contact.relationship}</Typography>
+        </Grid>
+        <Grid item xs={3}>
+          <Typography className='description' style={{textAlign:'left'}}>Description      {contact.description}</Typography>
+        </Grid>
         </AccordionDetails>
         <Divider />
         </Accordion>

@@ -63,7 +63,7 @@
          }
          console.log(order);
          create_order(order);
-          //window.location.reload();
+         window.location = '/home';
        }
        onChangeProduct(e) {
         this.setState({

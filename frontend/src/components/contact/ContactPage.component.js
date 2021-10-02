@@ -13,6 +13,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import ContactList from './contactList.component';
 import AddContact from './addContact.component';
 import ManageLabel from './../label/ManageLabels.component';
+import Grid from '@material-ui/core/Grid';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -85,6 +86,7 @@ export default function ContactsPage() {
   return (
     <div className={classes.root}>
         <div className = {classes.addContact}>
+          
             <Fab color="primary" aria-label="add" variant='extended' onClick={handleClickOpen1}>
               <AddIcon className={classes.extendedIcon}/>
                 Add New Contact
