@@ -1,0 +1,21 @@
+import express from "express";
+
+import Order from './../models/order.js'
+import auth  from '../middleware/auth.js'
+
+// add our router const user
+const orderRouter = express.Router();
+
+import { get_all_orders, create_order, delete_order} 
+from "../controllers/contactController.js";
+
+orderRouter.get('/',auth, get_all_orders);
+
+orderRouter.post('/',auth, create_order);
+
+orderRouter.post('/delete/:id',auth, delete_order);
+
+orderRouter.patch('/update/:id',auth, update_contact);
+
+// export the router
+export default orderRouter;
