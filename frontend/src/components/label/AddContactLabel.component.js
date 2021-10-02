@@ -56,8 +56,6 @@
          const cont=this.contact_id;
          console.log("contact", cont)
          add_contact_label(newLabel, cont);
-       
-          window.location = '/home';
        }
  
       

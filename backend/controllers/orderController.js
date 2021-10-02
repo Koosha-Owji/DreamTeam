@@ -4,24 +4,30 @@ import userModel from "../models/user.js";
 import mongoose from 'mongoose';
 
 export const create_order = async (req, res) =>{
-
+    console.log(req.body, req.user_id);
     const product = req.body.product;
    const stage = req.body.stage;
    const amount = req.body.amount;
-   const order_date = req.body.order_date,
-   const due_date = req.body.due_date,
+   const order_date = req.body.startDate;
+   const due_date = req.body.dueDate;
+   const user_id=req.user_id;
    const user = await userModel.findOne({ _id: req.user_id});
    if (! user) return res.status(400).json({ message: "User not found" });
-   const contact = await contactModel.findOne({_id: req.contact_id});
+   const contact = await contactModel.findOne({_id: req.body.contact_id});
    if (!contact) return res.status(400).json({message: "Contact not found"});
    
-   const newOrder =new Order({
-       product, stage, amount, user_id: req.user_id, contact_id: req.contact_id
+   const newOrder =new orderModel({
+       product, stage, amount,order_date, due_date, user_id, contact_id: req.body.contact_id
    });
-
-   newOrder.save()
-   .then(() => res.json("Added new order!"))
-   .catch((err) => res.status(400).json(err));
+   console.log("made new order", newOrder)
+   try {
+       await newOrder.save()
+       console.log("New order saved", newOrder)
+        return res.json({message:"Added new order!", order:newOrder});
+        
+} catch (err) { 
+    console.log("caught", err)
+    return res.status(400).json({message: "Error saving new order"}); }
 };
 
 // Retrieve all contacts belonging to a single user

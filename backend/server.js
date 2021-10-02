@@ -41,6 +41,7 @@ import userRouter from "./routes/user.js";
 import contactRouter from "./routes/contactRouter.js"
 import noteRouter from "./routes/note.js";
 import labelRouter from "./routes/label.js";
+import orderRouter from "./routes/orderRouter.js";
 
 const app = express();
 
@@ -52,6 +53,7 @@ app.use("/user", userRouter);
 app.use("/contacts", contactRouter);
 app.use("/note", noteRouter);
 app.use("/label", labelRouter);
+app.use("/orders", orderRouter)
 
 const CONNECTION_URL = 'mongodb+srv://dreamteam:teamdream@cluster0.dmj7x.mongodb.net/DreamTeamCRM?retryWrites=true&w=majority'
 const PORT = process.env.PORT|| 5000;

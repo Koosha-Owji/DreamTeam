@@ -54,7 +54,7 @@
      // add deletion of all references to the label in contacts
  
      try {
-         const label_id = req.body._id;
+         const label_id = req.params.id;
          // delete the label
          label_model.deleteOne({ _id: label_id }).exec();
  

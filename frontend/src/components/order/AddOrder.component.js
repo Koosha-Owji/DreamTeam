@@ -59,11 +59,11 @@
              amount :this.state.amount,
              stage :this.state.stage,
              dueDate :this.state.dueDate,
-             startDate:this.state.startdate
+             startDate:this.state.startDate
          }
          console.log(order);
          create_order(order);
-          window.location.reload();
+          //window.location.reload();
        }
        onChangeProduct(e) {
         this.setState({
@@ -157,6 +157,7 @@
                 id="name"
                 type="date"
                 fullWidth
+                value = {this.state.startDate}
                 onChange={this.onChangeStartDate}
             ></TextField>
             <Typography variant="caption"> Due Date</Typography>
@@ -182,9 +183,9 @@
           <MenuItem value="">
             <em>None</em>
           </MenuItem>
-          <MenuItem value={"ordered"} >Ordered</MenuItem>
-          <MenuItem value={"delivered"} >Delivered</MenuItem>
-          <MenuItem value={"completed"} >Completed</MenuItem>
+          <MenuItem value={"Ordered"} >Ordered</MenuItem>
+          <MenuItem value={"Delivered"} >Delivered</MenuItem>
+          <MenuItem value={"Completed"} >Completed</MenuItem>
         </Select>
       </FormControl>
              <div className = 'note_footer'>

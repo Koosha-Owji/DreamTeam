@@ -12,7 +12,7 @@ import {
 
 //label_router.post('/', auth, create_label);
 label_router.post('/', create_label);
-label_router.patch('/delete', delete_label);
+label_router.patch('/delete/:id', delete_label);
 label_router.get('/', get_all_labels);
 label_router.get('/by-contact/:id', get_labels_by_contact);
 
