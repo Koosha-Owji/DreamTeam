@@ -6,36 +6,36 @@
  */
 import axios from 'axios';
 
-// const API = axios.create({ baseURL: 'https://dream-team-crm-back.herokuapp.com' });
+const API = axios.create({ baseURL: 'https://dream-team-crm-back.herokuapp.com' });
 // const API = axios.create({
 //   baseURL: "http://localhost:5000",
 // });
 
-// API.interceptors.request.use((req) => {
-//   if (localStorage.getItem('profile')) {
-//     req.headers.Authorization = `Bearer ${JSON.parse(localStorage.getItem('profile')).token}`;
-//   }
-
-//   return req;
-// });
-
-const API = axios.create({ baseURL: "http://localhost:5000" });
-
 API.interceptors.request.use((req) => {
-  if (localStorage.getItem("profile")) {
-    req.headers.Authorization = `Bearer ${
-      JSON.parse(localStorage.getItem("profile")).token
-    }`;
+  if (localStorage.getItem('profile')) {
+    req.headers.Authorization = `Bearer ${JSON.parse(localStorage.getItem('profile')).token}`;
   }
 
   return req;
 });
 
-const noteURL = "http://localhost:5000/note";
-const meetingURL = "http://localhost:5000/meeting";
+// const API = axios.create({ baseURL: "http://localhost:5000" });
 
-// const noteURL = 'https://dream-team-crm-back.herokuapp.com/note';
-// const meetingURL = "https://dream-team-crm-back.herokuapp.com/meeting";
+// API.interceptors.request.use((req) => {
+//   if (localStorage.getItem("profile")) {
+//     req.headers.Authorization = `Bearer ${
+//       JSON.parse(localStorage.getItem("profile")).token
+//     }`;
+//   }
+
+//   return req;
+// });
+
+// const noteURL = "http://localhost:5000/note";
+// const meetingURL = "http://localhost:5000/meeting";
+
+const noteURL = 'https://dream-team-crm-back.herokuapp.com/note';
+const meetingURL = "https://dream-team-crm-back.herokuapp.com/meeting";
 
 // const noteURL = "http://localhost:5000/note";
 // const meetingURL = "http://localhost:5000/meeting";

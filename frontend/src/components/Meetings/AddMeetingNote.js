@@ -3,7 +3,6 @@ import Dialog from "@material-ui/core/Dialog";
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Note from "@material-ui/icons/Note";
-import NoteAdd from '@material-ui/icons/NoteAdd';
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { createNote, updateNote } from "../../actions/notes";
@@ -21,8 +20,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 var noteId;
-let newnoteId;
-// var icon = 'note';
 
 export default function AddMeetingNote({ id , meeting_title1}) {
   const dispatch = useDispatch();
@@ -90,38 +87,6 @@ export default function AddMeetingNote({ id , meeting_title1}) {
     setOpen(false);
   };
 
-  const checkNoteId = () => {
-     getMeetingNote(id)
-       .then((response) => {
-         if (response.data.length > 0) {
-           newnoteId = response.data[0]._id;
-         } else {
-           newnoteId = null;
-
-         }
-       })
-       .catch((error) => {
-         console.log(error);
-       });
-  }
-
-  // const handleIcon = () => {
-  //   checkNoteId();
-  //   if (noteId) {
-  //     icon = "edit";
-  //   } else {
-  //     icon = "add";
-  //   }
-  //   if (icon === "add") {
-  //     icon = <NoteAdd />;
-  //   }
-  //   if (icon === 'edit'){
-  //     icon = <Note />
-  //   }
-  // };
-
-  // handleIcon();
-  // checkNoteId();
   return (
     <div className={classes.root}>
       <div className={classes.deleteContact}>
@@ -131,15 +96,8 @@ export default function AddMeetingNote({ id , meeting_title1}) {
           aria-label="delete"
           onClick={handleClickOpen}
           style={{ display: "flex" }}
-          onLoad={checkNoteId()}
         >
-          {newnoteId ? (
-          <NoteAdd />
-          ) : (
             <Note />
-          )
-          }
-          {/* {icon} */}
         </Fab>
         <Dialog
           open={open}
