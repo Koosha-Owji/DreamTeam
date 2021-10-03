@@ -23,6 +23,7 @@ export default class CreateLabel extends Component {
         this.state = {
         title: '',
         colour:'',
+        hasSubmitted:false,
         }
       }
 
@@ -36,8 +37,10 @@ export default class CreateLabel extends Component {
 
         console.log(label);
         create_label(label);
-
-        window.location = '/home';
+        this.setState({
+          hasSubmitted:true
+        })
+        
       }
 
 

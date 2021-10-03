@@ -12,7 +12,7 @@ import auth  from '../middleware/auth.js'
 
 const contactRouter = express.Router();
 
-import { get_all_contacts, create_contact, delete_contact, update_contact, get_contact } 
+import { get_all_contacts, create_contact, delete_contact, update_contact, get_contact, label_contact, delabel_contact } 
 from "../controllers/contactController.js";
 
 contactRouter.get('/',auth, get_all_contacts);
@@ -24,6 +24,10 @@ contactRouter.get('/:id',auth, get_contact);
 contactRouter.post('/delete/:id',auth, delete_contact);
 
 contactRouter.patch('/update/:id',auth, update_contact);
+
+contactRouter.patch('/update/:contact_id/label/:label_id', label_contact);
+
+contactRouter.patch('/update/:contact_id/delabel/:label_id', delabel_contact);
 
 // export the router
 export default contactRouter;

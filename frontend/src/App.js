@@ -9,6 +9,7 @@ import Navbar from "./components/Navbar.component";
 import ContactsPage from "./components/contact/ContactPage.component";
 import NotesPage from "./components/Notes/NotePages";
 import ManageLabels from './components/label/ManageLabels.component';
+import OrderPage from './components/order/OrderPage.component';
 
 const App = () => {
   
@@ -25,6 +26,7 @@ const App = () => {
       <Route exact path="/contacts" component={ContactsPage} />
       <Route exact path="/user/notes" component= {NotesPage}/>
       <Route exact path="/label" component= {ManageLabels} />
+      <Route exact path="/orders" component= {OrderPage} />
       </div>
     </Router>
     </div>

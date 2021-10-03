@@ -1,22 +1,9 @@
 
 import React, {Component} from 'react';
-//import { makeStyles } from '@material-ui/core/styles';
-//import Typography from '@material-ui/core/Typography';
 import Chip from '@material-ui/core/Chip';
 import Grid from '@material-ui/core/Grid';
-import { get_labels_by_contact } from '../../api/index';
+import { get_labels_by_contact, delete_contact_label } from '../../api/index';
 
-/*const useStyles = makeStyles((theme) => ({
-    root: {
-      width: '100%',
-      margin: theme.spacing(1),
-    },
-    icon: {
-      verticalAlign: 'bottom',
-      height: 20,
-      width: 20,
-    }
-  }));*/
   
   export default class ContactLabel extends Component{
     constructor(props){
@@ -27,16 +14,21 @@ import { get_labels_by_contact } from '../../api/index';
 
   }
   componentDidMount() {
-    //axios.get('http://localhost:5000/contacts')
     console.log(this.contact_id)
     get_labels_by_contact(this.contact_id)
       .then(response => {
         this.setState({ labels: response.data })
       })
       .then(console.log(this.state.labels, 'labels received'))
-      .catch((error) => {
-        console.log(error);
-      })
+  }
+
+  unassignContactLabel=(label_id, id)=>{
+    delete_contact_label(label_id, id)
+    .then(response =>{  console.log(response.data)});
+    this.setState({
+      labels:this.state.labels.filter(el =>el._id !== id)
+    })
+    window.location = '/home';
   }
 
 
@@ -46,7 +38,7 @@ import { get_labels_by_contact } from '../../api/index';
         <Grid>
         <div key = {index} className ='labelListItem' style={{padding:'10px'}}>
           <Chip label={item.title} color={item.colour} variant="outlined" style ={{backgroundColor:`${item.colour}`}} 
-  onDelete={() => {}}/>
+            onDelete={() => this.unassignContactLabel(item._id, this.contact_id)}/>
         </div>
         </Grid>
       )

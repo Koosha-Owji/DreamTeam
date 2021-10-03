@@ -6,7 +6,7 @@
  */
 import axios from 'axios';
 
-const API = axios.create({ baseURL: 'https://dream-team-crm-back.herokuapp.com' });
+const API = axios.create({ baseURL: 'http://dream-team-crm-back.herokuapp.com/' });
 
 API.interceptors.request.use((req) => {
   if (localStorage.getItem('profile')) {
@@ -16,20 +16,20 @@ API.interceptors.request.use((req) => {
   return req;
 });
 
-const noteURL = 'https://dream-team-crm-back.herokuapp.com/note';
+const noteURL = 'http://dream-team-crm-back.herokuapp.com/note';
 
 export const signIn = (formData) => API.post('/user/signin', formData);
 export const signUp = (formData) => API.post('/user/signup', formData);
 
-export const create_contact = (newContact)=>API.post('/contact', newContact);
-export const get_all_contacts = () => API.get('/contact');
-export const delete_contact = (id)=>API.post(`/contact/delete/${id}`);
-export const update_contact = (id, contact) =>API.patch(`contact/update/${id}`, contact);
-export const get_contact =(id)=>API.get('/contact/:id');
+export const create_contact = (newContact)=>API.post('/contacts', newContact);
+export const get_all_contacts = () => API.get('/contacts/');
+export const delete_contact = (id)=>API.post(`/contacts/delete/${id}`);
+export const update_contact = (id, contact) =>API.patch(`contacts/update/${id}`, contact);
+export const get_contact =(id)=>API.get(`contacts/${id}`);
 
 //Takes in label id and contact
-export const add_contact_label=(id, contact)=>API.patch(`/label/${contact}`,id);
-export const delete_contact_label=(id, contact)=>API.patch(`/label/${contact}`, id);
+export const add_contact_label=(label_id, id)=>API.patch(`contacts/update/${id}/label/${label_id}`);
+export const delete_contact_label=(label_id, id)=>API.patch(`contacts/update/${id}/delabel/${label_id}`);
 export const get_labels_by_contact=(contact_id)=>API.get(`label/by-contact/${contact_id}`)
 
 export const create_label = (newLabel)=>API.post('/label', newLabel);

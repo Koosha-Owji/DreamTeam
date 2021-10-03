@@ -10,7 +10,6 @@ import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
-//import Typography from '@material-ui/core/Typography';
 import ContactList from './contactList.component';
 import AddContact from './addContact.component';
 import ManageLabel from './../label/ManageLabels.component';
@@ -86,11 +85,12 @@ export default function ContactsPage() {
   return (
     <div className={classes.root}>
         <div className = {classes.addContact}>
+          
             <Fab color="primary" aria-label="add" variant='extended' onClick={handleClickOpen1}>
               <AddIcon className={classes.extendedIcon}/>
                 Add New Contact
             </Fab>
-            <Dialog open={open1} onClose={handleClose1} aria-labelledby="form-dialog-title">
+           <Dialog open={open1} onClose={handleClose1} aria-labelledby="form-dialog-title">
               <DialogTitle id="form-dialog-title">Add a new contact</DialogTitle>
             <AddContact />
             </Dialog>
