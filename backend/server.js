@@ -40,6 +40,7 @@ import cors from 'cors';
 import userRouter from "./routes/user.js";
 import contactRouter from "./routes/contactRouter.js"
 import noteRouter from "./routes/note.js";
+import emailRouter from "./routes/email.js";
 import labelRouter from "./routes/label.js";
 import orderRouter from "./routes/orderRouter.js";
 
@@ -52,6 +53,7 @@ app.use(cors());
 app.use("/user", userRouter);
 app.use("/contacts", contactRouter);
 app.use("/note", noteRouter);
+app.use("/email",emailRouter);
 app.use("/label", labelRouter);
 app.use("/orders", orderRouter)
 
