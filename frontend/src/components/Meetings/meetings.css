@@ -1,0 +1,142 @@
+.add_button {
+    float: right;
+    margin-right: 20px;
+    
+}
+
+
+.meetings {
+    background-color: #FFFFFF;
+    margin: 2%;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0px 3px 10px #707070;
+    /* padding: 10px; */
+    min-height: auto;
+    min-width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.meetingList {
+    display: flex;
+    flex-flow: row wrap;
+    width: 100%;
+    
+    /* grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); */
+    justify-content: space-around;
+}
+
+.meeting_container {
+    width: 100%;
+    float: left;
+    /* margin-right: auto;
+    margin-left: auto; */
+    padding-right: 10px;
+    padding-left: 10px;
+    min-height: 100vh;
+}
+
+.boxes{
+    float:left;
+    width: 25%;
+    height: auto;
+}
+
+.icon_box1 {
+    float: left;
+    margin-left: 50px;
+    margin-top: 30px;
+    width: fit-content;
+    height: auto;
+}
+
+.icon_boxes{
+    float: left;
+    margin-left: 25px;
+    margin-top:30px;
+    width: fit-content;
+    height: auto;
+}
+
+
+div.switch_container {
+    align-items: center;
+    margin: 41px 380px;
+    margin-bottom: 0px;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 700px;
+    height: 45px;
+    cursor: pointer;
+}
+
+.switch input {
+    display: none;
+}
+
+div.slider {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #cccccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+    border-radius: 10px;
+}
+
+div.slider:before {
+    position: absolute;
+    content: "";
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 350px;
+    height: 44px;
+    bottom: 2px;
+    background-color: #2ab934;
+    -webkit-transition: .4s;
+    transition: .4s;
+    border-radius: 8px;
+}
+
+input:checked+div.slider:before {
+    -webkit-transform: translateX(+350px);
+    -ms-transform: translateX(+350px);
+    transform: translateX(+350px);
+    background-color: #707070;
+}
+
+.upcoming,
+.past {
+    color: #FFFFFF;
+    position: absolute;
+    top: 8px;
+    font-size: 16px;
+}
+
+.upcoming {
+    left: 18%;
+}
+
+.past {
+    left: auto;
+    right: 22%;
+}
+
+.addMeeting {
+    margin-top: 30px;
+    float: right;
+    padding:'10px';
+}
+
+ul {
+    list-style-type: none;
+}
