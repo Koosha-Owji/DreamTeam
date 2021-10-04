@@ -30,6 +30,16 @@ export const updateMeeting = (id, meeting) => async (dispatch) => {
   }
 };
 
+export const markCompleted = (id, meeting) => async (dispatch) => {
+  try {
+    const { data } = await api.markCompleted(id, meeting);
+
+    dispatch({ type: "UPDATE", payload: data });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
 export const deleteMeeting = (id) => async (dispatch) => {
   try {
     await api.deleteMeeting(id);

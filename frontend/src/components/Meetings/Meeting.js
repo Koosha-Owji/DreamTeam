@@ -5,6 +5,7 @@ import Update from '@material-ui/icons/Update'
 import React from 'react';
 import "./meetings.css"
 import DeleteMeeting from './DeleteMeeting';
+import MeetingCompleted from './MeetingCompleted';
 
 const Meeting = ({meeting, setCurrentId}) => {
     var date_time;
@@ -79,7 +80,10 @@ const Meeting = ({meeting, setCurrentId}) => {
                 aria-label="delete"
                 style={{ display: "flex" }}
               >
-                <AddMeetingNote id={meeting._id} meeting_title1 = {meeting.title} />
+                <AddMeetingNote
+                  id={meeting._id}
+                  meeting_title1={meeting.title}
+                />
               </Fab>
             </div>
             <div className="icon_boxes">
@@ -89,6 +93,15 @@ const Meeting = ({meeting, setCurrentId}) => {
                 style={{ display: "flex" }}
               >
                 <DeleteMeeting id={meeting._id} />
+              </Fab>
+            </div>
+            <div className="icon_boxes">
+              <Fab
+                color="primary"
+                aria-label="delete"
+                style={{ display: "flex" }}
+              >
+                <MeetingCompleted meeting={meeting} />
               </Fab>
             </div>
           </li>

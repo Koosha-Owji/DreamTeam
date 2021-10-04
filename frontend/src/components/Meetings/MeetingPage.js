@@ -71,6 +71,7 @@ function MeetingPage() {
 
   const setMeetingList = (meetingType) => {
     const current = new Date();
+    current.setSeconds(59);
 
     if (meetingType === "upcoming") {
       meetingsList.forEach((element) => {

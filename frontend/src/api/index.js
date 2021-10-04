@@ -4,48 +4,20 @@
  * The University of Melbourne
  * Implemented by DreamTeam: Anagha Giri, Koosha Owji, Chirag Singh, Olivia Ryan, Natasha Ireland
  */
-import axios from "axios";
+import axios from 'axios';
 
-// const API = axios.create({ baseURL: 'https://dream-team-crm-back.herokuapp.com' });
-// const API = axios.create({
-//   baseURL: "http://localhost:5000",
-// });
-
-
-
-const API = axios.create({ baseURL: "http://localhost:5000" });
-// const newAPI = axios.create({
-//   baseURL: "https://dream-team-crm-back.herokuapp.com",
-// });
-
-// newAPI.interceptors.request.use((req) => {
-//   if (localStorage.getItem("profile")) {
-//     req.headers.Authorization = `Bearer ${
-//       JSON.parse(localStorage.getItem("profile")).token
-//     }`;
-//   }
-// 
-//   return req;
-// });
+const API = axios.create({ baseURL: 'http://localhost:5000/' });
 
 API.interceptors.request.use((req) => {
-  if (localStorage.getItem("profile")) {
-    req.headers.Authorization = `Bearer ${
-      JSON.parse(localStorage.getItem("profile")).token
-    }`;
+  if (localStorage.getItem('profile')) {
+    req.headers.Authorization = `Bearer ${JSON.parse(localStorage.getItem('profile')).token}`;
   }
 
   return req;
 });
 
-const noteURL = "http://localhost:5000/note";
+const noteURL = 'http://localhost:5000/note';
 const meetingURL = "http://localhost:5000/meeting";
-
-// const noteURL = 'https://dream-team-crm-back.herokuapp.com/note';
-// const meetingURL = "https://dream-team-crm-back.herokuapp.com/meeting";
-
-// const noteURL = "http://localhost:5000/note";
-// const meetingURL = "http://localhost:5000/meeting";
 
 export const signIn = (formData) => API.post("/user/signin", formData);
 export const signUp = (formData) => API.post("/user/signup", formData);
@@ -93,6 +65,8 @@ export const createMeeting = (userText, history) =>
 export const deleteMeeting = (id) => API.delete(`${meetingURL}/delete/${id}`);
 export const updateMeeting = (id, updatedMeeting) =>
   API.patch(`${meetingURL}/update/${id}`, updatedMeeting);
+export const markCompleted = (id, updatedMeeting) =>
+  API.patch(`${meetingURL}/mark_completed/${id}`, updatedMeeting);
 
 export const sendEmail = (formData) => API.post("/email/send", formData);
 export const linkEmail = (formData) => API.post("email/link", formData);

@@ -219,9 +219,34 @@ export const update_meeting = async (req, res) => {
     // return the update note
     return res.json(meeting);
   } catch (err) {
-    res.status(500).json({ message: "Note update failed" });
+    res.status(500).json({ message: "Meeting update failed" });
   }
 };
+
+export const mark_as_completed = async (req, res) => {
+  try {
+    const date = new getDate(req.body.date, req.body.time);
+    await meetingModel
+      .findByIdAndUpdate(req.params.id, {
+        date_time: date,
+        date: req.body.date,
+        time: req.body.time,
+      })
+      .exec();
+
+    // get the updated version
+    const meeting = await meetingModel.findById(req.params.id).exec();
+
+    // check that the note exists
+    if (!meeting) return res.json("Meeting does not exist");
+
+    // return the update note
+    return res.json(meeting);
+  } catch (err) {
+    res.status(500).json({ message: "Meeting update failed" });
+  }
+
+}
 
 // insert and elem into array if elem is not already an element of array
 function insert(array, elem) {
