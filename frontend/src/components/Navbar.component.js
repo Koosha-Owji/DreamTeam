@@ -24,7 +24,7 @@ import Google from './Email/Google.component';
 import ProfilePage from './profile/ProfilePage.component';
 import ContactsPage from './contact/contactList.component';
 import OrderPage from './order/OrderList.component';
-import MeetingPage from './Meetings/MeetingPage'
+import MeetingPage from './Meetings/MeetingPage.js'
 
 
 function TabPanel(props) {

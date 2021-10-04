@@ -16,6 +16,8 @@ API.interceptors.request.use((req) => {
   return req;
 });
 
+const meetingURL = 'http://localhost:5000/meeting';
+
 const noteURL = 'http://localhost:5000/note';
 
 export const signIn = (formData) => API.post('/user/signin', formData);
@@ -47,6 +49,17 @@ export const createNote = (userText, history) => API.post('/note/add', userText,
 export const get_allNotes = () => API.get('note/get_all');
 export const updateNote = (id, updatedNote) => API.patch(`${noteURL}/update/${id}`, updatedNote);
 export const deleteNote = (id) => API.delete(`${noteURL}/delete/${id}`);
+export const getMeetingNote = (id) =>
+  API.get(`${noteURL}/get_meeting_note/${id}`);
+
+export const getAllMeetings = () => API.get("/meeting/get_all");
+export const createMeeting = (userText, history) =>
+  API.post("/meeting/create", userText, history);
+export const deleteMeeting = (id) => API.delete(`${meetingURL}/delete/${id}`);
+export const updateMeeting = (id, updatedMeeting) =>
+  API.patch(`${meetingURL}/update/${id}`, updatedMeeting);
+export const markCompleted = (id, updatedMeeting) =>
+  API.patch(`${meetingURL}/mark_completed/${id}`, updatedMeeting);
 
 export const sendEmail = (formData) => API.post("/email/send", formData);
 export const linkEmail = (formData) => API.post("email/link", formData);
