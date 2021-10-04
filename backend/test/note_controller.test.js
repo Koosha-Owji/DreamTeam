@@ -3,7 +3,7 @@ import {
   create_note,
   delete_note,
   get_all_notes,
-} from "../controllers/noteController.js";
+} from "../controllers/note.js";
 import noteModel from "../models/note.js";
 const require = createRequire(import.meta.url);
 
