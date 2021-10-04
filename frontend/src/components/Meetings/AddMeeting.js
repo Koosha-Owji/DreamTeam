@@ -15,7 +15,7 @@ function AddMeeting({ handleSubmit, currentId, setCurrentId }) {
   const [meetingData, setMeetingData] = useState({
     title: "",
     agenda: "",
-    attendees: "",
+    non_contact_attendees: "",
     time: "",
     date: "",
     attendeeContact: "",
@@ -34,7 +34,7 @@ function AddMeeting({ handleSubmit, currentId, setCurrentId }) {
         ...meetingData,
         title: meeting.title,
         agenda: meeting.agenda,
-        attendees: meeting.attendees,
+        non_contact_attendees: meeting.non_contact_attendees.join(),
         time: meeting.time,
         date: meeting.date,
       });
@@ -63,31 +63,31 @@ function AddMeeting({ handleSubmit, currentId, setCurrentId }) {
     }
   };
 
-  const handleContacts = () => {
-    get_all_contacts()
-      .then((response) => {
-        this.setMeetingData({ Contacts: response.data });
-      })
-      .then(console.log("Contacts received"))
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+  // const handleContacts = () => {
+  //   get_all_contacts()
+  //     .then((response) => {
+  //       this.setMeetingData({ Contacts: response.data });
+  //     })
+  //     .then(console.log(meetingData.Contacts))
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // };
 
-  const displayLabelDropdown = () => {
-    handleContacts();
-    if (!meetingData.Contacts.length) return null;
-    return meetingData.Contacts.map((label, index) => (
-      <MenuItem
-        value={label._id}
-        style={{ backgroundColor: `${label.colour}` }}
-      >
-        {label.title}
-      </MenuItem>
-    ));
-  };
+  // const displayLabelDropdown = () => {
+  //   handleContacts();
+  //   if (!meetingData.Contacts.length) return null;
+  //   return meetingData.Contacts.map((label, index) => (
+  //     <MenuItem
+  //       value={label._id}
+  //       style={{ backgroundColor: `${label.colour}` }}
+  //     >
+  //       {label.title}
+  //     </MenuItem>
+  //   ));
+  // };
 
-  handleContacts();
+  // handleContacts();
 
   return (
     <Container component="main" maxWidth="xs">
@@ -123,9 +123,9 @@ function AddMeeting({ handleSubmit, currentId, setCurrentId }) {
           label="Attendees"
           type="contacts"
           fullWidth
-          value={meetingData.attendees}
+          value={meetingData.non_contact_attendees}
           onChange={(e) =>
-            setMeetingData({ ...meetingData, attendees: e.target.value })
+            setMeetingData({ ...meetingData, non_contact_attendees: e.target.value })
           }
         ></TextField>
         <TextField
@@ -152,9 +152,9 @@ function AddMeeting({ handleSubmit, currentId, setCurrentId }) {
             setMeetingData({ ...meetingData, date: e.target.value })
           }
         ></TextField>
-        {handleContacts}
+        {/* {handleContacts}
         <FormControl fullWidth variant="standard" sx={{ m: 1, minWidth: 120 }}>
-          <InputLabel id="demo-simple-select-filled-label">Label</InputLabel>
+          <InputLabel id="demo-simple-select-filled-label">Contact Attendees</InputLabel>
           <Select
             labelId="demo-simple-select-filled-label"
             id="demo-simple-select-filled"
@@ -171,7 +171,7 @@ function AddMeeting({ handleSubmit, currentId, setCurrentId }) {
             </MenuItem>
             {displayLabelDropdown()}
           </Select>
-        </FormControl>
+        </FormControl> */}
 
         <div className="note_footer">
           <Button className="Add to contacts" onClick={handleSaveClick}>

@@ -5,7 +5,8 @@ const meetingSchema = mongoose.Schema({
     date_time : {type: Date, required: true},
     title: {type: String, required: true},
     agenda:  {type: String, required: false},
-    attendees: {type: String, required: false}, // stores contact ids  had default: '' or []
+    non_contact_attendees: {type: [String], required: false},
+    // contact_attendees: {type : [], required: false},
     user_id: {type: String, required: true},
     date: {type: String, required: true},
     time: {type:String, required: true}

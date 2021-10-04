@@ -6,9 +6,6 @@ import React from 'react';
 import "./meetings.css"
 import DeleteMeeting from './DeleteMeeting';
 
-
-
-
 const Meeting = ({meeting, setCurrentId}) => {
     var date_time;
     
@@ -29,6 +26,12 @@ const Meeting = ({meeting, setCurrentId}) => {
         // return date_time.toLocaleTimeString();
         // return date_time.toTimeString();
         return strTime;
+    }
+
+    const getNonContactAttendees = () => {
+      if (meeting.non_contact_attendees){
+        return (meeting.non_contact_attendees.map((attendee) => <p>{attendee}</p>));
+      }
     }
    
     return (
@@ -57,7 +60,7 @@ const Meeting = ({meeting, setCurrentId}) => {
             </div>
 
             <div className="boxes">
-              <p>{meeting.attendees}</p>
+              <p>{getNonContactAttendees()}</p>
             </div>
 
             <div className="icon_box1">

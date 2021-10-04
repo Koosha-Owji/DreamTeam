@@ -120,7 +120,7 @@ export default function AddMeetingNote({ id , meeting_title1}) {
             <textarea
               rows="8"
               cols="10"
-              placeholder="Type to add new note"
+              placeholder="Type to add new note*"
               name="content"
               value={noteText.content}
               onChange={(e) =>
