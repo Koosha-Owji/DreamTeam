@@ -62,7 +62,7 @@ function MeetingPage() {
       handleClickOpen();
     }
     // console.log("CurrentID changed");
-  }, [currentId]);
+  }, [currentId,meeting]);
 
   const [meetingType, setMeetingType] = React.useState("upcoming");
   const handleMeetingTypeChange = (event, meetingType) => {

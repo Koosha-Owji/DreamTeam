@@ -20,6 +20,7 @@ function AddMeeting({ handleSubmit, currentId, setCurrentId }) {
     date: "",
     attendeeContact: "",
     Contacts: [],
+    count: ""
   });
   const dispatch = useDispatch();
 
@@ -30,16 +31,16 @@ function AddMeeting({ handleSubmit, currentId, setCurrentId }) {
   // everytime someone clicks edit, change the add note to edit the current note
   useEffect(() => {
     if (meeting) {
-      setMeetingData({
+      setMeetingData(meetingData=>({
         ...meetingData,
         title: meeting.title,
         agenda: meeting.agenda,
         non_contact_attendees: meeting.non_contact_attendees.join(),
         time: meeting.time,
         date: meeting.date,
-      });
+      }));
     }
-  }, [currentId]);
+  }, [currentId,meetingData.count,meeting]);
 
   const handleSaveClick = (e) => {
     e.preventDefault();
