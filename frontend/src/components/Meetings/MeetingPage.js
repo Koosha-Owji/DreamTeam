@@ -73,27 +73,29 @@ function MeetingPage() {
     const current = new Date();
     current.setSeconds(59);
 
-    if (meetingType === "upcoming") {
-      meetingsList.forEach((element) => {
-        if (current <= new Date(element.date_time)) {
-          meetingList1.push(element);
-        }
-      });
-      sortedMeetings = meetingList1
-        .slice()
-        .sort((a, b) => new Date(a.date_time) - new Date(b.date_time));
-    }
+    if (Array.isArray(meetingsList)){
+      if (meetingType === "upcoming") {
+        meetingsList.forEach((element) => {
+          if (current <= new Date(element.date_time)) {
+            meetingList1.push(element);
+          }
+        });
+        sortedMeetings = meetingList1
+          .slice()
+          .sort((a, b) => new Date(a.date_time) - new Date(b.date_time));
+      }
 
-    if (meetingType === "past") {
-      meetingsList.forEach((element) => {
-        if (current > new Date(element.date_time)) {
-          meetingList1.push(element);
-        }
-      });
-      sortedMeetings = meetingList1
-        .slice()
-        .sort((a, b) => new Date(b.date_time) - new Date(a.date_time));
-    }
+      if (meetingType === "past") {
+        meetingsList.forEach((element) => {
+          if (current > new Date(element.date_time)) {
+            meetingList1.push(element);
+          }
+        });
+        sortedMeetings = meetingList1
+          .slice()
+          .sort((a, b) => new Date(b.date_time) - new Date(a.date_time));
+      }
+    }    
   };
 
   setMeetingList(meetingType);

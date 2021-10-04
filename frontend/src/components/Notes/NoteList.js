@@ -2,7 +2,8 @@ import Note from './Note'
 
 const NoteList = ({notes , handleDeleteNote, setCurrentId}) => {
     return !Array.isArray(notes) ? (
-      "you have no notes"
+      <tr>You have No Notes!
+        Create one using New Note</tr>
     ) : (
       <div className="noteList">
         {notes.map((note) => (
