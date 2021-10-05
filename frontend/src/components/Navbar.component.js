@@ -1,4 +1,4 @@
-import React, { useState, useEffect,useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -10,17 +10,16 @@ import PermContactCalendarIcon from '@material-ui/icons/PermContactCalendar';
 import EmailIcon from '@material-ui/icons/Email';
 import TodayIcon from '@material-ui/icons/Today';
 import NoteIcon from '@material-ui/icons/Note';
-import WorkIcon from '@material-ui/icons/Work';
+import PersonIcon from '@material-ui/icons/Person';
 import ExitToAppOutlinedIcon from '@material-ui/icons/ExitToAppOutlined';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import decode from 'jwt-decode';
 import NotePages from './Notes/NotePages';
-import Google from './Email/Google.component';
-
+import ProfilePage from './profile/ProfilePage.component';
 import ContactsPage from './contact/ContactPage.component';
-import OrderPage from './order/OrderPage.component';
-import MeetingPage from './Meetings/MeetingPage'
+import Dialog from '@material-ui/core/Dialog';
+import Slide from '@material-ui/core/Slide';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -62,7 +61,9 @@ const useStyles = makeStyles((theme) => ({
     color:'sky-blue'
   },
 }));
-
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 export default function TabsWrappedLabel() {
   const classes = useStyles();
   const [value, setValue] = React.useState('one');
@@ -70,13 +71,14 @@ export default function TabsWrappedLabel() {
   const dispatch = useDispatch();
   const location = useLocation();
   const history = useHistory();
-  const logout = useCallback(() => {
+  const [open, setOpen] = React.useState(false);
+  const logout = () => {
     dispatch({ type: 'LOGOUT' });
 
     history.push('/user');
 
     setUser(null);
-  },[dispatch,history])
+  };
   useEffect(() => {
     const token = user?.token;
 
@@ -86,41 +88,46 @@ export default function TabsWrappedLabel() {
       if (decodedToken.exp * 4000 < new Date().getTime())logout();
     }
     setUser(JSON.parse(localStorage.getItem('profile')));
-  }, [location,user?.token,logout]);
+  }, [location,user?.token]);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setValue('one');
+    setOpen(false);
+  };
 
   return (
     <div className={classes.root} >
+      <Dialog open={open} TransitionComponent={Transition}
+        keepMounted onClose={handleClose} aria-labelledby="form-dialog-title" fullWidth maxWidth="xs">
+            <ProfilePage/>  
+        </Dialog>
       <AppBar position="static">
         <Tabs value={value} onChange={handleChange} aria-label="wrapped label tabs example" centered >
           <Tab value="one" label="Contacts" icon= {<PermContactCalendarIcon/>}wrapped {...a11yProps('one')}/>
           <Tab value="two" label="Emails" icon= {<EmailIcon/>} {...a11yProps('two')}/>
           <Tab value="three" label="Calendar" icon= {<TodayIcon/>} {...a11yProps('three')} />
           <Tab value="four" label="Notes" icon= {<NoteIcon/>} {...a11yProps('four')} />
-          <Tab value="five" label="Orders" icon= {<WorkIcon/>} {...a11yProps('five')} />
-          <Tab value="six" label="LogOut" to='/' component={Link}  icon= {<ExitToAppOutlinedIcon/>} onClick={logout} {...a11yProps('five')}/>
+          <Tab value="five" label="Profile" icon= {<PersonIcon/>} onClick={handleClickOpen} {...a11yProps('five')} />
+          <Tab value="six" label="LogOut" to='/' component={Link}  icon= {<ExitToAppOutlinedIcon/>} onClick={logout} {...a11yProps('six')}/>
         </Tabs>
       </AppBar>
       <TabPanel value={value} index="one">
         <ContactsPage/>
       </TabPanel>
       <TabPanel value={value} index="two">
-        <Google/>
+        Item Two
       </TabPanel>
       <TabPanel value={value} index="three">
-        <MeetingPage/>
       </TabPanel>
       <TabPanel value={value} index="four">
         <NotePages/>
-      </TabPanel>
-      <TabPanel value={value} index="five">
-      <OrderPage/>
-      </TabPanel>
-      <TabPanel value={value} index="six">
-        Bye
       </TabPanel>
     </div>
   );
