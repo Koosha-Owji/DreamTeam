@@ -1,17 +1,18 @@
-import React,{useState} from 'react';
+import React,{ useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
-import {Component} from 'react';
-import Typography from '@material-ui/core/Typography';
+// import {Component} from 'react';
+// import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
+//import Box from '@material-ui/core/Box';
 import ProfileCard from './ProfileCard.component.js';
 
 
 export default function ProfilePage() {
   const classes = useStyles();
   const profile = useState(JSON.parse(localStorage.getItem('profile')));
-  const user = useState(profile[0].result);
+  const user = useState(profile[0]);
+
   // const user = {
   //   first_name: "Hubert", 
   //   last_name: "Wolfeschlegelstein", 
@@ -22,7 +23,7 @@ export default function ProfilePage() {
 
 
   return (
-    <div>
+    <div className={classes.root}>
       <Grid container justifyContent = 'center'>
       <Grid item xs={12}>
       <ProfileCard user={user}/>

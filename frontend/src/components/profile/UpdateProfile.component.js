@@ -10,9 +10,10 @@ import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 
 import { useState, useEffect } from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-import { FormLabel, Typography } from '@material-ui/core';
+import {useDispatch, /*useSelector*/} from 'react-redux';
+//import { FormLabel, Typography } from '@material-ui/core';
 import { update_user } from '../../actions/user';
+import { useHistory } from 'react-router-dom';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -34,46 +35,46 @@ const useStyles = makeStyles((theme) => ({
 //const  UpdateProfile=({profile})=> {
 const  UpdateProfile=({profile})=> {
     const classes = useStyles();
-
+    const history = useHistory();
 
     const dispatch = useDispatch();
-
     const [profileDetails, setProfileDetails]=useState({
         first_name: '',
         last_name: '',
         department: '',
         role: '',
-        email_address:''
+        email_address:'',
+        email_service: profile.result.email_service,
+        password: profile.result.password,
+        refresh_token: profile.result.refresh_token,
+        _id: profile.result._id,
+        count:''
     });
 
     //const contact = useSelector((state) => currId ? allContacts.find((n) => n._id === currId) : null);
 
-    console.log(profile);
 
     const [open, setOpen] = React.useState(false);
     
-
     useEffect(() => {
         if (profile){
-            setProfileDetails({
+            setProfileDetails(profileDetails=>({
                 ...profileDetails,
-                first_name: profile.first_name, 
-                last_name: profile.last_name,
-                email_address: profile.email_address,
-                department: profile.department,
-                role: profile.role
+                first_name: profile.result.first_name, 
+                last_name: profile.result.last_name,
+                email_address: profile.result.email_address,
+                department: profile.result.department,
+                role: profile.result.role
 
-            })
+            }));
         }
-    }, //[currId]
+    },[profile,profileDetails.count]
     )
 
     const handleSaveClick = (event) => {
-        console.log(profileDetails);
         if (profileDetails){
-            
-            dispatch (update_user(profileDetails))
-            window.location.reload(true);
+            event.preventDefault();
+            dispatch (update_user(profileDetails,history))
             handleClose();
         }
 
@@ -152,8 +153,7 @@ const  UpdateProfile=({profile})=> {
                     ></TextField>
                     
                     <div className = 'note_footer'>
-                        {/* <Button className = "Save user update" onClick={handleSaveClick}>Save changes</Button> */}
-                        <Button className = "Save user update" >Save changes</Button>
+                        <Button className = "Save user update" onClick={handleSaveClick} >Save changes</Button>
                     </div>
                 </Container>
                 

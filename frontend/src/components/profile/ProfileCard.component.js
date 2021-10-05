@@ -8,15 +8,15 @@ import CardContent from '@material-ui/core/CardContent';
 // import Collapse from '@mui/material/Collapse';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
-import { red, grey, cyan } from '@material-ui/core/colors';
+import { cyan } from '@material-ui/core/colors';
 // import FavoriteIcon from '@mui/icons-material/Favorite';
 // import ShareIcon from '@mui/icons-material/Share';
 // import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 // import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { makeStyles } from '@material-ui/core/styles';
-import UpdateIcon from '@material-ui/icons/Update';
-import Fab from '@material-ui/core/Fab';
-import Grid from '@material-ui/core/Grid';
+// import UpdateIcon from '@material-ui/icons/Update';
+// import Fab from '@material-ui/core/Fab';
+// import Grid from '@material-ui/core/Grid';
 import Update from './UpdateProfile.component';
 
 const useStyles = makeStyles({
@@ -26,7 +26,8 @@ const useStyles = makeStyles({
   })
 export default function ProfileCard({user}) {
     //const [expanded, setExpanded] = React.useState(false);
-    const name = user[0].first_name + " " + user[0].last_name;
+    const user1 = user[0];
+    const name = user1.result.first_name + " " + user1.result.last_name;
     const classes = useStyles()
 
     return (
@@ -44,7 +45,7 @@ export default function ProfileCard({user}) {
                     //     <UpdateIcon/>
                     // </Fab>
                     //<Grid item xs={1} textA>
-                    <Update profile={user}/>
+                    <Update profile={user1}/>
                     //</Grid>
                 }
                 titleTypographyProps={{variant:'h5', align:"left"  }}
@@ -58,13 +59,13 @@ export default function ProfileCard({user}) {
                 </Typography> */}
                 {/* <Typography mt={2} sx={{ mb: 1.5}} variant="caption text" color="text.secondary"> */}
                 <Typography variant="subtitle1" align="left">
-                Email Address: {user[0].email_address}
+                Email Address: {user1.result.email_address}
                 </Typography>
                 <Typography mt={10} variant="subtitle1" align="left" color="text.secondary">
-                Department: {user[0].department}
+                Department: {user1.result.department}
                 </Typography>
                 <Typography mt={2} variant="subtitle1" align="left" color="text.secondary">
-                Role: {user[0].role}
+                Role: {user1.result.role}
                 </Typography>
             </CardContent>
         </Card>

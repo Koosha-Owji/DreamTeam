@@ -46,3 +46,26 @@ export const signup = async (req, res) => {
     console.log(error);
   }
 };
+export const update = async (req,res)=>{
+    try {
+      const token = req.headers.authorization.split(" ")[1];
+      if (!req.user_id)
+      return res.status(400).json({ message: "User doesn't exist" });
+
+      await UserModel
+      .findByIdAndUpdate(req.user_id, {
+        first_name: req.body.first_name,
+        last_name: req.body.last_name,
+        email_address: req.body.email_address,
+        department: req.body.department,
+        role: req.body.role
+      })
+      .exec();
+      const result = await UserModel.findOne({ _id: req.user_id});
+      if(!result) return res.status(400).json({ message: "User doesn't exist" });
+
+      return res.json({result,token});      
+    } catch (error) {
+      res.status(500).json({ message: "User update failed" });
+    }
+};
