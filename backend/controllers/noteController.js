@@ -25,14 +25,20 @@ export const create_note = async (req, res) => {
     if (!user) return res.status(400).json({ message: "User doesn't exist" });
 
     // Create the note and save it to the database
-    const newNote = noteModel.create({ ...req.body, user_id: req.user_id });
+    if (req.body.content){
+      const newNote = noteModel.create({ ...req.body, user_id: req.user_id });
     (await newNote)
       .save()
       .then((newNote) => res.json(newNote))
       .catch((err) => res.status(400).json(err));
-  } catch (error) {
+    } else {
+      return res.status(200).json({ message: "Note does not have any Content" });
+    }
+} 
+  catch (error) {
     res.status(500).json({ message: "Note creation failed" });
   }
+  
 };
 
 /**
@@ -46,7 +52,7 @@ export const delete_note = async (req, res) => {
     await noteModel.deleteOne({
       _id: req.params.id,
     });
-
+    
     return res
       .status(200)
       .send("Successfully deleted note (or note does not exist)");
@@ -94,8 +100,7 @@ export const get_one_note = async (req, res) => {
 
 export const get_one_note_by_meeting = async (req, res) => {
   try {
-    const note = await noteModel.find({ meeting_id: req.params.id }).exec();
-
+    const note = await noteModel.findOne({ meeting_id: req.params.id }).exec();
     // check that the note exists
     if (!note) return res.json(null);
     // if the note exists, return it

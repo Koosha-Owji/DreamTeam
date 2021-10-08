@@ -5,38 +5,34 @@ var expect = require("chai").expect;
 import app from "../server.js";
 var request = require("supertest");
 
-var app1 = 'http://localhost:5000'
+describe("Notes Page", function () {
+  var token;
+  var authenticatedUser = request.agent(app);
 
-//let's set up the data we need to pass to the login method
+  var note_to_delete_id;
 
-describe("Notes Page", function () { 
+  before(function (done) {
+    const userCredentials = {
+      email_address: "test@test.com",
+      password: "test",
+    };
 
-  describe("GET /notes/get_all", function () {
+    var user_id = "612f26232f5742b8e89cb522";
 
-    var token;
-    var authenticatedUser = request.agent(app);
+    //Log in a user Using UserCredentials
+    this.timeout(10000);
+    authenticatedUser
+      .post("/user/signin")
+      .send(userCredentials)
+      .end(function (err, response) {
+        expect(response.body.result._id).to.equal(user_id);
+        expect(response.statusCode).to.equal(200);
+        token = response.body.token;
+        done();
+      });
+  });
 
-    before(function (done) {
-      const userCredentials = {
-        email_address: "test@test.com",
-        password: "test",
-      };
-
-      var user_id = "612f26232f5742b8e89cb522";
-
-      this.timeout(10000);
-      authenticatedUser
-        .post("/user/signin")
-        .send(userCredentials)
-        .end(function (err, response) {
-          expect(response.body.result._id).to.equal(user_id);
-          expect(response.statusCode).to.equal(200);
-          token = response.body.token;
-          done();
-        });
-    });
-
-    //addresses 1st bullet point: if the user is logged in we should get a 200 status code
+  describe("GET /note/get_all", function () {
     it("should return a 200 response if the user is logged in", function (done) {
       authenticatedUser
         .get("/note/get_all")
@@ -44,233 +40,158 @@ describe("Notes Page", function () {
         .expect(200);
       done();
     });
-    
+
+    // CANT TEST DUE TO THE SPLIT ISSUE?
+    // it("should return a 302 response and redirect to /login", function (done) {
+    //   request(app)
+    //     .get("/note/get_all")
+    //     .set("authorization", `Bearer ${1234}`)
+    //     .expect("Location", "/login")
+    //     .expect(302, done);
+    // });
   });
 
+  describe("POST /note/add", function () {
+    it("It should create a new Note", (done) => {
+      const note = {
+        title: "Test",
+        content: "Test Content",
+      };
+      authenticatedUser
+        .post("/note/add")
+        .send(note)
+        .set("authorization", `Bearer ${token}`)
+        .end((err, response) => {
+          note_to_delete_id = response.body._id;
+          expect(response.statusCode).to.equal(200);
+          expect(response.body.title).to.equal(note.title);
+          expect(response.body.content).to.equal(note.content);
+          done();
+        });
+    });
 
+    it("It should Create a new Note when the content is empty", (done) => {
+      const note = {
+        title: "Test",
+      };
+      authenticatedUser
+        .post("/note/add")
+        .send(note)
+        .set("authorization", `Bearer ${token}`)
+        .end((err, response) => {
+          expect(response.statusCode).to.equal(200);
+          expect(response.body.message).to.equal(
+            "Note does not have any Content"
+          );
+          done();
+        });
+    });
+  });
 
+  describe("PATCH /note/update/:id", function () {
+    it("It should PATCH an existing note", (done) => {
+      const note = {
+        title: "Test Edit",
+        content: "Test Edit",
+      };
+      authenticatedUser
+        .patch("/note/update/" + note_to_delete_id)
+        .send(note)
+        .set("authorization", `Bearer ${token}`)
+        .end((err, response) => {
+          expect(response.statusCode).to.equal(200);
+          expect(response.body.title).to.equal(note.title);
+          expect(response.body.content).to.equal(note.content);
+          done();
+        });
+    });
 
+    it("It should PATCH an existing note with change in only content", (done) => {
+      const note = {
+        title: "Test Edit",
+        content: "Test Edit 2",
+      };
+      authenticatedUser
+        .patch("/note/update/" + note_to_delete_id)
+        .send(note)
+        .set("authorization", `Bearer ${token}`)
+        .end((err, response) => {
+          expect(response.statusCode).to.equal(200);
+          expect(response.body.title).to.equal(note.title);
+          expect(response.body.content).to.equal(note.content);
+          done();
+        });
+    });
 
+    it("It should PATCH an existing note with change in only title", (done) => {
+      const note = {
+        title: "Test Edit 2",
+        content: "Test Edit 2",
+      };
+      authenticatedUser
+        .patch("/note/update/" + note_to_delete_id)
+        .send(note)
+        .set("authorization", `Bearer ${token}`)
+        .end((err, response) => {
+          expect(response.statusCode).to.equal(200);
+          expect(response.body.title).to.equal(note.title);
+          expect(response.body.content).to.equal(note.content);
+          done();
+        });
+    });
+  });
 
+  describe("DELETE /note/delete/:id", function () {
+    it("It should delete an existing note", (done) => {
+      authenticatedUser
+        .delete("/note/delete/" + note_to_delete_id)
+        .set("authorization", `Bearer ${token}`)
+        .end((err, response) => {
+          expect(response.statusCode).to.equal(200);
+          expect(response.text).to.equal(
+            "Successfully deleted note (or note does not exist)"
+          );
+          done();
+        });
+    });
 
+    it("It should not give an error for a non-existing task", (done) => {
+      authenticatedUser
+        .delete("/note/delete/" + 1234)
+        .set("authorization", `Bearer ${token}`)
+        .end((err, response) => {
+          expect(response.statusCode).to.equal(200);
+          expect(response.text).to.equal(
+            "Successfully deleted note (or note does not exist)"
+          );
+          done();
+        });
+    });
+  });
 
+  describe("GET /note/get_meeting_note/:meetingId", function () {
+    const meeting_id = "616009d326793b00166d7c19";
 
+    it("should return not return a note when the meeting does not have one", function (done) {
+      authenticatedUser
+        .get("/note/get_meeting_note/" + meeting_id)
+        .set("authorization", `Bearer ${token}`)
+        .end((err, response) => {
+          expect(response.status).to.equal(500);
+          expect(response.body.message).to.equal("Note retrieval failed");
+        });
+      done();
+    });
 
-
-
-
-
-
-
-
-
-
-
+    it("It should return status 200 when the meeting has a Note", function (done) {
+      const meeting_id = "61600c9126793b00166d7c1a";
+      authenticatedUser
+        .get("/note/get_meeting_note/" + meeting_id)
+        .set("authorization", `Bearer ${token}`)
+        .end((err, response) => {
+          expect(response.status).to.equal(200);
+        });
+      done();
+    });
+  });
 });
-
-
-//     it("It should NOT GET all the tasks", (done) => {
-//       chai
-//         .request(server)
-//         .get("/api/task")
-//         .end((err, response) => {
-//           response.should.have.status(404);
-//           done();
-//         });
-//     });
-//   });
-
-//   /**
-//    * Test the GET (by id) route
-//    */
-//   describe("GET /api/tasks/:id", () => {
-//     it("It should GET a task by ID", (done) => {
-//       const taskId = 1;
-//       chai
-//         .request(server)
-//         .get("/api/tasks/" + taskId)
-//         .end((err, response) => {
-//           response.should.have.status(200);
-//           response.body.should.be.a("object");
-//           response.body.should.have.property("id");
-//           response.body.should.have.property("name");
-//           response.body.should.have.property("completed");
-//           response.body.should.have.property("id").eq(1);
-//           done();
-//         });
-//     });
-
-//     it("It should NOT GET a task by ID", (done) => {
-//       const taskId = 123;
-//       chai
-//         .request(server)
-//         .get("/api/tasks/" + taskId)
-//         .end((err, response) => {
-//           response.should.have.status(404);
-//           response.text.should.be.eq(
-//             "The task with the provided ID does not exist."
-//           );
-//           done();
-//         });
-//     });
-//   });
-
-//   /**
-//    * Test the POST route
-//    */
-//   describe("POST /api/tasks", () => {
-//     it("It should POST a new task", (done) => {
-//       const task = {
-//         name: "Task 4",
-//         completed: false,
-//       };
-//       chai
-//         .request(server)
-//         .post("/api/tasks")
-//         .send(task)
-//         .end((err, response) => {
-//           response.should.have.status(201);
-//           response.body.should.be.a("object");
-//           response.body.should.have.property("id").eq(4);
-//           response.body.should.have.property("name").eq("Task 4");
-//           response.body.should.have.property("completed").eq(false);
-//           done();
-//         });
-//     });
-
-//     it("It should NOT POST a new task without the name property", (done) => {
-//       const task = {
-//         completed: false,
-//       };
-//       chai
-//         .request(server)
-//         .post("/api/tasks")
-//         .send(task)
-//         .end((err, response) => {
-//           response.should.have.status(400);
-//           response.text.should.be.eq(
-//             "The name should be at least 3 chars long!"
-//           );
-//           done();
-//         });
-//     });
-//   });
-
-//   /**
-//    * Test the PUT route
-//    */
-//   describe("PUT /api/tasks/:id", () => {
-//     it("It should PUT an existing task", (done) => {
-//       const taskId = 1;
-//       const task = {
-//         name: "Task 1 changed",
-//         completed: true,
-//       };
-//       chai
-//         .request(server)
-//         .put("/api/tasks/" + taskId)
-//         .send(task)
-//         .end((err, response) => {
-//           response.should.have.status(200);
-//           response.body.should.be.a("object");
-//           response.body.should.have.property("id").eq(1);
-//           response.body.should.have.property("name").eq("Task 1 changed");
-//           response.body.should.have.property("completed").eq(true);
-//           done();
-//         });
-//     });
-
-//     it("It should NOT PUT an existing task with a name with less than 3 characters", (done) => {
-//       const taskId = 1;
-//       const task = {
-//         name: "Ta",
-//         completed: true,
-//       };
-//       chai
-//         .request(server)
-//         .put("/api/tasks/" + taskId)
-//         .send(task)
-//         .end((err, response) => {
-//           response.should.have.status(400);
-//           response.text.should.be.eq(
-//             "The name should be at least 3 chars long!"
-//           );
-//           done();
-//         });
-//     });
-//   });
-
-//   /**
-//    * Test the PATCH route
-//    */
-
-//   describe("PATCH /api/tasks/:id", () => {
-//     it("It should PATCH an existing task", (done) => {
-//       const taskId = 1;
-//       const task = {
-//         name: "Task 1 patch",
-//       };
-//       chai
-//         .request(server)
-//         .patch("/api/tasks/" + taskId)
-//         .send(task)
-//         .end((err, response) => {
-//           response.should.have.status(200);
-//           response.body.should.be.a("object");
-//           response.body.should.have.property("id").eq(1);
-//           response.body.should.have.property("name").eq("Task 1 patch");
-//           response.body.should.have.property("completed").eq(true);
-//           done();
-//         });
-//     });
-
-//     it("It should NOT PATCH an existing task with a name with less than 3 characters", (done) => {
-//       const taskId = 1;
-//       const task = {
-//         name: "Ta",
-//       };
-//       chai
-//         .request(server)
-//         .patch("/api/tasks/" + taskId)
-//         .send(task)
-//         .end((err, response) => {
-//           response.should.have.status(400);
-//           response.text.should.be.eq(
-//             "The name should be at least 3 chars long!"
-//           );
-//           done();
-//         });
-//     });
-//   });
-
-//   /**
-//    * Test the DELETE route
-//    */
-//   describe("DELETE /api/tasks/:id", () => {
-//     it("It should DELETE an existing task", (done) => {
-//       const taskId = 1;
-//       chai
-//         .request(server)
-//         .delete("/api/tasks/" + taskId)
-//         .end((err, response) => {
-//           response.should.have.status(200);
-//           done();
-//         });
-//     });
-
-//     it("It should NOT DELETE a task that is not in the database", (done) => {
-//       const taskId = 145;
-//       chai
-//         .request(server)
-//         .delete("/api/tasks/" + taskId)
-//         .end((err, response) => {
-//           response.should.have.status(404);
-//           response.text.should.be.eq(
-//             "The task with the provided ID does not exist."
-//           );
-//           done();
-//         });
-//     });
-//   });
-// };
-// );
