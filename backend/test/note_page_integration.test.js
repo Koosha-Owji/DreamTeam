@@ -51,6 +51,12 @@ describe("Notes Page", function () {
     // });
   });
 
+  describe (" name ", function() { // TEST SUITE
+    it (" name ", function (){ // ACTUAL TEST
+
+    });
+  })
+
   describe("POST /note/add", function () {
     it("It should create a new Note", (done) => {
       const note = {
@@ -70,7 +76,7 @@ describe("Notes Page", function () {
         });
     });
 
-    it("It should Create a new Note when the content is empty", (done) => {
+    it("It should not create a new Note when the content is empty", (done) => {
       const note = {
         title: "Test",
       };
@@ -155,7 +161,7 @@ describe("Notes Page", function () {
         });
     });
 
-    it("It should not give an error for a non-existing task", (done) => {
+    it("It should not give an error for a non-existing note", (done) => {
       authenticatedUser
         .delete("/note/delete/" + 1234)
         .set("authorization", `Bearer ${token}`)
