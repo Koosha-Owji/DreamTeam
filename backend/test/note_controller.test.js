@@ -125,11 +125,10 @@ describe("Notes Controller", function () {
     it("should not give an error for a invalid note", async () => {
       const req = { user_id: "613ab597cbf2623120614c98", params: { id: "" } };
       await delete_note(req, res);
-      expect(status.args[0][0]).equal(200);
-      expect(send.args[0][0]).equal(
-        "Successfully deleted note (or note does not exist)"
-      );
+      expect(status.args[0][0]).equal(500);
+      expect(json.args[0][0].message).equal("Note deletion failed");
     });
+    stub.restore();
   });
 
   describe("Update Note", function () {
@@ -158,10 +157,8 @@ describe("Notes Controller", function () {
       };
       const mReply = { code: sinon.stub().returnsThis(), send: sinon.stub() };
 
-      const stub = sinon
-        .stub(noteModel, "findByIdAndUpdate")
-        .resolves([]);
-      const stub2 = sinon.stub(noteModel, "findById").resolves([stubValue])
+      const stub = sinon.stub(noteModel, "findByIdAndUpdate").resolves([]);
+      const stub2 = sinon.stub(noteModel, "findById").resolves([stubValue]);
 
       const note = update_note(mReq, mReply);
       expect(note.id).equal(stubValue.id);
@@ -170,8 +167,8 @@ describe("Notes Controller", function () {
       expect(note.user_id).equal(stubValue.user_id);
       expect(note.meeting_id).equal(stubValue.meeting_id);
 
-      stub.restore()
-      stub2.restore()
+      stub.restore();
+      stub2.restore();
     });
 
     it("should not update invalid Note", async () => {
@@ -186,7 +183,7 @@ describe("Notes Controller", function () {
       const stub2 = sinon.stub(noteModel, "findById").resolves([]);
 
       const note = await update_note(mReq, res);
-      expect(status.args[0][0]).equal(500)
+      expect(status.args[0][0]).equal(500);
       expect(json.args[0][0].message).equal("Note update failed");
 
       stub.restore();
@@ -213,7 +210,7 @@ describe("Notes Controller", function () {
         meeting_id: faker.datatype.uuid(),
       };
       const stub = sinon.stub(noteModel, "findOne").resolves(stubValue);
-      newReq = { params:{id: "613ab597cbf2623120614c98" }};
+      newReq = { params: { id: "613ab597cbf2623120614c98" } };
 
       await get_one_note_by_meeting(newReq, res);
       const notes = json.args[0][0];
@@ -223,7 +220,7 @@ describe("Notes Controller", function () {
       expect(notes.content).equal(stubValue.content);
       expect(notes.user_id).equal(stubValue.user_id);
       expect(notes.meeting_id).equal(stubValue.meeting_id);
-      
+
       stub.restore();
     });
 
@@ -232,6 +229,7 @@ describe("Notes Controller", function () {
       newReq = { params: { id: "613ab597cbf2623120614c98" } };
       await get_one_note_by_meeting(newReq, res);
       expect(json.args[0][0]).equal(null);
+      stub.restore();
     });
   });
 });
