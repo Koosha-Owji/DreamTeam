@@ -33,6 +33,7 @@ export const create_contact = async (req, res) =>{
     const labels=[];
 
 
+    if (!req.user_id) return res.status(400).json({ message: "User doesn't exist" });
     const user = await userModel.findOne({ _id: req.user_id});
     if (! user) return res.status(400).json({ message: "User doesn't exist" });
    
@@ -54,15 +55,9 @@ export const create_contact = async (req, res) =>{
  * @returns {all contacts}  
  */
 export const get_all_contacts = async (req, res) => {
-    console.log("get all contacts")
-    try {
-        const contacts = await Contact.find({user_id: req.user_id});
-     
-        return res.json(contacts);
-    } catch (err) {
-        return res.status(400).json({message: "contact retrieval failed"});
-    }
-
+    Contact.find({user_id: req.user_id})
+    .then(contacts => res.status(200).json(contacts))
+    .catch(err => res.status(400).json('Error: ' + err));
 };
 
 /**

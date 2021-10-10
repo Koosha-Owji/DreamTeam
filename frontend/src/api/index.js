@@ -6,7 +6,7 @@
  */
 import axios from 'axios';
 
-const API = axios.create({ baseURL: 'http://localhost:5000' });
+const API = axios.create({ baseURL: 'http://dream-team-crm-back.herokuapp.com/' });
 
 API.interceptors.request.use((req) => {
   if (localStorage.getItem('profile')) {
@@ -16,7 +16,7 @@ API.interceptors.request.use((req) => {
   return req;
 });
 
-const noteURL = 'http://localhost:5000/note';
+const noteURL = 'http://dream-team-crm-back.herokuapp.com/note';
 
 export const signIn = (formData) => API.post('/user/signin', formData);
 export const signUp = (formData) => API.post('/user/signup', formData);
