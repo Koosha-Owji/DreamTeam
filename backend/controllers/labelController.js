@@ -14,14 +14,16 @@
   * @param {request with label "title", "colour" and "user_id" in the body} req 
   * @param {response by which the new label json object will be sent} res 
   * @returns {the repsonse}
-  */
+  *//*
  export const create_label = async (req, res) => {
  
      // Check for existing labels with the same title and colour. 
+     console.log("Called 'create_label' function");
+     console.log(req.user_id);
      const old_label = await label_model.findOne({
          title: req.body.title, 
          colour: req.body.colour,
-         user_id: req.body.user_id
+         user_id: req.user_id
          })
          .catch((err) => {const old_label = 0});
  
@@ -31,7 +33,7 @@
      const new_label = await label_model.create({
          title: req.body.title, 
          colour: req.body.colour, 
-         user_id: req.body.user_id})
+         user_id: req.user_id})
          .catch((err) => { return res.status(400).json(
              {message: "requests require a title, colour and user_id"}
          )});
@@ -42,7 +44,7 @@
          await new_label.save();
          return res.json({message: "Successfully added label!", label: new_label});
      } catch (err) { return res.status(500).json({message: "Error saving new label"}); }
- }
+ }*/
  
  /**
   * Given a label id, remove it from the database. 
@@ -54,6 +56,7 @@
      // add deletion of all references to the label in contacts
  
      try {
+
          const label_id = req.params.id;
          // delete the label
          label_model.deleteOne({ _id: label_id }).exec();
@@ -76,7 +79,7 @@
   */
  export const get_all_labels = async (req, res) => {
      try {
-         const labels = await label_model.find();
+         const labels = await label_model.find({user_id: req.user_id});
          return res.json(labels);
      } catch (err) {
          return res.status(400).json({message: "label retrieval failed"});
