@@ -101,13 +101,14 @@ export const get_one_note = async (req, res) => {
 
 export const get_one_note_by_meeting = async (req, res) => {
   try {
-    const note = await noteModel.findOne({ meeting_id: req.params.id }).exec();
+    const note = await noteModel.findOne({ meeting_id: req.params.id });
     // check that the note exists
     if (!note) return res.json(null);
     // if the note exists, return it
     return res.json(note);
   } catch (err) {
     res.status(500).json({ message: "Note retrieval failed" });
+
   }
 };
 
