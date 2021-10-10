@@ -74,7 +74,7 @@ const useStyles = makeStyles((theme) => ({
       if (contactDetails){
           
         dispatch (update_contact(currId, contactDetails))
-        window.location.reload(true);
+        //window.location.reload(true);
         handleClose();
       }
 

@@ -32,6 +32,8 @@ export default class AddContact extends Component {
         this.onChangeLabel=this.onChangeLabel.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
 
+        this.closeDialogue= this.props.closeFromChild1;
+
 
         this.state = {
         first_name: '',
@@ -70,10 +72,10 @@ export default class AddContact extends Component {
           label_id:this.state.label_id
         };
       
-        console.log(contact);
         create_contact(contact);
-      
-        window.location = '/home';
+        
+        this.closeDialogue();
+        
       }
 
       onChangefirst_name(e) {

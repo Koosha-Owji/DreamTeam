@@ -15,7 +15,7 @@ export default class ManageLabels extends Component{
 constructor(props){
     super(props);
     this.state = {labels: []};
-    this.delete_contact = this.deleteLabel.bind(this)
+    this.delete_contact = this.deleteLabel.bind(this);
 
 }
 

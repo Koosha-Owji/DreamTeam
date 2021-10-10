@@ -55,6 +55,10 @@ export default function CreateLabelButtonPage() {
     setOpen(false);
   };
 
+  const closeFromChild = () => {
+    setOpen(false)
+  }
+
 
 
   return (
@@ -66,7 +70,7 @@ export default function CreateLabelButtonPage() {
 
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Create Label</DialogTitle>
-        <CreateLabel />
+        <CreateLabel closeFromChild = {closeFromChild} />
         </Dialog>
     </div>
   );

@@ -63,6 +63,7 @@ manageLabel:{
 export default function ContactsPage() {
   const classes = useStyles();
 
+
   const [open1, setOpen1] = React.useState(false);
   const [open2, setOpen2] = React.useState(false);
 
@@ -81,6 +82,9 @@ export default function ContactsPage() {
     setOpen2(false);
   };
 
+  const closeFromChild1 = () => {
+    setOpen1(false)
+  }
 
   return (
     <div className={classes.root}>
@@ -92,7 +96,7 @@ export default function ContactsPage() {
             </Fab>
            <Dialog open={open1} onClose={handleClose1} aria-labelledby="form-dialog-title">
               <DialogTitle id="form-dialog-title">Add a new contact</DialogTitle>
-            <AddContact />
+            <AddContact closeFromChild1={closeFromChild1} />
             </Dialog>
             </div>
             <div className = {classes.manageLabel}>
@@ -102,7 +106,7 @@ export default function ContactsPage() {
             </Fab>
             <Dialog open={open2} onClose={handleClose2} aria-labelledby="form-dialog-title" fullWidth='true'>
               <DialogTitle id="form-dialog-title" >Manage Labels</DialogTitle>
-            <ManageLabel/>
+            <ManageLabel />
             </Dialog>
             </div>
       <ContactList />

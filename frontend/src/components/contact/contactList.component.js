@@ -18,18 +18,19 @@ import ContactLabel from './ContactLabel.component';
 import Update from './UpdateContact.component';
 import {get_all_contacts,delete_contact} from '../../api/index';
 import AddContactLabel from '../label/AddContactLabel.component';
+import SearchContact from './SearchContact.component';
 
 
 export default class ContactCard extends Component{
 constructor(props){
     super(props);
+    this.myRef = React.createRef();
     this.state = {contacts: []};
     this.delete_contact = this.deleteContact.bind(this)
     
 }
 
 componentDidMount() {
-  console.log("mounted")
     get_all_contacts()
       .then(response => {
         this.setState({ contacts: response.data })
@@ -118,7 +119,8 @@ componentDidMount() {
       console.log('State: ', this.state);
 
       return(
-    <div className ='contactList'>
+    <div className ='contactList' ref={this.myRef}>
+      <SearchContact/>
     {this.displayContactList(this.state.contacts)}
   </div>
      

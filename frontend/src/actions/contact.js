@@ -67,7 +67,7 @@ export const delete_contact_label = (label_id, id)=> async(dispatch)=>{
 
 export const add_contact_label = ( label_id, id)=> async(dispatch)=>{
   try{
-    const {data} = await api.delete_contact_label(id, label_id);
+    const {data} = await api.add_contact_label(id, label_id);
     dispatch({type:'UPDATE', payload:data})
   }catch(error){
     console.log(error.message);

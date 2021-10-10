@@ -19,6 +19,7 @@ export default class CreateLabel extends Component {
         this.onChangetitle = this.onChangetitle.bind(this);
         this.onChangecolour = this.onChangecolour.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
+        this.closeDialogue= this.props.closeFromChild;
 
         this.state = {
         title: '',
@@ -35,11 +36,11 @@ export default class CreateLabel extends Component {
           colour:this.state.colour
         };
 
-        console.log(label);
         create_label(label);
         this.setState({
           hasSubmitted:true
         })
+        this.closeDialogue();
         
       }
 
