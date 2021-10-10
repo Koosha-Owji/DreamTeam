@@ -51,12 +51,6 @@ describe("Notes Page", function () {
     // });
   });
 
-  describe (" name ", function() { // TEST SUITE
-    it (" name ", function (){ // ACTUAL TEST
-
-    });
-  })
-
   describe("POST /note/add", function () {
     it("It should create a new Note", (done) => {
       const note = {
