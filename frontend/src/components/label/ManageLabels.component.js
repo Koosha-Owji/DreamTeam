@@ -15,9 +15,11 @@ export default class ManageLabels extends Component{
 constructor(props){
     super(props);
     this.state = {labels: []};
-    this.delete_contact = this.deleteLabel.bind(this);
+    this.deleteLabel = this.deleteLabel.bind(this);
 
 }
+
+
 
 componentDidMount() {
     //axios.get('http://localhost:5000/labels')
@@ -25,21 +27,31 @@ componentDidMount() {
       .then(response => {
         this.setState({ labels: response.data })
       })
-      .then(console.log('labels received'))
       .catch((error) => {
         console.log(error);
       })
   }
 
-  deleteLabel=(id)=>{
-    //axios.post('http://localhost:5000/labels/delete/'+id)
-    delete_label(id)
-    .then(response =>{  console.log(response.data)});
-
-    this.setState({
-      labels:this.state.labels.filter(el =>el._id !== id)
-    })
+  componentDidUpdate(prevProps, prevState){
+    if(this.state.labels!==prevState.labels){
+      get_all_labels()
+      .then(response => {
+        this.setState({ labels: response.data })
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+    }
   }
+
+  deleteLabel=(id)=>{
+    delete_label(id)
+    .catch((error) => {
+      console.log(error);
+    })
+
+  }
+  
 
 
   displayLabels=(labels)=>{
@@ -66,7 +78,6 @@ componentDidMount() {
   }
   render(){
 
-      console.log('State: ', this.state);
 
       return(
     <div className ='labelList' style={{padding:'10px'}}>

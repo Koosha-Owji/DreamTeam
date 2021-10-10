@@ -14,17 +14,14 @@ import { get_labels_by_contact, delete_contact_label } from '../../api/index';
 
   }
   componentDidMount() {
-    console.log(this.contact_id)
     get_labels_by_contact(this.contact_id)
       .then(response => {
         this.setState({ labels: response.data })
       })
-      .then(console.log(this.state.labels, 'labels received'))
   }
 
   unassignContactLabel=(label_id, id)=>{
     delete_contact_label(label_id, id)
-    .then(response =>{  console.log(response.data)});
     this.setState({
       labels:this.state.labels.filter(el =>el._id !== id)
     })
@@ -33,7 +30,6 @@ import { get_labels_by_contact, delete_contact_label } from '../../api/index';
 
 
   GetLabelsByContact=(labels)=>{
-     console.log( labels)
       return labels.map((item,index)=>(
         <Grid>
         <div key = {index} className ='labelListItem' style={{padding:'10px'}}>
@@ -46,7 +42,6 @@ import { get_labels_by_contact, delete_contact_label } from '../../api/index';
   }
   render(){
 
-    console.log('State: ', this.state);
 
     return(
   <div className ='labelList'>

@@ -34,7 +34,6 @@
            .then(response => {
              this.setState({ labels: response.data })
            })
-           .then(console.log('labels received'))
            .catch((error) => {
              console.log(error);
            })

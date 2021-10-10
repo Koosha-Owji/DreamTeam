@@ -18,7 +18,7 @@ import decode from 'jwt-decode';
 import NotePages from './Notes/NotePages';
 import Google from './Email/Google.component';
 
-import ContactsPage from './contact/ContactPage.component';
+import ContactsPage from './contact/contactList.component';
 import OrderPage from './order/OrderPage.component';
 
 function TabPanel(props) {

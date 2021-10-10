@@ -19,14 +19,18 @@ import Update from './UpdateContact.component';
 import {get_all_contacts,delete_contact} from '../../api/index';
 import AddContactLabel from '../label/AddContactLabel.component';
 import SearchContact from './SearchContact.component';
+import AddContactButton from './AddContactButton.component';
+import ManageLabelButton from './../label/ManageLabelsButton.component';
 
 
 export default class ContactCard extends Component{
 constructor(props){
     super(props);
-    this.myRef = React.createRef();
     this.state = {contacts: []};
-    this.delete_contact = this.deleteContact.bind(this)
+    this.delete_contact = this.deleteContact.bind(this);
+    this.updateView=this.updateView.bind(this);
+    this.updateView2=this.updateView2.bind(this);
+    
     
 }
 
@@ -35,19 +39,62 @@ componentDidMount() {
       .then(response => {
         this.setState({ contacts: response.data })
       })
-      .then(console.log('contacts received', this.state.contacts))
-      // .catch((error) => {
-      //   console.log(error);
-      // })
   }
+
+  // componentDidUpdate(prevProps, prevState){
+  //   if(this.state.flag===true){
+  //     get_all_contacts()
+  //     .then(response => {
+  //       this.setState({ contacts: response.data })
+  //     })
+  //     .then(this.setFlag(false))
+  //     .catch((error) => {
+  //       console.log(error);
+  //     })
+  //   }
+  // }
+
+updateView =(newContact)=>{
+  console.log("update view called")
+  let a = this.state.contacts.slice();
+  a.push(newContact)
+  this.setState((state) => {
+    return {contacts: a}
+  });
+}
+
+updateView2=(updatedContact)=>{
+  this.setState({
+    contacts:this.state.contacts.filter(el =>el._id !== updatedContact._id)
+  })
+  let a = this.state.contacts.slice();
+  let toRem = null;
+  for(let i=0; i<a.length; i++){
+    if(a[i]._id==updatedContact._id){
+      toRem=a[i];
+    }
+  }
+  if(toRem){
+    a.pop(toRem);
+    a.push(updatedContact);
+    
+    
+    this.setState((state) => {
+      return {contacts: a}
+    });
+  }
+
+}
+
+
 
   deleteContact=(id)=>{
     delete_contact(id)
-    .then(response =>{  console.log(response.data)});
 
     this.setState({
       contacts:this.state.contacts.filter(el =>el._id !== id)
     })
+    
   }
 
   
@@ -71,7 +118,7 @@ componentDidMount() {
             <Typography className='business' style={{textAlign:'left'}}>{contact.business}</Typography>
         </Grid>
         <Grid item xs={4}>
-            <AddContactLabel contact_id={contact._id}/>
+            <AddContactLabel contact_id={contact._id} />
             </Grid>
         <Grid item xs={6}>
         <ContactLabel contact_id={contact._id}/>
@@ -82,7 +129,7 @@ componentDidMount() {
           <SendContactEmail/>
         </Grid>
         <Grid item xs={1} textA>
-        <Update currId ={contact._id} allContacts={contacts}/>
+        <Update currId ={contact._id} allContacts={contacts} updateView2={this.updateView2} />
         </Grid>
         <Grid item xs={1}>
         <DeleteContact id={contact._id} deleteContact={this.deleteContact}/>
@@ -116,10 +163,10 @@ componentDidMount() {
 
   render(){
 
-      console.log('State: ', this.state);
 
       return(
-    <div className ='contactList' ref={this.myRef}>
+    <div className ='contactList'>
+      <AddContactButton updateView ={this.updateView}/> <ManageLabelButton/>
       <SearchContact/>
     {this.displayContactList(this.state.contacts)}
   </div>

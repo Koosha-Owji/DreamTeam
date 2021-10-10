@@ -17,8 +17,7 @@ import Container from '@material-ui/core/Container';
 
 import { useState, useEffect } from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import { update_contact } from '../../actions/contact';
-
+import { update_contact } from '../../api/index'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -33,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
   }));
   
   
-    const  UpdateContact=({currId, allContacts})=> {
+    const  UpdateContact=({currId, allContacts, updateView2})=> {
     const classes = useStyles();
 
     
@@ -70,12 +69,14 @@ const useStyles = makeStyles((theme) => ({
     }, [currId,contact,contactDetails.count])
 
     const handleSaveClick = (event) => {
-      console.log(contactDetails);
       if (contactDetails){
           
-        dispatch (update_contact(currId, contactDetails))
-        //window.location.reload(true);
-        handleClose();
+        //dispatch (update_contact(currId, contactDetails))
+        update_contact(currId, contactDetails)
+        .then(handleClose())
+        .then(response=>{
+          updateView2(response.data)})
+        .catch(err=>console.log(err))
       }
 
     }

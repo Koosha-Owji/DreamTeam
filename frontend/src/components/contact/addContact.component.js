@@ -31,8 +31,9 @@ export default class AddContact extends Component {
         this.onChangedescription = this.onChangedescription.bind(this);
         this.onChangeLabel=this.onChangeLabel.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
-
+        //this.contactUpdated=this.props.contactUpdated;
         this.closeDialogue= this.props.closeFromChild1;
+      
 
 
         this.state = {
@@ -52,7 +53,6 @@ export default class AddContact extends Component {
           .then(response => {
             this.setState({ labels: response.data })
           })
-          .then(console.log('labels received'))
           .catch((error) => {
             console.log(error);
           })
@@ -72,9 +72,9 @@ export default class AddContact extends Component {
           label_id:this.state.label_id
         };
       
-        create_contact(contact);
+        create_contact(contact)
         
-        this.closeDialogue();
+        this.closeDialogue(contact);
         
       }
 

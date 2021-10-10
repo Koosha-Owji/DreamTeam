@@ -31,14 +31,22 @@ componentDidMount() {
       })
 
   }
+componentDidUpdate(prevProps, prevState){
+    if(this.state.orders!==prevState.orders){
+      get_all_orders()
+      .then(response => {
+        this.setState({ orders: response.data })
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+    }
+  }
 
   deleteOrder=(id)=>{
     delete_order(id)
     .then(response =>{  console.log(response.data)});
 
-    this.setState({
-      orders:this.state.orders.filter(el =>el._id !== id)
-    })
   }
     
 

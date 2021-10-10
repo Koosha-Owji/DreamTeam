@@ -72,6 +72,10 @@
    const handleClose1 = () => {
      setOpen1(false);
    };
+
+   const closeFromChild = () => {
+    setOpen1(false);
+  }
  
  
    return (
@@ -83,7 +87,7 @@
              </Fab>
             <Dialog open={open1} onClose={handleClose1} aria-labelledby="form-dialog-title">
                <DialogTitle id="form-dialog-title">Add a new order</DialogTitle>
-             <AddOrder/>
+             <AddOrder closeFromChild={closeFromChild}/>
              </Dialog>
              </div>
        <OrderList />

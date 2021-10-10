@@ -28,6 +28,7 @@
             this.onChangeDueDate=this.onChangeDueDate.bind(this);
             this.onChangeStartDate=this.onChangeStartDate.bind(this);
             this.onSubmit = this.onSubmit.bind(this);
+            this.closeDialogue= this.props.closeFromChild;
             this.state = {
                 contacts:[],
                 contact_id:'',
@@ -61,10 +62,10 @@
              dueDate :this.state.dueDate,
              startDate:this.state.startDate
          }
-         console.log(order);
          create_order(order);
-         window.location = '/home';
+         this.closeDialogue();
        }
+
        onChangeProduct(e) {
         this.setState({
           product: e.target.value

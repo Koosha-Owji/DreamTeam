@@ -4,7 +4,7 @@
  * The University of Melbourne
  * Implemented by DreamTeam: Anagha Giri, Koosha Owji, Chirag Singh, Olivia Ryan, Natasha Ireland
  */
-import React from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
@@ -12,7 +12,8 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import ContactList from './contactList.component';
 import AddContact from './addContact.component';
-import ManageLabel from './../label/ManageLabels.component';
+import ManageLabel from '../label/ManageLabels.component';
+import {get_all_contacts} from '../../api/index';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -63,10 +64,19 @@ manageLabel:{
 export default function ContactsPage() {
   const classes = useStyles();
 
-
   const [open1, setOpen1] = React.useState(false);
   const [open2, setOpen2] = React.useState(false);
+  const [contacts, setContacts]=React.useState([]);
 
+
+  useEffect(() => {
+    get_all_contacts()
+      .then(response => {
+        setContacts(response.data);
+      })
+      .then(console.log(contacts))
+  }, [contacts]);
+ 
   const handleClickOpen1 = () => {
     setOpen1(true);
   };
@@ -109,7 +119,7 @@ export default function ContactsPage() {
             <ManageLabel />
             </Dialog>
             </div>
-      <ContactList />
+      <ContactList contacts={contacts}/>
     </div>
   );
 }
