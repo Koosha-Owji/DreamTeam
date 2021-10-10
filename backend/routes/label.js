@@ -11,9 +11,9 @@ import {
 } from "../controllers/labelController.js"
 
 //label_router.post('/', auth, create_label);
-label_router.post('/', create_label);
-label_router.patch('/delete/:id', delete_label);
-label_router.get('/', get_all_labels);
-label_router.get('/by-contact/:id', get_labels_by_contact);
+label_router.post('/', auth, create_label);
+label_router.patch('/delete/:id', auth, delete_label);
+label_router.get('/', auth, get_all_labels);
+label_router.get('/by-contact/:id', auth, get_labels_by_contact);
 
 export default label_router;
