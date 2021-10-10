@@ -22,8 +22,8 @@ meetingRouter.patch("/update/:id", auth, update_meeting)
 meetingRouter.patch("/mark_completed/:id", auth, mark_as_completed);
 // meetingRouter.post("/update_time", auth, update_date_time);
 // meetingRouter.post("/rename", auth, rename_meeting);
-meetingRouter.post("/add_attendee", auth, add_attendee);
-meetingRouter.post("/remove_attendee", auth, remove_attendee);
+// meetingRouter.post("/add_attendee", auth, add_attendee);
+// meetingRouter.post("/remove_attendee", auth, remove_attendee);
 // meetingRouter.get("/get_one", auth, get_one_meeting);
 meetingRouter.get("/get_all", auth, get_all_meetings);
 

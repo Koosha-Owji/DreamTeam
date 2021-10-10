@@ -50,8 +50,9 @@ export const delete_note = async (req, res) => {
   try {
     // attempt to delete the note that matches the note id in the request
     await noteModel.deleteOne({
+      user_id: req.user_id,
       _id: req.params.id,
-    });
+    })
     
     return res
       .status(200)
