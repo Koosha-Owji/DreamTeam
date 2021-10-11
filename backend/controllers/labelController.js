@@ -14,12 +14,10 @@
   * @param {request with label "title", "colour" and "user_id" in the body} req 
   * @param {response by which the new label json object will be sent} res 
   * @returns {the repsonse}
-  *//*
+  */
  export const create_label = async (req, res) => {
  
-     // Check for existing labels with the same title and colour. 
-     console.log("Called 'create_label' function");
-     console.log(req.user_id);
+     // Check for existing labels with the same title and colour.
      const old_label = await label_model.findOne({
          title: req.body.title, 
          colour: req.body.colour,
@@ -44,7 +42,7 @@
          await new_label.save();
          return res.json({message: "Successfully added label!", label: new_label});
      } catch (err) { return res.status(500).json({message: "Error saving new label"}); }
- }*/
+ }
  
  /**
   * Given a label id, remove it from the database. 

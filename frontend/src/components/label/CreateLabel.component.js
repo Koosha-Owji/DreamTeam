@@ -40,6 +40,9 @@ export default class CreateLabel extends Component {
         this.setState({
           hasSubmitted:true
         })
+
+        window.location.reload();
+        
         
       }
 
