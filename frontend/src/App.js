@@ -10,7 +10,7 @@ import ContactsPage from "./components/contact/contactList.component";
 import NotesPage from "./components/Notes/NotePages";
 import ManageLabels from './components/label/ManageLabels.component';
 import OrderPage from './components/order/OrderList.component';
-
+import ErrorBoundary from './components/ErrorBoundary.component';
 const App = () => {
   
   return (
@@ -20,7 +20,9 @@ const App = () => {
       <Router>
       <div className="container">
       <br/>
+      <ErrorBoundary>
       <Route exact path="/home" component={Navbar} />
+      </ErrorBoundary>
       <Route exact path="/" component={Login} />
       <Route exact path="/signup" component={SignUp} />
       <Route exact path="/contacts" component={ContactsPage} />

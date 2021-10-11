@@ -35,6 +35,7 @@ constructor(props){
 
 /**Keep contacts fresh */
 componentDidMount() {
+  
     get_all_contacts()
       .then(response => {
         this.setState({ contacts: response.data })
@@ -44,7 +45,6 @@ componentDidMount() {
 /** This function is passed to child component AddContact so that the addContact dialogue can be closed
  * and new contact returned here upon pushing to db*/ 
 updateView =(newContact)=>{
-  console.log("update view called")
   let a = this.state.contacts.slice();
   a.push(newContact)
   this.setState((state) => {
@@ -56,6 +56,7 @@ updateView =(newContact)=>{
  * we get fresh contacts from the db and render them
  */
 updateView2=()=>{
+  
   this.componentDidMount();
 }
 
@@ -63,6 +64,7 @@ updateView2=()=>{
  * and it can be removed from contactList state
  */
   deleteContact=(id)=>{
+    
     delete_contact(id)
 
     this.setState({
@@ -132,7 +134,6 @@ updateView2=()=>{
   }
 
   render(){
-
 
       return(
         <div>

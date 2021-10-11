@@ -120,7 +120,9 @@ componentDidMount() {
   }
 
   render(){
-
+    if(1){
+      throw new Error('oh no!');
+    }
 
       return(
         <div>
