@@ -1,5 +1,5 @@
 /**
- * addContact.component.js, front end component for adding a new contact
+ *  AddOrder.component.js, front end component for adding a new order
  * Created for IT Project COMP30022, Semester 2 2021
  * The University of Melbourne
  * Implemented by DreamTeam: Anagha Giri, Koosha Owji, Chirag Singh, Olivia Ryan, Natasha Ireland
@@ -28,6 +28,8 @@
             this.onChangeDueDate=this.onChangeDueDate.bind(this);
             this.onChangeStartDate=this.onChangeStartDate.bind(this);
             this.onSubmit = this.onSubmit.bind(this);
+
+            /**Function passed from contactList component to close dialogue once contact details are submitted in form*/
             this.closeDialogue= this.props.closeFromChild;
             this.state = {
                 contacts:[],
@@ -41,6 +43,7 @@
         
             }
     
+       /**Get all current contacts so one can be selected to be assigned to an order */     
        componentDidMount() {
          get_all_contacts()
            .then(response => {
@@ -61,6 +64,10 @@
              dueDate :this.state.dueDate,
              startDate:this.state.startDate
          }
+         /**Send post request of new order to back end
+          * return the created order to parent component: OrderList to be rendered
+          * Dialogue closes on new order return
+          */
          create_order(order)
          .then(response=>this.closeDialogue(response.data))
          
@@ -100,6 +107,7 @@
           });
        }
    
+       /**Display dropdown of contacts, select one to assign to an order */
        displayContactDropdown(contacts){
          if(!contacts.length) return null;
            return contacts.map((contact, index)=>(
@@ -133,7 +141,7 @@
                 autoFocus
                 margin="dense"
                 id="name"
-                label="Product"
+                label="Product *"
                 type="product"
                 fullWidth
                 value = {this.state.product}

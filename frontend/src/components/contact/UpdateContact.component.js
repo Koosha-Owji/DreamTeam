@@ -68,7 +68,9 @@ const useStyles = makeStyles((theme) => ({
     const handleSaveClick = (event) => {
       if (contactDetails){
           
-        //dispatch (update_contact(currId, contactDetails))
+        /**Call the update contact function, return the updated contact and pass it to parent component:
+         * contactList so that it can be rendered to page
+         */
         update_contact(currId, contactDetails)
         .then(handleClose())
         .then(response=>{
@@ -77,9 +79,6 @@ const useStyles = makeStyles((theme) => ({
       }
 
     }
-    
-
-  
     const handleClickOpen = () => {
       setOpen(true);
     };

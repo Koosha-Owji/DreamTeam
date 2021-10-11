@@ -1,3 +1,9 @@
+/**
+ *  AddOrderButton.component.js, functional button to enable access to add order form
+ * Created for IT Project COMP30022, Semester 2 2021
+ * The University of Melbourne
+ * Implemented by DreamTeam: Anagha Giri, Koosha Owji, Chirag Singh, Olivia Ryan, Natasha Ireland
+ */
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
@@ -55,6 +61,9 @@ export default function AddContactButton({updateView}) {
     setOpen(false);
   };
 
+  /**Function that is called from child component: AddOrder. Closes the add order dialogue
+   * and sends the newly created order to parent component OrderList to be rendered
+   */
   const closeFromChild = (newOrder) => {
     setOpen(false);
     updateView(newOrder);

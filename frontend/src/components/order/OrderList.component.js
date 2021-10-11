@@ -1,4 +1,10 @@
-import React, {Component} from 'react';
+
+/**
+ *  OrderList.component.js, iists all order, can update, delete and add orders from this component
+ * Created for IT Project COMP30022, Semester 2 2021
+ * The University of Melbourne
+ * Implemented by DreamTeam: Anagha Giri, Koosha Owji, Chirag Singh, Olivia Ryan, Natasha Ireland
+ */import React, {Component} from 'react';
 import Accordion from '@material-ui/core/Accordion';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
@@ -23,6 +29,7 @@ constructor(props){
 
 }
 
+/**Keep rendered orders current */
 componentDidMount() {
     get_all_orders()
       .then(response => {
@@ -33,6 +40,9 @@ componentDidMount() {
       })
 
   }
+
+/** This function is passed to child component AddOrder so that the addOrderdialogue can be closed
+ * and new order returned here upon pushing to db*/ 
   updateView =(newOrder)=>{
     let a = this.state.orders.slice();
     a.push(newOrder)
@@ -41,11 +51,15 @@ componentDidMount() {
     });
     this.componentDidMount();
   }
-  
+  /**This function is passed to child component UpdateOrderStatus so that when a order is updated
+ * we get fresh odrers from the db and render them
+ */
   updateView2=()=>{
     this.componentDidMount();
   }
 
+  /**Delete contact by given id and update state
+ */
   deleteOrder=(id)=>{
     delete_order(id)
 
@@ -57,7 +71,7 @@ componentDidMount() {
 
   }
     
-
+/**Map all current orders into accordian display */
   displayOrders=(orders)=>{
     if(!orders.length) return null;
 

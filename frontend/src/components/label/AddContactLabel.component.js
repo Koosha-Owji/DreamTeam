@@ -29,7 +29,7 @@
             this.updateView=this.props.updateView;
         
             }
-    
+    /**Get all labels that currently exist so we can select one to assign to the contact */
        componentDidMount() {
          get_all_labels()
            .then(response => {
@@ -55,7 +55,8 @@
          })
          
        }
-   
+       
+       /**Display labels in a dropdown from which we can select one to assign to a contact */
        displayLabelDropdown(labels){
          if(!labels.length) return null;
            return labels.map((label, index)=>(

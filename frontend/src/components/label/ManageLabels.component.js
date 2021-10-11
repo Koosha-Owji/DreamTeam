@@ -1,8 +1,13 @@
+/**
+ * ManageLabels.component.js, component for managing labels: add, delete
+ * Created for IT Project COMP30022, Semester 2 2021
+ * The University of Melbourne
+ * Implemented by DreamTeam: Anagha Giri, Koosha Owji, Chirag Singh, Olivia Ryan, Natasha Ireland
+ */
 import React, {Component} from 'react';
 import Typography from '@material-ui/core/Typography';
 import {get_all_labels, delete_label} from '../../api/index';
 import CreateLabelButtonPage from './CreateLabelButton.component';
-//import Button from '@material-ui/core/Button';
 import Fab from '@material-ui/core/Fab';
 import Box from '@material-ui/core/Box';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -16,8 +21,7 @@ constructor(props){
 
 }
 
-
-
+/**Keep all existing labels fresh on page */
 componentDidMount() {
     get_all_labels()
       .then(response => {
@@ -27,23 +31,16 @@ componentDidMount() {
         console.log(error);
       })
   }
-
-  // componentDidUpdate(prevProps, prevState){
-  //   if(this.state.labels!==prevState.labels){
-  //     get_all_labels()
-  //     .then(response => {
-  //       this.setState({ labels: response.data })
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     })
-  //   }
-  // }
-
+/**Function to be passed to child component: AddLabel
+ * Called when a label is created so it can be rendered to screen
+ */
   updateView=()=>{
     this.componentDidMount();
   }
 
+  /**Calls back end delete function with label_id to be deleted
+   * Removes it from current state
+   */
   deleteLabel=(id)=>{
     delete_label(id)
     .then(response=>console.log(response.data))
@@ -55,6 +52,7 @@ componentDidMount() {
   
 
 
+  /**Maps all current labels into boxes of their given colour */
   displayLabels=(labels)=>{
     if(!labels.length) return null;
 

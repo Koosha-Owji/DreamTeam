@@ -14,6 +14,8 @@ import AddContactLabel from '../label/AddContactLabel.component';
       this.updateView=this.props.updateView;
 
   }
+
+  /**Get all labels assigned to this contact */
   componentDidMount() {
     get_labels_by_contact(this.contact_id)
       .then(response => {
@@ -21,6 +23,9 @@ import AddContactLabel from '../label/AddContactLabel.component';
       })
   }
 
+  /**Unassign a contact label by calling backend delete_contact_label with
+   * the label_id to be unassigned from the contact_id
+   */
   unassignContactLabel=(label_id, id)=>{
     delete_contact_label(label_id, id)
     this.setState({
@@ -29,19 +34,20 @@ import AddContactLabel from '../label/AddContactLabel.component';
     this.componentDidMount();
   }
 
+  /**This function is added to child component: AddContactLabel so that when a new label is assigned to a contact
+   * the updated contact can be passed here and this component is re-rendered
+   */
   updateView2=()=>{
-    console.log("updating")
     this.componentDidMount();
   }
 
   GetLabelsByContact=(labels)=>{
       return labels.map((item,index)=>(
-        // <Grid item xs={5}>
+       
         <div key = {index} className ='labelListItem' style={{padding:'10px'}}>
           <Chip label={item.title} color={item.colour} variant="outlined" style ={{backgroundColor:`${item.colour}`}} 
             onDelete={() => this.unassignContactLabel(item._id, this.contact_id)}/>
         </div>
-        /* </Grid> */
       )
       )
   }

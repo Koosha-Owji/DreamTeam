@@ -55,6 +55,10 @@ export default function AddContactButton({updateView}) {
     setOpen(false);
   };
 
+  /**This function is passed to child: AddContactComponent
+   * When a new contact is created and successfully returned from BE, the dialogue is closed and
+   * new contact sent to parent component: contactList to be displayed
+   */
   const closeFromChild = (contact) => {
     setOpen(false);
     updateView(contact);

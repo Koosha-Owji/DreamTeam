@@ -70,9 +70,8 @@
      }, [currId,order,orderDetails.count])
  
      const handleSaveClick = (event) => {
-       console.log(orderDetails);
        if (orderDetails){
-           
+           /**UpdateView alerts parent component orderList that an order has been updated and it needs to re-render orders */
          update_order(currId, orderDetails)
          .then(handleClose())
          .then(response=>{updateView()})

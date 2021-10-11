@@ -1,3 +1,9 @@
+/**
+ * CreateLabelButton.component.js, createLabelButton controls dialogue with createLabel form input
+ * Created for IT Project COMP30022, Semester 2 2021
+ * The University of Melbourne
+ * Implemented by DreamTeam: Anagha Giri, Koosha Owji, Chirag Singh, Olivia Ryan, Natasha Ireland
+ */
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
@@ -55,6 +61,9 @@ export default function CreateLabelButtonPage({updateView}) {
     setOpen(false);
   };
 
+  /**This enables the dialogue to be closed from child component: CreateLabel
+   * and calls the parent component ManageLabels to update the view so the new label is rendered
+   */
   const closeFromChild = () => {
     setOpen(false)
     updateView();

@@ -6,10 +6,10 @@ import { BrowserRouter as Router, Route} from "react-router-dom";
 import Login from "./components/Login.component";
 import SignUp from "./components/SignUp.component";
 import Navbar from "./components/Navbar.component";
-import ContactsPage from "./components/contact/ContactPage.component";
+import ContactsPage from "./components/contact/contactList.component";
 import NotesPage from "./components/Notes/NotePages";
 import ManageLabels from './components/label/ManageLabels.component';
-import OrderPage from './components/order/OrderPage.component';
+import OrderPage from './components/order/OrderList.component';
 
 const App = () => {
   

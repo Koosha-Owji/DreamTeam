@@ -1,5 +1,5 @@
 /**
- * DeleteContact.component.js, component for deleting a contact
+ * DeleteOrder.component.js, component for deleting a order
  * Created for IT Project COMP30022, Semester 2 2021
  * The University of Melbourne
  * Implemented by DreamTeam: Anagha Giri, Koosha Owji, Chirag Singh, Olivia Ryan, Natasha Ireland
@@ -40,6 +40,7 @@
        setOpen(false);
      };
  
+     /**Function to send delete order request to back end and close dialogue */
      function finaliseDelete(id){
        deleteOrder(id);
        handleClose();

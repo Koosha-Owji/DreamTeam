@@ -1,5 +1,5 @@
 /**
- * addContact.component.js, front end component for adding a new contact
+ * OrderContact.component.js, uses contact_id to get contact first name and surname associated with an order
  * Created for IT Project COMP30022, Semester 2 2021
  * The University of Melbourne
  * Implemented by DreamTeam: Anagha Giri, Koosha Owji, Chirag Singh, Olivia Ryan, Natasha Ireland
@@ -21,12 +21,12 @@
         
             }
     
+      /** Get contact associated with the order */
        componentDidMount() {
          get_contact(this.contact_id)
            .then(response => {
              this.setState({ contact: response.data })
            })
-           .then(console.log('contact received'))
            .catch((error) => {
              console.log(error);
            })
@@ -36,7 +36,7 @@
        
  
    render() {
-
+    /**There may not always be a contact for an order so check and return null if not */
     if(!this.state.contact){
       return null;
     }

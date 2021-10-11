@@ -33,6 +33,7 @@ constructor(props){
     
 }
 
+/**Keep contacts fresh */
 componentDidMount() {
     get_all_contacts()
       .then(response => {
@@ -40,7 +41,8 @@ componentDidMount() {
       })
   }
 
-
+/** This function is passed to child component AddContact so that the addContact dialogue can be closed
+ * and new contact returned here upon pushing to db*/ 
 updateView =(newContact)=>{
   console.log("update view called")
   let a = this.state.contacts.slice();
@@ -50,12 +52,16 @@ updateView =(newContact)=>{
   });
 }
 
+/**This function is passed to child component UpdateContact so that when a contact is updated
+ * we get fresh contacts from the db and render them
+ */
 updateView2=()=>{
   this.componentDidMount();
 }
 
-
-
+/**This function is passed to child component DeleteContact so that a contact can be deleted by id
+ * and it can be removed from contactList state
+ */
   deleteContact=(id)=>{
     delete_contact(id)
 
@@ -66,8 +72,7 @@ updateView2=()=>{
   }
 
   
-  
-
+  /**This maps all current contacts into an accordian layout  */
   displayContactList=(contacts)=>{
     if(!contacts.length) return null;
 

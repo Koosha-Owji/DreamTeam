@@ -40,6 +40,7 @@ const useStyles = makeStyles((theme) => ({
       setOpen(false);
     };
 
+    /**This function closes the dialogue and pushes the delete contact request to the back end */
     function finaliseDelete(id){
       deleteContact(id);
       handleClose();
