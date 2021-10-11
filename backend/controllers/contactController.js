@@ -113,7 +113,7 @@
          console.log("found contact", contact);
  
          // check that the note exists
-         if (!contact) return res.json("contact does not exist");
+         if (!contact) return res.json(null);
          // if the note exists, return it
          return res.json(contact);
  

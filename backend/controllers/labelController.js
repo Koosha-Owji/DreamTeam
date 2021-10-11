@@ -59,8 +59,8 @@
          label_model.deleteOne({ _id: label_id }).exec();
  
          // delete all references to the label in contacts
-         await contact_model.updateMany({labelId: label_id}, {$pull: {labelId: label_id}});
- 
+         await contact_model.updateMany({labels: label_id}, {$pull: {labels: label_id}});
+        
          return res.send("Successfully deleted label if it exists");
  
      } catch (err) {
@@ -76,7 +76,6 @@
   */
  export const get_all_labels = async (req, res) => {
      try {
-         console.log("Get all labels");
          const labels = await label_model.find();
          return res.json(labels);
      } catch (err) {
@@ -104,7 +103,6 @@ export const get_labels_by_contact = async (req, res) => {
     var newlabels = [];
 
     try {
-        console.log( "Get labels by contacts")
         // retrieve the contact form the db and extract the labels list
         const contact = await contact_model.findById(req.params.id);
         // extract the array of label ids from the contact
