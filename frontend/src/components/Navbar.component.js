@@ -19,7 +19,7 @@ import NotePages from './Notes/NotePages';
 import Google from './Email/Google.component';
 
 import ContactsPage from './contact/contactList.component';
-import OrderPage from './order/OrderPage.component';
+import OrderPage from './order/OrderList.component';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;

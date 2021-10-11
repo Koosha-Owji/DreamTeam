@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function CreateLabelButtonPage() {
+export default function CreateLabelButtonPage({updateView}) {
   const classes = useStyles();
 
   const [open, setOpen] = React.useState(false);
@@ -57,6 +57,7 @@ export default function CreateLabelButtonPage() {
 
   const closeFromChild = () => {
     setOpen(false)
+    updateView();
   }
 
 

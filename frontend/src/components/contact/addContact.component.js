@@ -31,7 +31,6 @@ export default class AddContact extends Component {
         this.onChangedescription = this.onChangedescription.bind(this);
         this.onChangeLabel=this.onChangeLabel.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
-        //this.contactUpdated=this.props.contactUpdated;
         this.closeDialogue= this.props.closeFromChild1;
       
 
@@ -73,8 +72,9 @@ export default class AddContact extends Component {
         };
       
         create_contact(contact)
+        .then(response=>this.closeDialogue(response.data))
         
-        this.closeDialogue(contact);
+        
         
       }
 

@@ -17,7 +17,6 @@ import SendContactEmail from './SendContactEmail.component';
 import ContactLabel from './ContactLabel.component';
 import Update from './UpdateContact.component';
 import {get_all_contacts,delete_contact} from '../../api/index';
-import AddContactLabel from '../label/AddContactLabel.component';
 import SearchContact from './SearchContact.component';
 import AddContactButton from './AddContactButton.component';
 import ManageLabelButton from './../label/ManageLabelsButton.component';
@@ -41,18 +40,6 @@ componentDidMount() {
       })
   }
 
-  // componentDidUpdate(prevProps, prevState){
-  //   if(this.state.flag===true){
-  //     get_all_contacts()
-  //     .then(response => {
-  //       this.setState({ contacts: response.data })
-  //     })
-  //     .then(this.setFlag(false))
-  //     .catch((error) => {
-  //       console.log(error);
-  //     })
-  //   }
-  // }
 
 updateView =(newContact)=>{
   console.log("update view called")
@@ -63,27 +50,8 @@ updateView =(newContact)=>{
   });
 }
 
-updateView2=(updatedContact)=>{
-  this.setState({
-    contacts:this.state.contacts.filter(el =>el._id !== updatedContact._id)
-  })
-  let a = this.state.contacts.slice();
-  let toRem = null;
-  for(let i=0; i<a.length; i++){
-    if(a[i]._id==updatedContact._id){
-      toRem=a[i];
-    }
-  }
-  if(toRem){
-    a.pop(toRem);
-    a.push(updatedContact);
-    
-    
-    this.setState((state) => {
-      return {contacts: a}
-    });
-  }
-
+updateView2=()=>{
+  this.componentDidMount();
 }
 
 
@@ -111,15 +79,12 @@ updateView2=(updatedContact)=>{
           aria-controls="panel1c-content"
           id="panel1c-header"
         >
-      <Grid item xs={6}>
+      <Grid item xs={3}>
       <Typography className='first_name' style={{textAlign:'left'}}>{contact.first_name} {contact.last_name}</Typography>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={3}>
             <Typography className='business' style={{textAlign:'left'}}>{contact.business}</Typography>
         </Grid>
-        <Grid item xs={4}>
-            <AddContactLabel contact_id={contact._id} />
-            </Grid>
         <Grid item xs={6}>
         <ContactLabel contact_id={contact._id}/>
         
@@ -165,9 +130,18 @@ updateView2=(updatedContact)=>{
 
 
       return(
-    <div className ='contactList'>
-      <AddContactButton updateView ={this.updateView}/> <ManageLabelButton/>
-      <SearchContact/>
+        <div>
+    <div className ='contactList' style={{display:"flex"}}>
+      <Grid item xs={3}>
+      <AddContactButton updateView ={this.updateView}/> 
+      </Grid>
+      <Grid item xs={3}>
+        <ManageLabelButton/>
+        </Grid>
+        <Grid item xs={3}>
+        <SearchContact/>
+        </Grid>
+        </div>
     {this.displayContactList(this.state.contacts)}
   </div>
      

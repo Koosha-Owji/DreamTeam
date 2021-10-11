@@ -20,8 +20,8 @@
  
  import { Typography } from '@material-ui/core';
  import { useState, useEffect } from 'react';
- import {useDispatch, useSelector} from 'react-redux';
- import { update_order } from '../../actions/order';
+ import { useSelector} from 'react-redux';
+ import { update_order } from "../../api/index";
  
  
  const useStyles = makeStyles((theme) => ({
@@ -37,11 +37,10 @@
    }));
    
    
-    const  UpdateOrderStatus=({currId, allOrders})=> {
+    const  UpdateOrderStatus=({currId, allOrders, updateView})=> {
      const classes = useStyles();
  
      
-     const dispatch = useDispatch();
  
      const [orderDetails, setOrderDetails]=useState({
         contact_id:'',
@@ -74,9 +73,10 @@
        console.log(orderDetails);
        if (orderDetails){
            
-         dispatch (update_order(currId, orderDetails))
-         window.location.reload(true);
-         handleClose();
+         update_order(currId, orderDetails)
+         .then(handleClose())
+         .then(response=>{updateView()})
+         .catch(err=>console.log(err))
        }
  
      }

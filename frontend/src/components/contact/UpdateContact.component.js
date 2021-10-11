@@ -16,7 +16,7 @@ import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 
 import { useState, useEffect } from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import { useSelector} from 'react-redux';
 import { update_contact } from '../../api/index'
 
 const useStyles = makeStyles((theme) => ({
@@ -34,9 +34,6 @@ const useStyles = makeStyles((theme) => ({
   
     const  UpdateContact=({currId, allContacts, updateView2})=> {
     const classes = useStyles();
-
-    
-    const dispatch = useDispatch();
 
     const [contactDetails, setContactDetails]=useState({
     first_name: '',
@@ -75,7 +72,7 @@ const useStyles = makeStyles((theme) => ({
         update_contact(currId, contactDetails)
         .then(handleClose())
         .then(response=>{
-          updateView2(response.data)})
+          updateView2()})
         .catch(err=>console.log(err))
       }
 

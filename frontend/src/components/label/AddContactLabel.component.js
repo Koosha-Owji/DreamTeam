@@ -26,6 +26,7 @@
                 label_id:''
               };
             this.contact_id=this.props.contact_id;
+            this.updateView=this.props.updateView;
         
             }
     
@@ -41,8 +42,10 @@
        
        onSubmit(e) {
          e.preventDefault();
-         add_contact_label(this.state.label_id, this.contact_id);
-         window.location = '/home';
+         add_contact_label(this.state.label_id, this.contact_id)
+         .then(response=>{
+          this.updateView()})
+        .catch(err=>console.log(err))
        }
  
       

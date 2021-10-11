@@ -33,18 +33,13 @@
        }
        
  
-      
-   
-    //    displayLabelDropdown(labels){
-    //      if(!labels.length) return null;
-    //        return labels.map((label, index)=>(
-    //          <MenuItem value={label._id} style={{backgroundColor:`${label.colour}`}}>{label.title}</MenuItem>
-   
-    //        ))
-    //    }
        
  
    render() {
+
+    if(!this.state.contact){
+      return null;
+    }
      
      return (
          

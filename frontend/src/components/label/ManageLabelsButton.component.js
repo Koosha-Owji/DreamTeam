@@ -62,7 +62,7 @@ export default function AddContactButton() {
                 Manage labels
             </Fab>
 
-            <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+            <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" maxWidth="sm" fullWidth="false">
         <DialogTitle id="form-dialog-title">Manage Labels</DialogTitle>
         <ManageLabel/>
         </Dialog>

@@ -5,7 +5,7 @@ import AccordionSummary from '@material-ui/core/AccordionSummary';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Grid from '@material-ui/core/Grid';
-//import AddOrder from './AddOrder.component';
+import AddOrderButton from './AddOrderButton.component';
 import DeleteOrder from './DeleteOrder.component';
 import UpdateOrderStatus from './UpdateOrderStatus.component';
 import { get_all_orders, delete_order } from '../../api/index';
@@ -18,6 +18,8 @@ constructor(props){
       orders: []
     };
     this.delete_order = this.deleteOrder.bind(this);
+    this.updateView=this.updateView.bind(this);
+    this.updateView2=this.updateView2.bind(this);
 
 }
 
@@ -31,21 +33,27 @@ componentDidMount() {
       })
 
   }
-componentDidUpdate(prevProps, prevState){
-    if(this.state.orders!==prevState.orders){
-      get_all_orders()
-      .then(response => {
-        this.setState({ orders: response.data })
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-    }
+  updateView =(newOrder)=>{
+    let a = this.state.orders.slice();
+    a.push(newOrder)
+    this.setState((state) => {
+      return {orders: a}
+    });
+    this.componentDidMount();
+  }
+  
+  updateView2=()=>{
+    this.componentDidMount();
   }
 
   deleteOrder=(id)=>{
     delete_order(id)
-    .then(response =>{  console.log(response.data)});
+
+    
+    this.setState({
+      orders:this.state.orders.filter(el =>el._id !== id)
+    })
+    
 
   }
     
@@ -71,7 +79,7 @@ componentDidUpdate(prevProps, prevState){
               
             </Grid>
             <Grid item xs={1} >
-              <UpdateOrderStatus currId ={order._id} allOrders={orders} />
+              <UpdateOrderStatus currId ={order._id} allOrders={orders} updateView={this.updateView2} />
               </Grid>
              <Grid item xs={1}>
                 <DeleteOrder id={order._id} deleteOrder={this.deleteOrder}/>
@@ -99,10 +107,14 @@ componentDidUpdate(prevProps, prevState){
 
   render(){
 
-      console.log('State: ', this.state);
 
       return(
+        <div>
     <div className ='orderList'>
+    <Grid item xs={3}>
+      <AddOrderButton updateView ={this.updateView}/> 
+      </Grid>
+    </div>
     {this.displayOrders(this.state.orders)}
   </div>
 

@@ -46,7 +46,6 @@
            .then(response => {
              this.setState({ contacts: response.data })
            })
-           .then(console.log('contactsreceived'))
            .catch((error) => {
              console.log(error);
            })
@@ -62,8 +61,9 @@
              dueDate :this.state.dueDate,
              startDate:this.state.startDate
          }
-         create_order(order);
-         this.closeDialogue();
+         create_order(order)
+         .then(response=>this.closeDialogue(response.data))
+         
        }
 
        onChangeProduct(e) {
@@ -117,10 +117,9 @@
  
                  <FormControl fullWidth variant="standard" sx={{ m: 1, minWidth: 120 }}>
                  <InputLabel id="demo-simple-select-filled-label">Assign to contact</InputLabel>
-                 <Select
-                 labelId="demo-simple-select-filled-label"
+                 <Select labelId="demo-simple-select-filled-label"
                  id="demo-simple-select-filled"
-                 value={this.contact_id}
+                 value={this.state.contact_id}
                  onChange={this.onChangeContact}
                  >
                  <MenuItem value="">
