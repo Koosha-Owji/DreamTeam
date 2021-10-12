@@ -110,6 +110,7 @@ export default function TabsWrappedLabel() {
         <Google/>
       </TabPanel>
       <TabPanel value={value} index="three">
+        <MeetingPage/>
       </TabPanel>
       <TabPanel value={value} index="four">
         <NotePages/>

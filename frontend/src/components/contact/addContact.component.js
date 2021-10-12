@@ -229,6 +229,7 @@ export default class AddContact extends Component {
             <div className = 'note_footer'>
                 <Button className = "Add to contacts" onClick={this.onSubmit}>Save</Button>
             </div>
+            
       </div>
       </Container>
     );
