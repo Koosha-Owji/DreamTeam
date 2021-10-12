@@ -1,6 +1,6 @@
-import React, {Component} from "react";
-import Link from '@material-ui/core/Link';
-import { withRouter } from 'react-router-dom'
+import React from "react";
+import { withRouter } from 'react-router-dom';
+import Button from '@material-ui/core/Button';
 
 class ErrorBoundary extends React.Component {
     constructor(props) {
@@ -22,14 +22,17 @@ class ErrorBoundary extends React.Component {
       if (this.state.errorInfo) {
         // Error path
         return (
-            <div style={{backgroundImage:"url(https://source.unsplash.com/9BJRGlqoIUk)"}}>
+            <div style={{backgroundImage:"url(https://source.unsplash.com/9BJRGlqoIUk)", height:"100%",
+             backgroundPosition:"center", backgroundRepeat:"no-repeat", backgroundSize:"cover" }}>
             <h2>Something went wrong.</h2>
             <details style={{ whiteSpace: 'pre-wrap' }}>
               {this.state.error && this.state.error.toString()}
               <br />
               {this.state.errorInfo.componentStack}
             </details>
-            <Link href="/home">Go Back</Link>
+            <div style={{padding:"100px"}}>
+            <Button variant="text" style={{padding:"10px", fontSize:"large"}} href="/home">Click me to return home</Button>
+            </div>
           </div>
         );
       }
