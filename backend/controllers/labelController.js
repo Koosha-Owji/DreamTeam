@@ -17,11 +17,11 @@
   */
  export const create_label = async (req, res) => {
  
-     // Check for existing labels with the same title and colour.
+     // Check for existing labels with the same title and colour. 
      const old_label = await label_model.findOne({
          title: req.body.title, 
          colour: req.body.colour,
-         user_id: req.user_id
+         user_id: req.body.user_id
          })
          .catch((err) => {const old_label = 0});
  
@@ -31,7 +31,7 @@
      const new_label = await label_model.create({
          title: req.body.title, 
          colour: req.body.colour, 
-         user_id: req.user_id})
+         user_id: req.body.user_id})
          .catch((err) => { return res.status(400).json(
              {message: "requests require a title, colour and user_id"}
          )});
@@ -54,7 +54,6 @@
      // add deletion of all references to the label in contacts
  
      try {
-
          const label_id = req.params.id;
          // delete the label
          label_model.deleteOne({ _id: label_id }).exec();
@@ -77,7 +76,7 @@
   */
  export const get_all_labels = async (req, res) => {
      try {
-         const labels = await label_model.find({user_id: req.user_id});
+         const labels = await label_model.find();
          return res.json(labels);
      } catch (err) {
          return res.status(400).json({message: "label retrieval failed"});
