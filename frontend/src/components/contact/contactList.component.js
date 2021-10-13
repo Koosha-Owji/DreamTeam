@@ -35,6 +35,7 @@ constructor(props){
 
 /**Keep contacts fresh */
 componentDidMount() {
+  console.log("here")
     get_all_contacts()
       .then(response => {
         this.setState({ contacts: response.data })
