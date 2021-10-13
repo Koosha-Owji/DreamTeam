@@ -29,7 +29,6 @@ export default class CreateLabel extends Component {
         this.state = {
         title: '',
         colour:'',
-        hasSubmitted:false,
         }
       }
 
@@ -41,12 +40,10 @@ export default class CreateLabel extends Component {
           colour:this.state.colour
         };
 
-        create_label(label);
-        this.setState({
-          hasSubmitted:true
-        })
         /**Closes the dialogue which is controlled from the parent component: ManageLabels */
-        this.closeDialogue();
+        create_label(label)
+        .then((response)=>this.closeDialogue(response.data))
+        
         
       }
 

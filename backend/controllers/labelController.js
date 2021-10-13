@@ -40,7 +40,7 @@
      // Save the label to the database
      try {
          await new_label.save();
-         return res.json({message: "Successfully added label!", label: new_label});
+         return res.send(new_label);
      } catch (err) { return res.status(500).json({message: "Error saving new label"}); }
  }
  

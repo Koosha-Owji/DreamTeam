@@ -34,8 +34,12 @@ componentDidMount() {
 /**Function to be passed to child component: AddLabel
  * Called when a label is created so it can be rendered to screen
  */
-  updateView=()=>{
-    this.componentDidMount();
+  updateView=(newLabel)=>{
+    let a = this.state.labels.slice();
+    a.push(newLabel)
+    this.setState((state) => {
+      return {labels: a}
+    });
   }
 
   /**Calls back end delete function with label_id to be deleted

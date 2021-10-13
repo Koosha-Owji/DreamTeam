@@ -37,7 +37,12 @@ import AddContactLabel from '../label/AddContactLabel.component';
   /**This function is added to child component: AddContactLabel so that when a new label is assigned to a contact
    * the updated contact can be passed here and this component is re-rendered
    */
-  updateView2=()=>{
+  updateView2=(newLabel)=>{
+    let a = this.state.labels.slice();
+    a.push(newLabel)
+    this.setState((state) => {
+      return {labels: a}
+    });
     this.componentDidMount();
   }
 

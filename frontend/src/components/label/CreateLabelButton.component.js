@@ -64,9 +64,9 @@ export default function CreateLabelButtonPage({updateView}) {
   /**This enables the dialogue to be closed from child component: CreateLabel
    * and calls the parent component ManageLabels to update the view so the new label is rendered
    */
-  const closeFromChild = () => {
+  const closeFromChild = (newLabel) => {
     setOpen(false)
-    updateView();
+    updateView(newLabel);
   }
 
 

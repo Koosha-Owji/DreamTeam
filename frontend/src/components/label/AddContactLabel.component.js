@@ -44,7 +44,7 @@
          e.preventDefault();
          add_contact_label(this.state.label_id, this.contact_id)
          .then(response=>{
-          this.updateView()})
+          this.updateView(response.data)})
         .catch(err=>console.log(err))
        }
  

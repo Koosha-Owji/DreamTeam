@@ -130,6 +130,10 @@
   * @returns {the response}
   */
   export const label_contact = async (req, res) => {
+
+    if (!req.user_id) return res.status(400).json({ message: "User doesn't exist" });
+     const user = await userModel.findOne({ _id: req.user_id});
+     if (! user) return res.status(400).json({ message: "User doesn't exist" });
      
      try {
          // retrieve the contact by its id and insert the lable id into the labelId
@@ -144,7 +148,7 @@
          
          const contact = await Contact.findById(req.params.contact_id).exec();
          console.log(contact)
-         return res.json(contact);
+         return res.send(contact);
  
      } catch (err) {
          res.status(400).json(err);
@@ -170,7 +174,7 @@
  
          const contact = await Contact.findById(req.params.contact_id).exec();
          console.log(contact, req.params.label_id, req.params.contact_id)
-         return res.json(contact);
+         return res.send(contact);
  
      } catch (err) {
          res.status(400).json('Error: ' + err);
