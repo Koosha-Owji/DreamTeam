@@ -13,15 +13,6 @@ export default function ProfilePage() {
   const profile = useState(JSON.parse(localStorage.getItem('profile')));
   const user = useState(profile[0]);
 
-  // const user = {
-  //   first_name: "Hubert", 
-  //   last_name: "Wolfeschlegelstein", 
-  //   email_address: "email@gmail.com", 
-  //   department: "No dept.", 
-  //   role: "Teacher"
-  // }
-
-
   return (
     <div className={classes.root}>
       <Grid container justifyContent = 'center'>

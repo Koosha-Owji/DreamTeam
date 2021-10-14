@@ -6,7 +6,7 @@
  */
 import axios from 'axios';
 
-const API = axios.create({ baseURL: 'http://localhost:5000' });
+const API = axios.create({ baseURL: 'https://dream-team-crm-back.herokuapp.com' });
 
 API.interceptors.request.use((req) => {
   if (localStorage.getItem('profile')) {
@@ -72,3 +72,4 @@ export const sendEmail = (formData) => API.post("/email/send", formData);
 export const linkEmail = (formData) => API.post("email/link", formData);
 
 export const update_user = (user) => API.patch(`user/update`, user);
+export const update_password = (user) => API.patch('user/update_password',user);

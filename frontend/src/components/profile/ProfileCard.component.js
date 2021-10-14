@@ -14,21 +14,47 @@ import { cyan } from '@material-ui/core/colors';
 // import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 // import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { makeStyles } from '@material-ui/core/styles';
-// import UpdateIcon from '@material-ui/icons/Update';
-// import Fab from '@material-ui/core/Fab';
-// import Grid from '@material-ui/core/Grid';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
 import Update from './UpdateProfile.component';
+import { useDispatch, useSelector } from 'react-redux';
+import { update_password } from '../../actions/user';
+import PasswordChecklist from "react-password-checklist";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme)=> ({
     avatar: {
       backgroundColor: cyan[300],
-    }
-  })
+    },
+    form: {
+        width: "100%", // Fix IE 11 issue.
+        marginTop: theme.spacing(1),
+      },
+      submit: {
+        margin: theme.spacing(3, 0, 2),
+      },
+  }));
 export default function ProfileCard({user}) {
     //const [expanded, setExpanded] = React.useState(false);
+    const dispatch = useDispatch();
     const user1 = user[0];
     const name = user1.result.first_name + " " + user1.result.last_name;
-    const classes = useStyles()
+    const classes = useStyles();
+    const [passwordDetails, setPasswordDetails]= React.useState({current_password: '',new_password:'',repeatNew_password: ''});
+    const password_Changed = (useSelector((state) => state.auth.password_Changed));
+    console.log(passwordDetails)
+    
+    const handleSubmit = (event) => {
+      if (passwordDetails){
+          event.preventDefault();
+          dispatch (update_password(passwordDetails))
+          if(password_Changed!==null)
+          {
+            alert(password_Changed.message); 
+            event.target.reset();
+          }
+      }
+
+  }
 
     return (
         <div>
@@ -67,6 +93,48 @@ export default function ProfileCard({user}) {
                 <Typography mt={2} variant="subtitle1" align="left" color="text.secondary">
                 Role: {user1.result.role}
                 </Typography>
+                <form className={classes.form} onSubmit={handleSubmit} noValidate>
+                <TextField
+                  autoFocus
+                  required
+                  margin="dense"
+                  id="current_password"
+                  label="Current Password"
+                  type="password"
+                  fullWidth
+                  onChange={(e) => setPasswordDetails({...passwordDetails, current_password:e.target.value})}
+                ></TextField>
+                <TextField
+                  autoFocus
+                  margin="dense"
+                  id="new_password"
+                  label="New Password"
+                  type="password"
+                  fullWidth
+                  onChange={(e) => setPasswordDetails({...passwordDetails, new_password:e.target.value})}
+                ></TextField>
+                <TextField
+                  autoFocus
+                  margin="dense"
+                  id="repeatNew_password"
+                  label="Repeat password"
+                  type="password"
+                  fullWidth
+                  onChange={(e) => setPasswordDetails({...passwordDetails, repeatNew_password:e.target.value})}
+                ></TextField>
+                <Button 
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                  className={classes.submit} >Save changes</Button>
+                  <PasswordChecklist
+				            rules={["minLength","number","capital","match"]}
+				            minLength={5}
+				            value={passwordDetails.new_password}
+				            valueAgain={passwordDetails.repeatNew_password}
+			            />
+                </form>
             </CardContent>
         </Card>
         </div>
