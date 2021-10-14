@@ -20,6 +20,7 @@ import {get_all_contacts,delete_contact} from '../../api/index';
 import SearchContact from './SearchContact.component';
 import AddContactButton from './AddContactButton.component';
 import ManageLabelButton from './../label/ManageLabelsButton.component';
+import Search from './Search.component';
 
 
 export default class ContactCard extends Component{
@@ -35,7 +36,6 @@ constructor(props){
 
 /**Keep contacts fresh */
 componentDidMount() {
-  console.log("here")
     get_all_contacts()
       .then(response => {
         this.setState({ contacts: response.data })
@@ -149,6 +149,7 @@ updateView2=()=>{
         </Grid>
         </div>
     {this.displayContactList(this.state.contacts)}
+    <Search items={this.state.contacts}/>
   </div>
      
       );
