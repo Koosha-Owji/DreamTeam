@@ -110,7 +110,7 @@
  export const get_contact= async(req,res)=>{
      try {
          const contact = await Contact.findById(req.params.id).exec();
-         console.log("found contact", contact);
+        
  
          // check that the note exists
          if (!contact) return res.json(null);
@@ -138,8 +138,7 @@
      try {
          // retrieve the contact by its id and insert the lable id into the labelId
          // array of the contact
-         const label_id = req.params.label_id
-         console.log("adding label to contact", req.params.label_id, req.params.contact_id)
+         const label_id = req.params.label_id;
          await Contact.updateOne(
              {_id: req.params.contact_id},
              // only add the label id if it isn't already in the array
@@ -147,7 +146,6 @@
              {$push: {labels: label_id}})
          
          const contact = await Contact.findById(req.params.contact_id).exec();
-         console.log(contact)
          return res.send(contact);
  
      } catch (err) {
@@ -164,7 +162,6 @@
   * @returns {the response}
   */
  export const delabel_contact = async (req, res) => {
-     console.log("Delabel contact")
      try {
          // retrieve the contact by its id and delete the lable id from the labelId
          // array of the contact
@@ -173,7 +170,6 @@
              {$pull: {labels: req.params.label_id}})
  
          const contact = await Contact.findById(req.params.contact_id).exec();
-         console.log(contact, req.params.label_id, req.params.contact_id)
          return res.send(contact);
  
      } catch (err) {
