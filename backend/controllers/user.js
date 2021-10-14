@@ -3,7 +3,10 @@ import jwt from "jsonwebtoken";
 
 import UserModel from "../models/user.js";
 
-const secret = 'dreamteam';
+import dotenv from "dotenv";
+dotenv.config();
+
+const secret = process.env.JWT_SECRET;
 
 export const signin = async (req, res) => {
   const { email_address, password } = req.body;
