@@ -1,5 +1,10 @@
+/**
+ * CreateLabel.component.js, component for deleting a label
+ * Created for IT Project COMP30022, Semester 2 2021
+ * The University of Melbourne
+ * Implemented by DreamTeam: Anagha Giri, Koosha Owji, Chirag Singh, Olivia Ryan, Natasha Ireland
+ */
 import React, { Component } from 'react';
-//import axios from 'axios';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
@@ -19,11 +24,11 @@ export default class CreateLabel extends Component {
         this.onChangetitle = this.onChangetitle.bind(this);
         this.onChangecolour = this.onChangecolour.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
+        this.closeDialogue= this.props.closeFromChild;
 
         this.state = {
         title: '',
         colour:'',
-        hasSubmitted:false,
         }
       }
 
@@ -35,11 +40,10 @@ export default class CreateLabel extends Component {
           colour:this.state.colour
         };
 
-        console.log(label);
-        create_label(label);
-        this.setState({
-          hasSubmitted:true
-        })
+        /**Closes the dialogue which is controlled from the parent component: ManageLabels */
+        create_label(label)
+        .then((response)=>this.closeDialogue(response.data))
+        
         
       }
 

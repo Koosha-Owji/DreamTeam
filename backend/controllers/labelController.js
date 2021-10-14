@@ -17,11 +17,11 @@
   */
  export const create_label = async (req, res) => {
  
-     // Check for existing labels with the same title and colour. 
+     // Check for existing labels with the same title and colour.
      const old_label = await label_model.findOne({
          title: req.body.title, 
          colour: req.body.colour,
-         user_id: req.body.user_id
+         user_id: req.user_id
          })
          .catch((err) => {const old_label = 0});
  
@@ -31,7 +31,7 @@
      const new_label = await label_model.create({
          title: req.body.title, 
          colour: req.body.colour, 
-         user_id: req.body.user_id})
+         user_id: req.user_id})
          .catch((err) => { return res.status(400).json(
              {message: "requests require a title, colour and user_id"}
          )});
@@ -40,7 +40,7 @@
      // Save the label to the database
      try {
          await new_label.save();
-         return res.json({message: "Successfully added label!", label: new_label});
+         return res.send(new_label);
      } catch (err) { return res.status(500).json({message: "Error saving new label"}); }
  }
  
@@ -54,13 +54,14 @@
      // add deletion of all references to the label in contacts
  
      try {
+
          const label_id = req.params.id;
          // delete the label
          label_model.deleteOne({ _id: label_id }).exec();
  
          // delete all references to the label in contacts
-         await contact_model.updateMany({labelId: label_id}, {$pull: {labelId: label_id}});
- 
+         await contact_model.updateMany({labels: label_id}, {$pull: {labels: label_id}});
+        
          return res.send("Successfully deleted label if it exists");
  
      } catch (err) {
@@ -76,8 +77,7 @@
   */
  export const get_all_labels = async (req, res) => {
      try {
-         console.log("Get all labels");
-         const labels = await label_model.find();
+         const labels = await label_model.find({user_id: req.user_id});
          return res.json(labels);
      } catch (err) {
          return res.status(400).json({message: "label retrieval failed"});
@@ -104,7 +104,6 @@ export const get_labels_by_contact = async (req, res) => {
     var newlabels = [];
 
     try {
-        console.log( "Get labels by contacts")
         // retrieve the contact form the db and extract the labels list
         const contact = await contact_model.findById(req.params.id);
         // extract the array of label ids from the contact

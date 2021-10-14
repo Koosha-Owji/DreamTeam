@@ -17,41 +17,63 @@ import SendContactEmail from './SendContactEmail.component';
 import ContactLabel from './ContactLabel.component';
 import Update from './UpdateContact.component';
 import {get_all_contacts,delete_contact} from '../../api/index';
-import AddContactLabel from '../label/AddContactLabel.component';
+import SearchContact from './SearchContact.component';
+import AddContactButton from './AddContactButton.component';
+import ManageLabelButton from './../label/ManageLabelsButton.component';
 
 
 export default class ContactCard extends Component{
 constructor(props){
     super(props);
     this.state = {contacts: []};
-    this.delete_contact = this.deleteContact.bind(this)
+    this.delete_contact = this.deleteContact.bind(this);
+    this.updateView=this.updateView.bind(this);
+    this.updateView2=this.updateView2.bind(this);
+    
     
 }
 
+/**Keep contacts fresh */
 componentDidMount() {
-  console.log("mounted")
+  console.log("here")
     get_all_contacts()
       .then(response => {
         this.setState({ contacts: response.data })
       })
-      .then(console.log('contacts received', this.state.contacts))
-      // .catch((error) => {
-      //   console.log(error);
-      // })
   }
 
+/** This function is passed to child component AddContact so that the addContact dialogue can be closed
+ * and new contact returned here upon pushing to db*/ 
+updateView =(newContact)=>{
+  console.log("update view called")
+  let a = this.state.contacts.slice();
+  a.push(newContact)
+  this.setState((state) => {
+    return {contacts: a}
+  });
+}
+
+/**This function is passed to child component UpdateContact so that when a contact is updated
+ * we get fresh contacts from the db and render them
+ */
+updateView2=()=>{
+  this.componentDidMount();
+}
+
+/**This function is passed to child component DeleteContact so that a contact can be deleted by id
+ * and it can be removed from contactList state
+ */
   deleteContact=(id)=>{
     delete_contact(id)
-    .then(response =>{  console.log(response.data)});
 
     this.setState({
       contacts:this.state.contacts.filter(el =>el._id !== id)
     })
+    
   }
 
   
-  
-
+  /**This maps all current contacts into an accordian layout  */
   displayContactList=(contacts)=>{
     if(!contacts.length) return null;
 
@@ -63,15 +85,12 @@ componentDidMount() {
           aria-controls="panel1c-content"
           id="panel1c-header"
         >
-      <Grid item xs={6}>
+      <Grid item xs={3}>
       <Typography className='first_name' style={{textAlign:'left'}}>{contact.first_name} {contact.last_name}</Typography>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={3}>
             <Typography className='business' style={{textAlign:'left'}}>{contact.business}</Typography>
         </Grid>
-        <Grid item xs={4}>
-            <AddContactLabel contact_id={contact._id}/>
-            </Grid>
         <Grid item xs={6}>
         <ContactLabel contact_id={contact._id}/>
         
@@ -81,7 +100,7 @@ componentDidMount() {
           <SendContactEmail/>
         </Grid>
         <Grid item xs={1} textA>
-        <Update currId ={contact._id} allContacts={contacts}/>
+        <Update currId ={contact._id} allContacts={contacts} updateView2={this.updateView2} />
         </Grid>
         <Grid item xs={1}>
         <DeleteContact id={contact._id} deleteContact={this.deleteContact}/>
@@ -115,10 +134,20 @@ componentDidMount() {
 
   render(){
 
-      console.log('State: ', this.state);
 
       return(
-    <div className ='contactList'>
+        <div>
+    <div className ='contactList' style={{display:"flex"}}>
+      <Grid item xs={3}>
+      <AddContactButton updateView ={this.updateView}/> 
+      </Grid>
+      <Grid item xs={3}>
+        <ManageLabelButton/>
+        </Grid>
+        <Grid item xs={3}>
+        <SearchContact/>
+        </Grid>
+        </div>
     {this.displayContactList(this.state.contacts)}
   </div>
      

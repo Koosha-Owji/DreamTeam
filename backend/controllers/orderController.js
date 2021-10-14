@@ -4,26 +4,25 @@ import userModel from "../models/user.js";
 import mongoose from 'mongoose';
 
 export const create_order = async (req, res) =>{
-    console.log(req.body, req.user_id);
+   
     const product = req.body.product;
    const stage = req.body.stage;
    const amount = req.body.amount;
    const order_date = req.body.startDate;
    const due_date = req.body.dueDate;
    const user_id=req.user_id;
+   const contact_id=req.body.contact_id;
    const user = await userModel.findOne({ _id: req.user_id});
    if (! user) return res.status(400).json({ message: "User not found" });
    const contact = await contactModel.findOne({_id: req.body.contact_id});
    if (!contact) return res.status(400).json({message: "Contact not found"});
    
    const newOrder =new orderModel({
-       product, stage, amount,order_date, due_date, user_id, contact_id: req.body.contact_id
+       product, stage, amount,order_date, due_date, user_id, contact_id
    });
-   console.log("made new order", newOrder)
    try {
        await newOrder.save()
-       console.log("New order saved", newOrder)
-        return res.json({message:"Added new order!", order:newOrder});
+        return res.send(newOrder);
         
 } catch (err) { 
     console.log("caught", err)

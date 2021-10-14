@@ -1,11 +1,17 @@
-import React, {Component} from 'react';
+
+/**
+ *  OrderList.component.js, iists all order, can update, delete and add orders from this component
+ * Created for IT Project COMP30022, Semester 2 2021
+ * The University of Melbourne
+ * Implemented by DreamTeam: Anagha Giri, Koosha Owji, Chirag Singh, Olivia Ryan, Natasha Ireland
+ */import React, {Component} from 'react';
 import Accordion from '@material-ui/core/Accordion';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Grid from '@material-ui/core/Grid';
-//import AddOrder from './AddOrder.component';
+import AddOrderButton from './AddOrderButton.component';
 import DeleteOrder from './DeleteOrder.component';
 import UpdateOrderStatus from './UpdateOrderStatus.component';
 import { get_all_orders, delete_order } from '../../api/index';
@@ -18,9 +24,12 @@ constructor(props){
       orders: []
     };
     this.delete_order = this.deleteOrder.bind(this);
+    this.updateView=this.updateView.bind(this);
+    this.updateView2=this.updateView2.bind(this);
 
 }
 
+/**Keep rendered orders current */
 componentDidMount() {
     get_all_orders()
       .then(response => {
@@ -32,16 +41,37 @@ componentDidMount() {
 
   }
 
+/** This function is passed to child component AddOrder so that the addOrderdialogue can be closed
+ * and new order returned here upon pushing to db*/ 
+  updateView =(newOrder)=>{
+    let a = this.state.orders.slice();
+    a.push(newOrder)
+    this.setState((state) => {
+      return {orders: a}
+    });
+    this.componentDidMount();
+  }
+  /**This function is passed to child component UpdateOrderStatus so that when a order is updated
+ * we get fresh odrers from the db and render them
+ */
+  updateView2=()=>{
+    this.componentDidMount();
+  }
+
+  /**Delete contact by given id and update state
+ */
   deleteOrder=(id)=>{
     delete_order(id)
-    .then(response =>{  console.log(response.data)});
 
+    
     this.setState({
       orders:this.state.orders.filter(el =>el._id !== id)
     })
-  }
     
 
+  }
+    
+/**Map all current orders into accordian display */
   displayOrders=(orders)=>{
     if(!orders.length) return null;
 
@@ -63,7 +93,7 @@ componentDidMount() {
               
             </Grid>
             <Grid item xs={1} >
-              <UpdateOrderStatus currId ={order._id} allOrders={orders} />
+              <UpdateOrderStatus currId ={order._id} allOrders={orders} updateView={this.updateView2} />
               </Grid>
              <Grid item xs={1}>
                 <DeleteOrder id={order._id} deleteOrder={this.deleteOrder}/>
@@ -91,10 +121,14 @@ componentDidMount() {
 
   render(){
 
-      console.log('State: ', this.state);
 
       return(
+        <div>
     <div className ='orderList'>
+    <Grid item xs={3}>
+      <AddOrderButton updateView ={this.updateView}/> 
+      </Grid>
+    </div>
     {this.displayOrders(this.state.orders)}
   </div>
 

@@ -38,12 +38,10 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 
 import userRouter from "./routes/user.js";
-import contactRouter from "./routes/contactRouter.js";
+import contactRouter from "./routes/contactRouter.js"
 import noteRouter from "./routes/note.js";
-import emailRouter from "./routes/email.js";
 import labelRouter from "./routes/label.js";
 import orderRouter from "./routes/orderRouter.js";
-import meetingRouter from "./routes/meeting.js";
 
 const app = express();
 
@@ -52,12 +50,10 @@ app.use(express.urlencoded({ limit: '30mb', extended: true }))
 app.use(cors());
 
 app.use("/user", userRouter);
-app.use("/contact", contactRouter);
+app.use("/contacts", contactRouter);
 app.use("/note", noteRouter);
-app.use("/email",emailRouter);
 app.use("/label", labelRouter);
-app.use("/orders", orderRouter);
-app.use("/meeting", meetingRouter);
+app.use("/orders", orderRouter)
 
 const CONNECTION_URL = 'mongodb+srv://dreamteam:teamdream@cluster0.dmj7x.mongodb.net/DreamTeamCRM?retryWrites=true&w=majority'
 const PORT = process.env.PORT|| 5000;

@@ -1,16 +1,10 @@
-/**
- * CreateLabelButton.component.js, createLabelButton controls dialogue with createLabel form input
- * Created for IT Project COMP30022, Semester 2 2021
- * The University of Melbourne
- * Implemented by DreamTeam: Anagha Giri, Koosha Owji, Chirag Singh, Olivia Ryan, Natasha Ireland
- */
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import CreateLabel from './CreateLabel.component';
+import AddContact from './addContact.component';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -48,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function CreateLabelButtonPage({updateView}) {
+export default function AddContactButton({updateView}) {
   const classes = useStyles();
 
   const [open, setOpen] = React.useState(false);
@@ -61,12 +55,13 @@ export default function CreateLabelButtonPage({updateView}) {
     setOpen(false);
   };
 
-  /**This enables the dialogue to be closed from child component: CreateLabel
-   * and calls the parent component ManageLabels to update the view so the new label is rendered
+  /**This function is passed to child: AddContactComponent
+   * When a new contact is created and successfully returned from BE, the dialogue is closed and
+   * new contact sent to parent component: contactList to be displayed
    */
-  const closeFromChild = (newLabel) => {
-    setOpen(false)
-    updateView(newLabel);
+  const closeFromChild = (contact) => {
+    setOpen(false);
+    updateView(contact);
   }
 
 
@@ -75,12 +70,12 @@ export default function CreateLabelButtonPage({updateView}) {
     <div className={classes.root}>
             <Fab color="primary" aria-label="add" variant='extended' onClick={handleClickOpen}>
             <AddIcon className={classes.extendedIcon}/>
-                Add New Label
+                Add New Contact
             </Fab>
 
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title">Create Label</DialogTitle>
-        <CreateLabel closeFromChild = {closeFromChild} />
+        <DialogTitle id="form-dialog-title">Add New Contact</DialogTitle>
+        <AddContact closeFromChild1={closeFromChild} />
         </Dialog>
     </div>
   );

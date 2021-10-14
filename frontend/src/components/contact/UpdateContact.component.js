@@ -16,9 +16,8 @@ import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 
 import { useState, useEffect } from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-import { update_contact } from '../../actions/contact';
-
+import { useSelector} from 'react-redux';
+import { update_contact } from '../../api/index'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -33,11 +32,8 @@ const useStyles = makeStyles((theme) => ({
   }));
   
   
-    const  UpdateContact=({currId, allContacts})=> {
+    const  UpdateContact=({currId, allContacts, updateView2})=> {
     const classes = useStyles();
-
-    
-    const dispatch = useDispatch();
 
     const [contactDetails, setContactDetails]=useState({
     first_name: '',
@@ -70,18 +66,19 @@ const useStyles = makeStyles((theme) => ({
     }, [currId,contact,contactDetails.count])
 
     const handleSaveClick = (event) => {
-      console.log(contactDetails);
       if (contactDetails){
           
-        dispatch (update_contact(currId, contactDetails))
-        window.location.reload(true);
-        handleClose();
+        /**Call the update contact function, return the updated contact and pass it to parent component:
+         * contactList so that it can be rendered to page
+         */
+        update_contact(currId, contactDetails)
+        .then(handleClose())
+        .then(response=>{
+          updateView2()})
+        .catch(err=>console.log(err))
       }
 
     }
-    
-
-  
     const handleClickOpen = () => {
       setOpen(true);
     };

@@ -26,15 +26,15 @@
                 label_id:''
               };
             this.contact_id=this.props.contact_id;
+            this.updateView=this.props.updateView;
         
             }
-    
+    /**Get all labels that currently exist so we can select one to assign to the contact */
        componentDidMount() {
          get_all_labels()
            .then(response => {
              this.setState({ labels: response.data })
            })
-           .then(console.log('labels received'))
            .catch((error) => {
              console.log(error);
            })
@@ -42,8 +42,10 @@
        
        onSubmit(e) {
          e.preventDefault();
-         add_contact_label(this.state.label_id, this.contact_id);
-         window.location = '/home';
+         add_contact_label(this.state.label_id, this.contact_id)
+         .then(response=>{
+          this.updateView(response.data)})
+        .catch(err=>console.log(err))
        }
  
       
@@ -53,7 +55,8 @@
          })
          
        }
-   
+       
+       /**Display labels in a dropdown from which we can select one to assign to a contact */
        displayLabelDropdown(labels){
          if(!labels.length) return null;
            return labels.map((label, index)=>(

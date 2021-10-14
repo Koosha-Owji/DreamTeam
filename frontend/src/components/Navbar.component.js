@@ -18,9 +18,8 @@ import decode from 'jwt-decode';
 import NotePages from './Notes/NotePages';
 import Google from './Email/Google.component';
 
-import ContactsPage from './contact/ContactPage.component';
-import OrderPage from './order/OrderPage.component';
-import MeetingPage from './Meetings/MeetingPage'
+import ContactsPage from './contact/contactList.component';
+import OrderPage from './order/OrderList.component';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -111,7 +110,6 @@ export default function TabsWrappedLabel() {
         <Google/>
       </TabPanel>
       <TabPanel value={value} index="three">
-        <MeetingPage/>
       </TabPanel>
       <TabPanel value={value} index="four">
         <NotePages/>

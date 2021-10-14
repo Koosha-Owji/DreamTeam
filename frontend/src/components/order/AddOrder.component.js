@@ -1,5 +1,5 @@
 /**
- * addContact.component.js, front end component for adding a new contact
+ *  AddOrder.component.js, front end component for adding a new order
  * Created for IT Project COMP30022, Semester 2 2021
  * The University of Melbourne
  * Implemented by DreamTeam: Anagha Giri, Koosha Owji, Chirag Singh, Olivia Ryan, Natasha Ireland
@@ -28,6 +28,9 @@
             this.onChangeDueDate=this.onChangeDueDate.bind(this);
             this.onChangeStartDate=this.onChangeStartDate.bind(this);
             this.onSubmit = this.onSubmit.bind(this);
+
+            /**Function passed from contactList component to close dialogue once contact details are submitted in form*/
+            this.closeDialogue= this.props.closeFromChild;
             this.state = {
                 contacts:[],
                 contact_id:'',
@@ -40,12 +43,12 @@
         
             }
     
+       /**Get all current contacts so one can be selected to be assigned to an order */     
        componentDidMount() {
          get_all_contacts()
            .then(response => {
              this.setState({ contacts: response.data })
            })
-           .then(console.log('contactsreceived'))
            .catch((error) => {
              console.log(error);
            })
@@ -61,10 +64,15 @@
              dueDate :this.state.dueDate,
              startDate:this.state.startDate
          }
-         console.log(order);
-         create_order(order);
-         window.location = '/home';
+         /**Send post request of new order to back end
+          * return the created order to parent component: OrderList to be rendered
+          * Dialogue closes on new order return
+          */
+         create_order(order)
+         .then(response=>this.closeDialogue(response.data))
+         
        }
+
        onChangeProduct(e) {
         this.setState({
           product: e.target.value
@@ -99,6 +107,7 @@
           });
        }
    
+       /**Display dropdown of contacts, select one to assign to an order */
        displayContactDropdown(contacts){
          if(!contacts.length) return null;
            return contacts.map((contact, index)=>(
@@ -116,10 +125,9 @@
  
                  <FormControl fullWidth variant="standard" sx={{ m: 1, minWidth: 120 }}>
                  <InputLabel id="demo-simple-select-filled-label">Assign to contact</InputLabel>
-                 <Select
-                 labelId="demo-simple-select-filled-label"
+                 <Select labelId="demo-simple-select-filled-label"
                  id="demo-simple-select-filled"
-                 value={this.contact_id}
+                 value={this.state.contact_id}
                  onChange={this.onChangeContact}
                  >
                  <MenuItem value="">
@@ -133,7 +141,7 @@
                 autoFocus
                 margin="dense"
                 id="name"
-                label="Product"
+                label="Product *"
                 type="product"
                 fullWidth
                 value = {this.state.product}

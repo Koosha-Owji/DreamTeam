@@ -8,8 +8,7 @@ import React, { Component } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
-import {create_contact} from '../../api/index'
-//import CreateLabelButtonPage from '../label/CreateLabelButton.component';
+import {create_contact} from '../../api/index';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
@@ -32,6 +31,10 @@ export default class AddContact extends Component {
         this.onChangeLabel=this.onChangeLabel.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
 
+        /**Function passed from contactList component to close dialogue once contact details are submitted in form*/
+        this.closeDialogue= this.props.closeFromChild1;
+      
+
 
         this.state = {
         first_name: '',
@@ -45,12 +48,13 @@ export default class AddContact extends Component {
         labels:[]
         }
       }
+
+      /**Get all labels so a newly created contact can be assigned one*/
       componentDidMount() {
         get_all_labels()
           .then(response => {
             this.setState({ labels: response.data })
           })
-          .then(console.log('labels received'))
           .catch((error) => {
             console.log(error);
           })
@@ -69,11 +73,13 @@ export default class AddContact extends Component {
           description:this.state.description,
           label_id:this.state.label_id
         };
-      
-        console.log(contact);
-        create_contact(contact);
-      
-        window.location = '/home';
+        
+        /**Post the new contact
+         * Close the dialogue where we input contact details
+         * Return the new contact to the parent component: contactList so it can be rendered*/
+        create_contact(contact)
+        .then(response=>this.closeDialogue(response.data))
+        
       }
 
       onChangefirst_name(e) {
@@ -117,7 +123,8 @@ export default class AddContact extends Component {
           label_id: e.target.value
         });
       }
-  
+      
+      /**Display all possible labels that can be assigned to a newly created contact */
       displayLabelDropdown(labels){
         if(!labels.length) return null;
           return labels.map((label, index)=>(
@@ -128,7 +135,8 @@ export default class AddContact extends Component {
       
 
   render() {
-    
+    /**We return a form with all fields required to add a new contact. 
+     * Mandatory fields: first name and email are marked with a (*) */
     return (
         <Container component="main" maxWidth="xs">
           <div>
@@ -221,7 +229,6 @@ export default class AddContact extends Component {
             <div className = 'note_footer'>
                 <Button className = "Add to contacts" onClick={this.onSubmit}>Save</Button>
             </div>
-            
       </div>
       </Container>
     );
