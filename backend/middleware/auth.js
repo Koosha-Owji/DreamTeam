@@ -1,6 +1,9 @@
 import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+dotenv.config();
 
-const secret = 'dreamteam';
+const secret = process.env.JWT_SECRET;
+
 
 const auth = async (req, res, next) => {
   try {
