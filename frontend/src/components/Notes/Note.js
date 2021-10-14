@@ -38,7 +38,7 @@ const Note = ({
         size="1.3em"
         onClick={() => setCurrentId(Id)}
       />
-      <h2>{title}</h2>
+      <textarea>{text}</textarea>
       <pre>{text}</pre>
       <div className="note_footer">
         <small>{meetingId}</small>

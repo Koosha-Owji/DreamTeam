@@ -9,8 +9,8 @@ import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
+// import FormControlLabel from '@material-ui/core/FormControlLabel';
+// import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
@@ -21,8 +21,9 @@ import Container from '@material-ui/core/Container';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { signup } from '../actions/auth';
+import PasswordChecklist from "react-password-checklist";
 
-const initialState = { first_name: '', last_name: '', email_address: '', department:'', role:'', password: ''};
+const initialState = { first_name: '', last_name: '', email_address: '', department:'', role:'', password: '',repeat_Password:''};
 
 function Copyright() {
   return (
@@ -106,7 +107,6 @@ export default function SignUp() {
                 autoComplete="lname"
               />
             </Grid>
-            
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
@@ -157,21 +157,34 @@ export default function SignUp() {
               />
             </Grid>
             <Grid item xs={12}>
-              <FormControlLabel
-                control={<Checkbox value="allowExtraEmails" color="primary" />}
-                label="I want to buy be bought lots of gin and tonics"
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                name="repeat_Password"
+                label="Repeat Password"
+                type="password"
+                id="repeat_password"
+                onChange={handleChange}
+                autoComplete="current-password"
               />
             </Grid>
           </Grid>
+          <PasswordChecklist
+				    rules={["minLength","number","capital","match"]}
+				    minLength={5}
+				    value={form.password}
+				    valueAgain={form.repeat_Password}
+			    />
           <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-          >
-            Sign Up
-          </Button>
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+            >
+              Sign Up
+            </Button>
           <Grid container justifyContent="flex-end">
             <Grid item>
               <Link href="/" variant="body2">

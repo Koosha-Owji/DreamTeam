@@ -43,7 +43,7 @@
      
      return (
          
-             <Typography>{this.state.contact.first_name} {this.state.contact.last_name}</Typography>
+             <Typography>{this.state.contact.first_name} {" "} {this.state.contact.last_name}</Typography>
          
      );
    }

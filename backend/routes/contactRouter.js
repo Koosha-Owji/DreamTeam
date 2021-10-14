@@ -6,7 +6,7 @@
  */
 
 import express from "express";
-import Contact from './../models/contact.js'
+//import Contact from './../models/contact.js'
 import auth  from '../middleware/auth.js'
 
 

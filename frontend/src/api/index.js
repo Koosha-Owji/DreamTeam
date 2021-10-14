@@ -48,5 +48,8 @@ export const get_allNotes = () => API.get('note/get_all');
 export const updateNote = (id, updatedNote) => API.patch(`${noteURL}/update/${id}`, updatedNote);
 export const deleteNote = (id) => API.delete(`${noteURL}/delete/${id}`);
 
-export const sendEmail = (formData) => API.post('/email/send',formData);
-export const linkEmail = (formData) => API.post('email/link',formData);
+export const sendEmail = (formData) => API.post("/email/send", formData);
+export const linkEmail = (formData) => API.post("email/link", formData);
+
+export const update_user = (user) => API.patch(`user/update`, user);
+export const update_password = (user) => API.patch('user/update_password',user);

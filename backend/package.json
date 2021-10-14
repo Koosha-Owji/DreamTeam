@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "and": "^0.0.3",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "chai": "^4.3.4",
@@ -25,9 +26,10 @@
     "mongoose": "^5.9.29",
     "nodemailer": "^6.6.3",
     "react-scripts": "^4.0.3",
-    "sinon": "^11.1.2"
+    "sinon": "^11.1.2",
+    "start": "^5.1.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.12"
+    "nodemon": "^2.0.13"
   }
 }
