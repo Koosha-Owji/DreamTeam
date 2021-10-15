@@ -82,7 +82,7 @@ const AddNote = ({ currentId, setCurrentId }) => {
       <textarea
         rows="8"
         cols="10"
-        placeholder="Type to add new note"
+        placeholder="Type to add new note*"
         name="content"
         value={noteText.content}
         onChange={(e) => setNoteText({ ...noteText, content: e.target.value })}

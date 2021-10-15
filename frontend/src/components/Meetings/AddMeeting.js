@@ -121,7 +121,7 @@ function AddMeeting({ handleSubmit, currentId, setCurrentId }) {
           autoFocus
           margin="dense"
           id="name"
-          label="Attendees"
+          label="Attendees (Name 1, Name 2)"
           type="contacts"
           fullWidth
           value={meetingData.non_contact_attendees}

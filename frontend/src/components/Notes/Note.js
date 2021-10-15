@@ -38,8 +38,14 @@ const Note = ({
         size="1.3em"
         onClick={() => setCurrentId(Id)}
       />
-      <textarea>{text}</textarea>
-      <pre>{text}</pre>
+      <textarea
+        rows="2"
+        cols="10"
+      >{title}</textarea>
+      <textarea
+        rows="8"
+        cols="10"
+      >{text}</textarea>
       <div className="note_footer">
         <small>{meetingId}</small>
         <MdDelete

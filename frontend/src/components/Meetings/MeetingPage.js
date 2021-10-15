@@ -27,7 +27,6 @@ function MeetingPage() {
   var sortedMeetings = [];
 
   const meetingsList = useSelector((state) => state.meeting);
-
   const [open, setOpen] = React.useState(false);
 
   React.useEffect(() => {
@@ -65,6 +64,7 @@ function MeetingPage() {
   }, [currentId,meeting]);
 
   const [meetingType, setMeetingType] = React.useState("upcoming");
+
   const handleMeetingTypeChange = (event, meetingType) => {
     setMeetingType(meetingType);
   };
