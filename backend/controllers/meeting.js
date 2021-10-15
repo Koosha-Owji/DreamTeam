@@ -34,21 +34,28 @@ export const create_meeting = async (req, res) => {
 
     // console.log(req.body.date);
     // console.log(req.body.time);
+    if (req.body.title && req.body.date && req.body.time){
+      const date = new getDate(req.body.date, req.body.time);
+      const non_attendees = "";
+      if (req.body.non_attendees) {
+        non_attendees = req.body.non_contact_attendees.split(",");
+      }
 
-    const date = new getDate(req.body.date, req.body.time);
-
-    const non_attendees = req.body.non_contact_attendees.split(",");
-
-    const newMeeting = meetingModel.create({
-      ...req.body,
-      user_id: req.user_id,
-      date_time: date,
-      non_contact_attendees: non_attendees,
-    });
-    (await newMeeting)
-      .save()
-      .then((newMeeting) => res.json(newMeeting))
-      .catch((err) => res.status(400).json(err));
+      const newMeeting = meetingModel.create({
+        ...req.body,
+        user_id: req.user_id,
+        date_time: date,
+        non_contact_attendees: non_attendees,
+      });
+      (await newMeeting)
+        .save()
+        .then((newMeeting) => res.json(newMeeting))
+        .catch((err) => res.status(400).json(err));
+    } else {
+      message = 'Missing Parameters'
+      return res.json({message: message})
+    }
+    
   } catch (err) {
     res.status(500).json({ message: message });
   }
@@ -66,7 +73,7 @@ export const delete_meeting = async (req, res) => {
       })
       .exec();
 
-    noteModel.deleteOne({ meeting_id: req.params.id }).exec();
+    // noteModel.deleteOne({ meeting_id: String(req.params.id) }).exec();
     res.send(
       "Successfully deleted meeting (or meeting does not exist or user is not authorised)"
     );
@@ -87,6 +94,7 @@ export const get_all_meetings = async (req, res) => {
       return res.json({ message: "No meetings associated with this user" });
 
     // if the user has notes, return the notes
+    console.log(meetings)
     return res.json(meetings);
   } catch (err) {
     res.status(500).json({ message: "Meeting retrieval failed" });
@@ -206,7 +214,7 @@ export const update_meeting = async (req, res) => {
         non_contact_attendees: non_attendees,
         date_time: date,
         date: req.body.date,
-        time: req.body.time
+        time: req.body.time,
       })
       .exec();
 
@@ -225,7 +233,7 @@ export const update_meeting = async (req, res) => {
 
 export const mark_as_completed = async (req, res) => {
   try {
-    const date = new getDate(req.body.date, req.body.time);
+    const date = new Date();
     await meetingModel
       .findByIdAndUpdate(req.params.id, {
         date_time: date,
@@ -245,8 +253,7 @@ export const mark_as_completed = async (req, res) => {
   } catch (err) {
     res.status(500).json({ message: "Meeting update failed" });
   }
-
-}
+};
 
 // insert and elem into array if elem is not already an element of array
 function insert(array, elem) {

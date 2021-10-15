@@ -7,7 +7,7 @@ export const signin = (formData, router) => async (dispatch) => {
   
       router.push('/home');
     } catch (error) {
-      console.log(error);
+      alert("Invalid Credentials: Try Again!");
     }
   };
   
@@ -19,6 +19,6 @@ export const signin = (formData, router) => async (dispatch) => {
   
       router.push('/home');
     } catch (error) {
-      console.log(error);
+      alert("Invalid Details: Try Again!");
     }
   };
