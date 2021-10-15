@@ -112,8 +112,10 @@ export const get_labels_by_contact = async (req, res) => {
         const num_labels = labels.length;
         for (var i=0; i<num_labels; i++) {
             const label_id = labels[i];
+            if(label_id){
             const label = await label_model.findById({_id: label_id}).exec()
             newlabels.push( label )
+            }
         }
         res.json(newlabels);
 

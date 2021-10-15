@@ -41,7 +41,6 @@ export default function ProfileCard({user}) {
     const classes = useStyles();
     const [passwordDetails, setPasswordDetails]= React.useState({current_password: '',new_password:'',repeatNew_password: ''});
     const password_Changed = (useSelector((state) => state.auth.password_Changed));
-    console.log(passwordDetails)
     
     const handleSubmit = (event) => {
       if (passwordDetails){

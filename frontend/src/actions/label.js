@@ -12,9 +12,9 @@ export const create_label = (label) => async (dispatch) => {
   };
 
 
-export const get_all_labels = (labels) => async (dispatch) => {
+export const get_all_labels = () => async (dispatch) => {
   try {
-    const { data } = await api.get_all_labels(labels);
+    const { data } = await api.get_all_labels();
 
     dispatch({ type: 'GET_ALL', payload: data });
   } catch (error) {
