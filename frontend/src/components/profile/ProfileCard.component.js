@@ -34,9 +34,13 @@ const useStyles = makeStyles((theme)=> ({
       },
   }));
 export default function ProfileCard() {
-    const user1 = useSelector((state) => state.auth.authData)
+    var user1 = useSelector((state) => state.auth.authData);
     const dispatch = useDispatch();
-    const name = user1.result.first_name + " " + user1.result.last_name;
+    if(!user1)
+    {
+      user1 = JSON.parse(localStorage.getItem('profile'));
+      
+    }
     const classes = useStyles();
     const [passwordDetails, setPasswordDetails]= React.useState({current_password: '',new_password:'',repeatNew_password: ''});
     const password_Changed = (useSelector((state) => state.auth.password_Changed));
@@ -61,7 +65,7 @@ export default function ProfileCard() {
                 style={{backgroundColor: "aliceblue"}}
                 avatar={
                     <Avatar className={classes.avatar} aria-label="user">
-                      {name[0]}
+                      {user1.result.first_name[0]}
                     </Avatar>
                   }
                 action={
@@ -73,7 +77,7 @@ export default function ProfileCard() {
                     //</Grid>
                 }
                 titleTypographyProps={{variant:'h5', align:"left"  }}
-                title={name}
+                title={user1.result.first_name + " " + user1.result.last_name}
                 //subheader={user.email_address}
                 />
             <CardContent>
