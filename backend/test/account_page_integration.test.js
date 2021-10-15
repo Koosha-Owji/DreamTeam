@@ -14,7 +14,7 @@ describe("Account Page", function () {
     it("It should sigin successfully with valid credentials", (done) => {
       const userCredentials = {
         email_address: "test@test.com",
-        password: "test",
+        password: "Abc123",
       };
       this.timeout(10000);
       user
@@ -30,7 +30,7 @@ describe("Account Page", function () {
     it("It should not sigin successfully with an invalid email address", (done) => {
       const userCredentials = {
         email_address: "test",
-        password: "test",
+        password: "Abc123",
       };
       this.timeout(10000);
       user

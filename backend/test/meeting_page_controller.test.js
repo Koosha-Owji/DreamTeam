@@ -14,7 +14,7 @@ describe("Meetings Page", function () {
   before(function (done) {
     const userCredentials = {
       email_address: "test@test.com",
-      password: "test",
+      password: "Abc123",
     };
 
     var user_id = "612f26232f5742b8e89cb522";
