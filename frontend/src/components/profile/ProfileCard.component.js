@@ -33,10 +33,9 @@ const useStyles = makeStyles((theme)=> ({
         margin: theme.spacing(3, 0, 2),
       },
   }));
-export default function ProfileCard({user}) {
-    //const [expanded, setExpanded] = React.useState(false);
+export default function ProfileCard() {
+    const user1 = useSelector((state) => state.auth.authData)
     const dispatch = useDispatch();
-    const user1 = user[0];
     const name = user1.result.first_name + " " + user1.result.last_name;
     const classes = useStyles();
     const [passwordDetails, setPasswordDetails]= React.useState({current_password: '',new_password:'',repeatNew_password: ''});

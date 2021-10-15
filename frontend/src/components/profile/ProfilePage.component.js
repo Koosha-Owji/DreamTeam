@@ -1,4 +1,4 @@
-import React,{ useState} from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
 // import {Component} from 'react';
@@ -10,14 +10,13 @@ import ProfileCard from './ProfileCard.component.js';
 
 export default function ProfilePage() {
   const classes = useStyles();
-  const profile = useState(JSON.parse(localStorage.getItem('profile')));
-  const user = useState(profile[0]);
+  
 
   return (
     <div className={classes.root}>
       <Grid container justifyContent = 'center'>
       <Grid item xs={12}>
-      <ProfileCard user={user}/>
+      <ProfileCard/>
       </Grid> 
       
       </Grid>
