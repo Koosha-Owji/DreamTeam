@@ -17,20 +17,28 @@ import SendContactEmail from './SendContactEmail.component';
 import ContactLabel from './ContactLabel.component';
 import Update from './UpdateContact.component';
 import {get_all_contacts,delete_contact} from '../../api/index';
-import SearchContact from './SearchContact.component';
 import AddContactButton from './AddContactButton.component';
 import ManageLabelButton from './../label/ManageLabelsButton.component';
-import Search from './Search.component';
-
+import {get_all_labels} from './../../api/index';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import InputLabel from '@material-ui/core/InputLabel';
 
 export default class ContactCard extends Component{
 constructor(props){
     super(props);
-    this.state = {contacts: []};
+    this.state = {
+      contacts: [], 
+      filtered:[],
+      labels:[],
+      searchLabel:''
+      };
     this.delete_contact = this.deleteContact.bind(this);
     this.updateView=this.updateView.bind(this);
     this.updateView2=this.updateView2.bind(this);
-    
+    this.handleChange=this.handleChange.bind(this);
+    this.onChangeLabel=this.onChangeLabel.bind(this);
     
 }
 
@@ -38,9 +46,77 @@ constructor(props){
 componentDidMount() {
     get_all_contacts()
       .then(response => {
-        this.setState({ contacts: response.data })
+        this.setState({ filtered: response.data, contacts:response.data })
       })
+      get_all_labels()
+           .then(response => {
+             this.setState({ labels: response.data })
+           })
+           .catch((error) => {
+             console.log(error);
+           })
   }
+
+   /**Display labels in a dropdown from which we can select one to assign to a contact */
+   displayLabelDropdown(labels){
+    if(!labels.length) return null;
+      return labels.map((label, index)=>(
+        <MenuItem value={label._id} style={{backgroundColor:`${label.colour}`}}>{label.title}</MenuItem>
+
+      ))
+  }
+
+  onChangeLabel(e){
+
+    this.setState({
+      searchLabel:e.target.value
+    })
+    let currentContacts=this.state.contacts;
+   
+    let filteredContacts=[];
+    if(e.target.value!=="" || e.target.value!==null ){
+    filteredContacts=currentContacts.filter(contact=>{
+      const lab = contact.labels;
+      const searchlabel=e.target.value;
+      return lab.includes(searchlabel);
+    });
+    this.setState({
+      filtered:filteredContacts
+    });
+  }else{
+    filteredContacts=this.state.contacts;
+    this.setState({
+      contacts: filteredContacts
+    })
+  }
+
+    
+  }
+
+handleChange(e){
+  let currentContacts=[];
+  let filteredContacts=[];
+  if(e.target.value!=="" || e.target.value!==null ){
+    currentContacts=this.state.contacts;
+    filteredContacts=currentContacts.filter(contact=>{
+
+      const lc=contact.first_name.toLowerCase();
+      const searchName=e.target.value.toLowerCase();
+      return lc.includes(searchName);
+    });
+    this.setState({
+      filtered:filteredContacts
+    });
+  }else{
+    filteredContacts = this.state.contacts;
+    this.setState({
+      contacts: filteredContacts
+    })
+  }
+
+  
+  }
+
 
 /** This function is passed to child component AddContact so that the addContact dialogue can be closed
  * and new contact returned here upon pushing to db*/ 
@@ -145,11 +221,26 @@ updateView2=()=>{
         <ManageLabelButton/>
         </Grid>
         <Grid item xs={3}>
-        <SearchContact/>
+        <FormControl fullWidth variant="standard" sx={{ m: 1, minWidth: 120 }}>
+                 <InputLabel id="demo-simple-select-filled-label">Search by label</InputLabel>
+                 <Select
+                 labelId="demo-simple-select-filled-label"
+                 id="demo-simple-select-filled"
+                 value={this.label_id}
+                 onChange={this.onChangeLabel}
+                 >
+                 <MenuItem value="">
+                 <em>None</em>
+                 </MenuItem>
+                 {this.displayLabelDropdown(this.state.labels)}
+                 </Select>
+                 </FormControl>
         </Grid>
         </div>
-    {this.displayContactList(this.state.contacts)}
-    <Search items={this.state.contacts}/>
+        <input type="text" className="input" onChange={this.handleChange} placeholder="Search by first name" />
+        
+    {this.displayContactList(this.state.filtered)}
+    {/* <Search items={this.state.contacts}/> */}
   </div>
      
       );

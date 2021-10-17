@@ -47,6 +47,8 @@ import AddContactLabel from '../label/AddContactLabel.component';
   }
 
   GetLabelsByContact=(labels)=>{
+    if(!labels){return <p>No labels</p>}
+    else{
       return labels.map((item,index)=>(
        
         <div key = {index} className ='labelListItem' style={{padding:'10px'}}>
@@ -55,6 +57,7 @@ import AddContactLabel from '../label/AddContactLabel.component';
         </div>
       )
       )
+    }
   }
   render(){
 

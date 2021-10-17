@@ -115,7 +115,9 @@ export const get_labels_by_contact = async (req, res) => {
             const label = await label_model.findById({_id: label_id}).exec()
             newlabels.push( label )
         }
-        res.json(newlabels);
+        if(newlabels){return res.json(newlabels);}
+        else{return null}
+        
 
     } catch (err) {
         res.status(400).json({message: "Failed to retrieve labels"});
