@@ -44,14 +44,14 @@ export default function AddMeetingNote({ id , meeting_title1}) {
     setOpen(true);
     getMeetingNote(id)
       .then((response) => {
-        if (response.data.length > 0) {
+        if (response.data) {
           setNoteText({
-            title: response.data[0].title,
-            content: response.data[0].content,
+            title: response.data.title,
+            content: response.data.content,
             meeting_title: meeting_title1,
             meeting_id: id,
           });
-          noteId = response.data[0]._id;
+          noteId = response.data._id;
         } else {
           setNoteText({
             title: "",
