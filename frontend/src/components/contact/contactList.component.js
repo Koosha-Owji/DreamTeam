@@ -67,7 +67,12 @@ componentDidMount() {
   }
 
   onChangeLabel(e){
-
+    console.log(this.state.filtered);
+    for(let i = 0; i<this.state.filtered.length; i++){
+      for(let j=0; j<this.state.filtered[i].labels.length; j++){
+        console.log(this.state.filtered[i].labels[j])
+      }
+    }
     this.setState({
       searchLabel:e.target.value
     })

@@ -17,6 +17,7 @@ import AddContactLabel from '../label/AddContactLabel.component';
 
   /**Get all labels assigned to this contact */
   componentDidMount() {
+    console.log(this.contact_id )
     get_labels_by_contact(this.contact_id)
       .then(response => {
         this.setState({ labels: response.data })
