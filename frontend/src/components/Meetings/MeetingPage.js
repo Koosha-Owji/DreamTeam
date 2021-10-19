@@ -3,7 +3,6 @@ import "./meetings.css";
 // import { nanoid } from "nanoid";
 
 import MeetingList from "./MeetingList";
-
 import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
 import Dialog from "@material-ui/core/Dialog";
@@ -15,6 +14,7 @@ import AddMeeting from "./AddMeeting.js";
 
 import { useDispatch, useSelector } from "react-redux";
 import { getAllMeetings } from "../../actions/meetings";
+import { get_all_contacts } from "./../../api/index";
 
 function MeetingPage() {
   const dispatch = useDispatch();
@@ -25,6 +25,7 @@ function MeetingPage() {
   // can send the appropriate list to the MeetingsList
   var meetingList1 = [];
   var sortedMeetings = [];
+  var flag;
 
   const meetingsList = useSelector((state) => state.meeting);
   const [open, setOpen] = React.useState(false);
@@ -44,8 +45,6 @@ function MeetingPage() {
 
   const handleSubmit = () => {
     handleClose();
-    // console.log("Handle Submit")
-    // setOpen(false);
     dispatch(getAllMeetings());
   };
 
@@ -61,7 +60,7 @@ function MeetingPage() {
       handleClickOpen();
     }
     // console.log("CurrentID changed");
-  }, [currentId,meeting]);
+  }, [currentId, meeting]);
 
   const [meetingType, setMeetingType] = React.useState("upcoming");
 
@@ -73,7 +72,7 @@ function MeetingPage() {
     const current = new Date();
     current.setSeconds(59);
 
-    if (Array.isArray(meetingsList)){
+    if (Array.isArray(meetingsList)) {
       if (meetingType === "upcoming") {
         meetingsList.forEach((element) => {
           if (current <= new Date(element.date_time)) {
@@ -95,8 +94,28 @@ function MeetingPage() {
           .slice()
           .sort((a, b) => new Date(b.date_time) - new Date(a.date_time));
       }
-    }    
+    }
   };
+
+  flag =true
+  const [contacts, setContacts] = React.useState([]);
+  React.useEffect(() => {
+    const handleContacts = () => {
+      get_all_contacts()
+        .then((response) => {
+          if (response.data) {
+            setContacts(response.data);
+          } else {
+            console.log("No Contacts");
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    };
+
+    handleContacts();
+  }, [flag]);
 
   setMeetingList(meetingType);
   return (
@@ -143,6 +162,7 @@ function MeetingPage() {
             handleSubmit={handleSubmit}
             currentId={currentId}
             setCurrentId={setCurrentId}
+            contacts={contacts}
           />
         </Dialog>
       </div>

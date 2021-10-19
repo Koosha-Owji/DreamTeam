@@ -29,9 +29,11 @@ const Meeting = ({meeting, setCurrentId}) => {
         return strTime;
     }
 
-    const getNonContactAttendees = () => {
-      if (meeting.non_contact_attendees){
-        return (meeting.non_contact_attendees.map((attendee) => <p>{attendee}</p>));
+    const getAttendeesList = (attendeesList) => {
+      if (attendeesList) {
+        return attendeesList.map((attendee) => (
+          <p>{attendee}</p>
+        ));
       }
     }
    
@@ -61,7 +63,8 @@ const Meeting = ({meeting, setCurrentId}) => {
             </div>
 
             <div className="boxes">
-              <p>{getNonContactAttendees()}</p>
+              <p>{getAttendeesList(meeting.non_contact_attendees)}</p>
+              <p>{getAttendeesList(meeting.contact_name)}</p>
             </div>
 
             <div className="icon_box1">

@@ -94,7 +94,6 @@ export const get_all_meetings = async (req, res) => {
       return res.json({ message: "No meetings associated with this user" });
 
     // if the user has notes, return the notes
-    console.log(meetings)
     return res.json(meetings);
   } catch (err) {
     res.status(500).json({ message: "Meeting retrieval failed" });
@@ -215,6 +214,8 @@ export const update_meeting = async (req, res) => {
         date_time: date,
         date: req.body.date,
         time: req.body.time,
+        contact_id: req.body.contact_id,
+        contact_name: req.body.contact_name
       })
       .exec();
 

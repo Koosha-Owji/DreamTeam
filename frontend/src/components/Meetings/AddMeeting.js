@@ -1,17 +1,15 @@
 import React, { useState, useEffect } from "react";
-//import axios from 'axios';
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Container from "@material-ui/core/Container";
 import { createMeeting, updateMeeting } from "../../actions/meetings";
 import { useDispatch, useSelector } from "react-redux";
-// import InputLabel from "@material-ui/core/InputLabel";
-// import MenuItem from "@material-ui/core/MenuItem";
-// import FormControl from "@material-ui/core/FormControl";
-// import Select from "@material-ui/core/Select";
-// import { get_all_contacts } from "./../../api/index";
+import Select from "react-select";
+import makeAnimated from "react-select/animated";
 
-function AddMeeting({ handleSubmit, currentId, setCurrentId }) {
+var new_contacts = [];
+
+function AddMeeting({ handleSubmit, currentId, setCurrentId, contacts }) {
   const [meetingData, setMeetingData] = useState({
     title: "",
     agenda: "",
@@ -19,28 +17,54 @@ function AddMeeting({ handleSubmit, currentId, setCurrentId }) {
     time: "",
     date: "",
     attendeeContact: "",
-    Contacts: [],
-    count: ""
+    contact_name: [],
+    count: "",
+    contact_id: [],
   });
+
   const dispatch = useDispatch();
 
   const meeting = useSelector((state) =>
     currentId ? state.meeting.find((n) => n._id === currentId) : null
   );
 
+  const already_selected = [];
   // everytime someone clicks edit, change the add note to edit the current note
   useEffect(() => {
     if (meeting) {
-      setMeetingData(meetingData=>({
+      setMeetingData((meetingData) => ({
         ...meetingData,
         title: meeting.title,
         agenda: meeting.agenda,
         non_contact_attendees: meeting.non_contact_attendees.join(),
         time: meeting.time,
         date: meeting.date,
+        // contact_name: meeting.contact_name,
+        // contact_id: meeting.contact_id,
       }));
     }
-  }, [currentId,meetingData.count,meeting]);
+  }, [currentId, meetingData.count, meeting]);
+
+  // const checkAlready = () => {
+  //   if (meeting) {
+  //     if (already_selected.length < meetingData.contact_name.length) {
+  //       if (meetingData.contact_name && meetingData.contact_id) {
+  //         const len_name = meetingData.contact_name.length;
+  //         const len_id = meetingData.contact_id.length;
+  //         var i = 0;
+  //         if (len_name === len_id) {
+  //           for (i; i < len_name; i++) {
+  //             already_selected.push({
+  //               label: meetingData.contact_name[i],
+  //               value: meetingData.contact_id[i],
+  //             });
+  //           }
+  //         }
+  //       }
+  //     }
+  //   }
+  // };
+  // checkAlready();
 
   const handleSaveClick = (e) => {
     e.preventDefault();
@@ -64,35 +88,56 @@ function AddMeeting({ handleSubmit, currentId, setCurrentId }) {
     }
   };
 
-  // const handleContacts = () => {
-  //   get_all_contacts()
-  //     .then((response) => {
-  //       this.setMeetingData({ Contacts: response.data });
-  //     })
-  //     .then(console.log(meetingData.Contacts))
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // };
+  const animatedComponents = makeAnimated();
 
-  // const displayLabelDropdown = () => {
-  //   handleContacts();
-  //   if (!meetingData.Contacts.length) return null;
-  //   return meetingData.Contacts.map((label, index) => (
-  //     <MenuItem
-  //       value={label._id}
-  //       style={{ backgroundColor: `${label.colour}` }}
-  //     >
-  //       {label.title}
-  //     </MenuItem>
-  //   ));
-  // };
+  const fixContacts = () => {
+    contacts.map((contact) => {
+      if (new_contacts.length < contacts.length) {
+        new_contacts.push({
+          label: contact.first_name + " " + contact.last_name,
+          value: contact._id,
+        });
+      }
+      return null;
+    });
+  };
+  fixContacts();
 
-  // handleContacts();
+  const addContacts = (e) => {
+    var contact_ids = [];
+    var contact_names = [];
+
+    e.reduce((acc, item) => {
+      for (let key in item) {
+        if (key === "value") {
+          contact_ids.push(item[key]);
+        }
+        if (key === "label") {
+          contact_names.push(item[key]);
+        }
+      }
+      return contact_ids;
+    }, []);
+
+    setMeetingData({
+      ...meetingData,
+      contact_id: contact_ids,
+      contact_name: contact_names,
+    });
+    console.log(meetingData.contact_name)
+  };
 
   return (
     <Container component="main" maxWidth="xs">
       <div>
+        <Select
+          closeMenuOnSelect={false}
+          components={animatedComponents}
+          defaultValue={already_selected}
+          isMulti
+          options={new_contacts}
+          onChange={addContacts}
+        />
         <TextField
           autoFocus
           margin="dense"
@@ -126,7 +171,10 @@ function AddMeeting({ handleSubmit, currentId, setCurrentId }) {
           fullWidth
           value={meetingData.non_contact_attendees}
           onChange={(e) =>
-            setMeetingData({ ...meetingData, non_contact_attendees: e.target.value })
+            setMeetingData({
+              ...meetingData,
+              non_contact_attendees: e.target.value,
+            })
           }
         ></TextField>
         <TextField
@@ -153,26 +201,6 @@ function AddMeeting({ handleSubmit, currentId, setCurrentId }) {
             setMeetingData({ ...meetingData, date: e.target.value })
           }
         ></TextField>
-        {/* {handleContacts}
-        <FormControl fullWidth variant="standard" sx={{ m: 1, minWidth: 120 }}>
-          <InputLabel id="demo-simple-select-filled-label">Contact Attendees</InputLabel>
-          <Select
-            labelId="demo-simple-select-filled-label"
-            id="demo-simple-select-filled"
-            value={meetingData.attendeeContact}
-            onChange={(e) =>
-              setMeetingData({
-                ...meetingData,
-                attendeeContact: e.target.value,
-              })
-            }
-          >
-            <MenuItem value="">
-              <em>None</em>
-            </MenuItem>
-            {displayLabelDropdown()}
-          </Select>
-        </FormControl> */}
 
         <div className="note_footer">
           <Button className="Add to contacts" onClick={handleSaveClick}>
