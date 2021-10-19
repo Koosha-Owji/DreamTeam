@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Container from "@material-ui/core/Container";
+import InputAdornment from "@mui/material/InputAdornment";
 import { createMeeting, updateMeeting } from "../../actions/meetings";
 import { useDispatch, useSelector } from "react-redux";
 import Select from "react-select";
@@ -16,10 +17,11 @@ function AddMeeting({ handleSubmit, currentId, setCurrentId, contacts }) {
     non_contact_attendees: "",
     time: "",
     date: "",
+    endtime: "",
     attendeeContact: "",
     contact_name: [],
     count: "",
-    contact_id: [],
+    contact_name_id: [],
   });
 
   const dispatch = useDispatch();
@@ -28,7 +30,6 @@ function AddMeeting({ handleSubmit, currentId, setCurrentId, contacts }) {
     currentId ? state.meeting.find((n) => n._id === currentId) : null
   );
 
-  const already_selected = [];
   // everytime someone clicks edit, change the add note to edit the current note
   useEffect(() => {
     if (meeting) {
@@ -39,32 +40,12 @@ function AddMeeting({ handleSubmit, currentId, setCurrentId, contacts }) {
         non_contact_attendees: meeting.non_contact_attendees.join(),
         time: meeting.time,
         date: meeting.date,
-        // contact_name: meeting.contact_name,
-        // contact_id: meeting.contact_id,
+        contact_name: meeting.contact_name,
+        contact_name_id: meeting.contact_name_id,
+        endtime: meeting.endtime,
       }));
     }
   }, [currentId, meetingData.count, meeting]);
-
-  // const checkAlready = () => {
-  //   if (meeting) {
-  //     if (already_selected.length < meetingData.contact_name.length) {
-  //       if (meetingData.contact_name && meetingData.contact_id) {
-  //         const len_name = meetingData.contact_name.length;
-  //         const len_id = meetingData.contact_id.length;
-  //         var i = 0;
-  //         if (len_name === len_id) {
-  //           for (i; i < len_name; i++) {
-  //             already_selected.push({
-  //               label: meetingData.contact_name[i],
-  //               value: meetingData.contact_id[i],
-  //             });
-  //           }
-  //         }
-  //       }
-  //     }
-  //   }
-  // };
-  // checkAlready();
 
   const handleSaveClick = (e) => {
     e.preventDefault();
@@ -104,27 +85,24 @@ function AddMeeting({ handleSubmit, currentId, setCurrentId, contacts }) {
   fixContacts();
 
   const addContacts = (e) => {
-    var contact_ids = [];
+    var contact_names_ids = e;
     var contact_names = [];
-
+    
     e.reduce((acc, item) => {
       for (let key in item) {
-        if (key === "value") {
-          contact_ids.push(item[key]);
-        }
         if (key === "label") {
           contact_names.push(item[key]);
         }
       }
-      return contact_ids;
+      return contact_names;
     }, []);
 
     setMeetingData({
       ...meetingData,
-      contact_id: contact_ids,
+      contact_name_id: contact_names_ids,
       contact_name: contact_names,
     });
-    console.log(meetingData.contact_name)
+
   };
 
   return (
@@ -133,7 +111,8 @@ function AddMeeting({ handleSubmit, currentId, setCurrentId, contacts }) {
         <Select
           closeMenuOnSelect={false}
           components={animatedComponents}
-          defaultValue={already_selected}
+          label="Contacts"
+          value={meetingData.contact_name_id}
           isMulti
           options={new_contacts}
           onChange={addContacts}
@@ -181,9 +160,27 @@ function AddMeeting({ handleSubmit, currentId, setCurrentId, contacts }) {
           autoFocus
           margin="dense"
           id="name"
-          label=" "
+          label="Date*"
+          type="date"
+          fullWidth
+          InputProps={{
+            startAdornment: <InputAdornment position="start"> </InputAdornment>,
+          }}
+          value={meetingData.date}
+          onChange={(e) =>
+            setMeetingData({ ...meetingData, date: e.target.value })
+          }
+        ></TextField>
+        <TextField
+          autoFocus
+          margin="dense"
+          id="name"
+          label="Start Time*"
           type="time"
           fullWidth
+          InputProps={{
+            startAdornment: <InputAdornment position="start"> </InputAdornment>,
+          }}
           value={meetingData.time}
           onChange={(e) =>
             setMeetingData({ ...meetingData, time: e.target.value })
@@ -193,12 +190,16 @@ function AddMeeting({ handleSubmit, currentId, setCurrentId, contacts }) {
           autoFocus
           margin="dense"
           id="name"
-          label=" "
-          type="date"
+          label="End Time*"
+          type="time"
           fullWidth
-          value={meetingData.date}
+          placeholder="End Time"
+          InputProps={{
+            startAdornment: <InputAdornment position="start"> </InputAdornment>,
+          }}
+          value={meetingData.endtime}
           onChange={(e) =>
-            setMeetingData({ ...meetingData, date: e.target.value })
+            setMeetingData({ ...meetingData, endtime: e.target.value })
           }
         ></TextField>
 

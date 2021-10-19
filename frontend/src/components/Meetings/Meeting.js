@@ -15,18 +15,32 @@ const Meeting = ({meeting, setCurrentId}) => {
         return date_time.toDateString();
     }
 
-    const getTime1 = () => {
+    const getEndTime = () => {
        var hours = new Date(meeting.date_time).getHours();
        var minutes = new Date(meeting.date_time).getMinutes();
-       var ampm = hours >= 12 ? "PM" : "AM";
-       hours = hours % 12;
-       hours = hours ? hours : 12; // the hour '0' should be '12'
-       minutes = minutes < 10 ? "0" + minutes : minutes;
-       var strTime = hours + ":" + minutes + " " + ampm;
-        // date_time = new Date(meeting.date_time);
-        // return date_time.toLocaleTimeString();
-        // return date_time.toTimeString();
-        return strTime;
+       return getampm(hours, minutes)
+       
+    }
+
+    const getStartTime = (time) => {
+      if (time){
+        const time_split = time.split(/(:)/);
+        time_split.splice(1, 1);
+
+        return getampm(parseInt(time_split[0]), parseInt(time_split[1]));
+      }
+    }
+
+    const getampm = (hours, minutes) => {
+      var ampm = hours >= 12 ? "PM" : "AM";
+      hours = hours % 12;
+      hours = hours ? hours : 12; // the hour '0' should be '12'
+      minutes = minutes < 10 ? "0" + minutes : minutes;
+      var strTime = hours + ":" + minutes + " " + ampm;
+      // date_time = new Date(meeting.date_time);
+      // return date_time.toLocaleTimeString();
+      // return date_time.toTimeString();
+      return strTime;
     }
 
     const getAttendeesList = (attendeesList) => {
@@ -47,24 +61,15 @@ const Meeting = ({meeting, setCurrentId}) => {
             </div>
 
             <div className="boxes">
+              <p>{getDate1()}</p>
               <p>
-                {/* {(meeting.date_time).getDate()}/{(meeting.date_time).getMonth()}/
-                {(meeting.date_time).getYear()} */}
-                {/* {(meeting.date_time).toDateString()} */}
-                {}
-                {getDate1()}
+                {getStartTime(meeting.time)} - {getEndTime()}
               </p>
-              {/* <p>{meeting.date}</p> */}
-              <p>
-                {/* {meeting.date_time.getHours()}:{meeting.date_time.getMMinutes()} */}
-                {getTime1()}
-              </p>
-              <p>{/* {meeting.date_time.toLocaleTimeString()} */}</p>
             </div>
 
             <div className="boxes">
-              <p>{getAttendeesList(meeting.non_contact_attendees)}</p>
               <p>{getAttendeesList(meeting.contact_name)}</p>
+              <p>{getAttendeesList(meeting.non_contact_attendees)}</p>
             </div>
 
             <div className="icon_box1">

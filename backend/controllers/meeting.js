@@ -34,8 +34,8 @@ export const create_meeting = async (req, res) => {
 
     // console.log(req.body.date);
     // console.log(req.body.time);
-    if (req.body.title && req.body.date && req.body.time){
-      const date = new getDate(req.body.date, req.body.time);
+    if (req.body.title && req.body.date && req.body.time && req.body.endtime){
+      const date = new getDate(req.body.date, req.body.endtime);
       const non_attendees = "";
       if (req.body.non_attendees) {
         non_attendees = req.body.non_contact_attendees.split(",");
@@ -202,7 +202,7 @@ export const remove_attendee = async (req, res) => {
 
 export const update_meeting = async (req, res) => {
   try {
-    const date = new getDate(req.body.date, req.body.time);
+    const date = new getDate(req.body.date, req.body.endtime);
 
     const non_attendees = req.body.non_contact_attendees.split(",");
 
@@ -214,8 +214,9 @@ export const update_meeting = async (req, res) => {
         date_time: date,
         date: req.body.date,
         time: req.body.time,
-        contact_id: req.body.contact_id,
-        contact_name: req.body.contact_name
+        contact_name_id: req.body.contact_name_id,
+        contact_name: req.body.contact_name,
+        endtime: req.body.endtime
       })
       .exec();
 
