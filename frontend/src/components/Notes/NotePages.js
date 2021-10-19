@@ -1,6 +1,8 @@
 import React from "react";
 import NoteList from './NoteList'
 import AddNote from './AddNote'
+import SearchBar from "material-ui-search-bar";
+
 
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -19,25 +21,32 @@ function NotePages() {
   const handleDeleteNote = (Id) => {
     dispatch(deleteNote(Id));
   }
+
   const [currentId, setCurrentId] = React.useState(null)
 
     return (
-      <div className='container'>
-
-        <div className = 'flex_container'>
+      <div className="container">
+        <SearchBar
+          onChange={() => console.log("onChange")}
+          onRequestSearch={() => console.log("onRequestSearch")}
+          style={{
+            margin: "0 auto",
+            maxWidth: 800,
+          }}
+        />
+        <div className="flex_container">
           <NoteList
-            notes = {notes}
-            handleDeleteNote = {handleDeleteNote}
-            setCurrentId = {setCurrentId}
+            notes={notes}
+            handleDeleteNote={handleDeleteNote}
+            setCurrentId={setCurrentId}
           />
         </div>
 
-        <div className = 'right_container'>
-          <AddNote currentId = {currentId} setCurrentId = {setCurrentId}/>
+        <div className="right_container">
+          <AddNote currentId={currentId} setCurrentId={setCurrentId} />
         </div>
-
-		</div>
-    )
+      </div>
+    );
 }
 
 

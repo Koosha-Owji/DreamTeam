@@ -21,6 +21,7 @@
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "jwt-decode": "^3.1.2",
+    "material-ui-search-bar": "^1.0.0",
     "mongoose": "^5.13.7",
     "navbar": "^2.1.0",
     "nodemon": "^2.0.13",
