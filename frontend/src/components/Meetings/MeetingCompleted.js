@@ -45,6 +45,11 @@ export default function MeetingCompleted({ meeting }) {
       String(current.getHours()) +
       ":" +
       String(("0" + String(current.getMinutes() - 1)).slice(-2));
+    meeting.endtime =
+      String(current.getHours()) +
+      ":" +
+      String(("0" + String(current.getMinutes() - 1)).slice(-2));
+
     meeting.date =
       String(current.getFullYear()) +
       "-" +

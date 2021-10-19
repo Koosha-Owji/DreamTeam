@@ -241,6 +241,7 @@ export const mark_as_completed = async (req, res) => {
         date_time: date,
         date: req.body.date,
         time: req.body.time,
+        endtime: req.body.endtime
       })
       .exec();
 
