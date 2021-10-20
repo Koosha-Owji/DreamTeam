@@ -1,6 +1,7 @@
 import { MdDelete } from "react-icons/md";
 import { MdModeEdit } from "react-icons/md";
 import React from "react";
+import "./note.css";
 
 const Note = ({
   Id,
@@ -23,9 +24,7 @@ const Note = ({
       </small>
       <small align="left">{text}</small>
       <div className="note_footer">
-        <small align="left">
-          {meetingTitle}
-        </small>
+        <small align="left">{meetingTitle}</small>
         <MdDelete
           onClick={() => handleDeleteNote(Id)}
           className="delete_icon"

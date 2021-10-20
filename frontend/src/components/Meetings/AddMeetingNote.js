@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { createNote, updateNote } from "../../actions/notes";
 import { getMeetingNote } from "../../api/index";
+import "../Notes/note.css"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -106,7 +107,7 @@ export default function AddMeetingNote({ id , meeting_title1}) {
           fullWidth
           maxWidth="sm"
         >
-          <div className="note new">
+          <div className="meeting_note new">
             <textarea
               rows="2"
               cols="10"
