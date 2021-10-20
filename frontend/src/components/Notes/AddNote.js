@@ -1,9 +1,26 @@
+/**
+ * NotePages.js, renders the add note box in which the user can input their note information and save
+ * the new note. Also, if the currentId is valid the add note box displays the information of the corresponding
+ * note to be edited
+ * Created for IT Project COMP30022, Semester 2 2021
+ * The University of Melbourne
+ * Reference: James Grimshaw, Notes App [https://github.com/jrgrimshaw/notes-app-tutorial](2021)
+ * Implemented by DreamTeam: Anagha Giri, Koosha Owji, Chirag Charan Singh, Olivia Ryan, Natasha Ireland
+ */
+
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { MdModeEdit } from "react-icons/md";
 import { createNote, updateNote } from "../../actions/notes";
 import "./note.css";
 
+/**
+ * For every note in notes list, create a new Note component with the available attributes 
+ * and passing it with all the required functionalities
+ * @param {current Id of the note being edited or null if its a new note} currentId
+ * @param {a fucntion that sets the currentId to be the id of the note being edited} setCurrentId 
+ * @returns {an AddNote component to be rendered and depending on currentId, displays the required note information} 
+ */
 const AddNote = ({ currentId, setCurrentId }) => {
   const dispatch = useDispatch();
   const [noteText, setNoteText] = useState({
@@ -27,12 +44,20 @@ const AddNote = ({ currentId, setCurrentId }) => {
     }
   }, [currentId, noteText.count, note]);
 
-  // clear all the fields
+  /**
+   * Clears the information in the note Text, i.e, the information displayed in the Add Note component
+   */
   const clear = () => {
     setCurrentId(null);
     setNoteText({ title: "", content: "" });
   };
 
+  /**
+   * Everytime the Save button is clicked, this function checks the currentId to deduce whether the note is edited or saved
+   * and then performs the appropriate actions on it, and then clears the noteText
+   * @param {the event that occured, i.e clicking the save button} event
+   * @returns {an AddNote component to be rendered and depending on currentId, displays the required note information}
+   */
   const handleSaveClick = (event) => {
     if (noteText.content.trim().length > 0) {
       // IF THE NOTE IS BEING UPDATED
