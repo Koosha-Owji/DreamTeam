@@ -31,6 +31,11 @@ jobs:
       working-directory: ./backend
     - run: npm run test
       working-directory: ./backend
+      env:
+        CONNECTION_MG_URL: ${{ secrets.CONNECTION_MG_URL }}
+        JWT_SECRET: ${{secrets.JWT_SECRET}}
+        CLIENT_SECRET: ${{secrets.CLIENT_SECRET}}
+        CLIENT_ID: ${{secrets.CLIENT_ID}}
   deploy:
     needs: build
     runs-on: ubuntu-latest
