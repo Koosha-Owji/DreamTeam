@@ -53,7 +53,10 @@ function NotePages() {
   const searchFunc = (search) => {
     if (search.length > 0) {
       notesList = notes.filter(function (i) {
-        return i.title.toLowerCase().match(search);
+        return (
+          i.title.toLowerCase().match(search) ||
+          i.content.toLowerCase().match(search) 
+        );
       });
     } else {
       notesList = notes;
