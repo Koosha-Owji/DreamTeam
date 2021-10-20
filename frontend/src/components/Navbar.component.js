@@ -22,7 +22,7 @@ import Slide from '@material-ui/core/Slide';
 import NotePages from './Notes/NotePages';
 import Google from './Email/Google.component';
 import ProfilePage from './profile/ProfilePage.component';
-import ContactsPage from './contact/contactList.component';
+import ContactsPage from './contact/ContactPage';
 import OrderPage from './order/OrderList.component';
 import MeetingPage from './Meetings/MeetingPage.js'
 

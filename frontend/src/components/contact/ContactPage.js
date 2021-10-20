@@ -87,7 +87,6 @@ const ContactPage = () => {
 
     searchFunc(searchString);
 
-
   return (
     <div>
       <div className="contactList" style={{ display: "flex" }}>
