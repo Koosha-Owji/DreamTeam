@@ -1,5 +1,5 @@
 /**
- * Note.js, takes each incdivdual note attribute and renders that information in the 
+ * Note.js, takes each incdivdual note attribute and renders that information in the
  * appropriate format and position
  * Created for IT Project COMP30022, Semester 2 2021
  * The University of Melbourne
@@ -9,7 +9,8 @@
 
 import { MdDelete } from "react-icons/md";
 import { MdModeEdit } from "react-icons/md";
-
+import React from "react";
+import "./note.css";
 
 /**
  * For every note retrived from the notes list, create a Note component to be rendered
@@ -25,7 +26,7 @@ import { MdModeEdit } from "react-icons/md";
 const Note = ({
   Id,
   title,
-  meetingId,
+  meetingTitle,
   text,
   handleDeleteNote,
   setCurrentId,
@@ -38,10 +39,12 @@ const Note = ({
         size="1.3em"
         onClick={() => setCurrentId(Id)}
       />
-      <h2>{title}</h2>
-      <pre>{text}</pre>
+      <small align="left">
+        <b>{title}</b>
+      </small>
+      <small align="left">{text}</small>
       <div className="note_footer">
-        <small>{meetingId}</small>
+        <small align="left">{meetingTitle}</small>
         <MdDelete
           onClick={() => handleDeleteNote(Id)}
           className="delete_icon"

@@ -9,8 +9,8 @@ import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
+// import FormControlLabel from '@material-ui/core/FormControlLabel';
+// import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
@@ -21,6 +21,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { signin } from '../actions/auth';
+
 
 const initialState = { email_address: '', password: ''};
 
@@ -105,22 +106,24 @@ export default function SignInSide() {
               onChange={handleChange}
               autoComplete="email"
               autoFocus
+              helperText="Enter your Email"
             />
             <TextField
               variant="outlined"
               margin="normal"
               required
               fullWidth
+              helperText="Enter your Password"
               name="password"
               onChange={handleChange}
               label="Password"
               type="password"
               autoComplete="current-password"
             />
-            <FormControlLabel
+            {/*<FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
-            />
+            />*/}
             <Button
               type="submit"
               fullWidth

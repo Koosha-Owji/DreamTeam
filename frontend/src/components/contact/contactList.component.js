@@ -29,7 +29,7 @@ export default class ContactCard extends Component{
 constructor(props){
     super(props);
     this.state = {
-      contacts: [], 
+      contacts: [],
       filtered:[],
       labels:[],
       searchLabel:''
@@ -39,7 +39,7 @@ constructor(props){
     this.updateView2=this.updateView2.bind(this);
     this.handleChange=this.handleChange.bind(this);
     this.onChangeLabel=this.onChangeLabel.bind(this);
-    
+
 }
 
 /**Keep contacts fresh */
@@ -77,7 +77,7 @@ componentDidMount() {
       searchLabel:e.target.value
     })
     let currentContacts=this.state.contacts;
-   
+
     let filteredContacts=[];
     if(e.target.value!=="" || e.target.value!==null ){
     filteredContacts=currentContacts.filter(contact=>{
@@ -95,7 +95,7 @@ componentDidMount() {
     })
   }
 
-    
+
   }
 
 handleChange(e){
@@ -119,14 +119,13 @@ handleChange(e){
     })
   }
 
-  
+
   }
 
 
 /** This function is passed to child component AddContact so that the addContact dialogue can be closed
- * and new contact returned here upon pushing to db*/ 
+ * and new contact returned here upon pushing to db*/
 updateView =(newContact)=>{
-  console.log("update view called")
   let a = this.state.contacts.slice();
   a.push(newContact)
   this.setState((state) => {
@@ -138,6 +137,7 @@ updateView =(newContact)=>{
  * we get fresh contacts from the db and render them
  */
 updateView2=()=>{
+
   this.componentDidMount();
 }
 
@@ -145,15 +145,16 @@ updateView2=()=>{
  * and it can be removed from contactList state
  */
   deleteContact=(id)=>{
+
     delete_contact(id)
 
     this.setState({
       contacts:this.state.contacts.filter(el =>el._id !== id)
     })
-    
+
   }
 
-  
+
   /**This maps all current contacts into an accordian layout  */
   displayContactList=(contacts)=>{
     console.log(contacts)
@@ -175,9 +176,9 @@ updateView2=()=>{
         </Grid>
         <Grid item xs={6}>
         <ContactLabel contact_id={contact._id}/>
-        
+
         </Grid>
-        
+
         <Grid item xs={1}>
           <SendContactEmail/>
         </Grid>
@@ -190,7 +191,7 @@ updateView2=()=>{
         </AccordionSummary>
 
 
-        <AccordionDetails className='contactExpand'style={{display:'block'}}> 
+        <AccordionDetails className='contactExpand'style={{display:'block'}}>
         <Grid item xs={1}>
 
         </Grid>
@@ -218,12 +219,11 @@ updateView2=()=>{
     // console.log(this.state.filtered)
   ){
 
-
       return(
         <div>
     <div className ='contactList' style={{display:"flex"}}>
       <Grid item xs={3}>
-      <AddContactButton updateView ={this.updateView}/> 
+      <AddContactButton updateView ={this.updateView}/>
       </Grid>
       <Grid item xs={3}>
         <ManageLabelButton/>
@@ -246,11 +246,11 @@ updateView2=()=>{
         </Grid>
         </div>
         <input type="text" className="input" onChange={this.handleChange} placeholder="Search by first name" />
-        
+
     {this.displayContactList(this.state.filtered)}
     {/* <Search items={this.state.contacts}/> */}
   </div>
-     
+
       );
     }
 }

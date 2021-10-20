@@ -36,12 +36,16 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
+import dotenv from 'dotenv';
+dotenv.config();
+
 
 import userRouter from "./routes/user.js";
 import contactRouter from "./routes/contactRouter.js"
 import noteRouter from "./routes/note.js";
 import labelRouter from "./routes/label.js";
 import orderRouter from "./routes/orderRouter.js";
+import meetingRouter from "./routes/meeting.js";
 
 const app = express();
 
@@ -53,9 +57,10 @@ app.use("/user", userRouter);
 app.use("/contacts", contactRouter);
 app.use("/note", noteRouter);
 app.use("/label", labelRouter);
-app.use("/orders", orderRouter)
+app.use("/orders", orderRouter);
+app.use("/meeting", meetingRouter);
 
-const CONNECTION_URL = 'mongodb+srv://dreamteam:teamdream@cluster0.dmj7x.mongodb.net/DreamTeamCRM?retryWrites=true&w=majority'
+const CONNECTION_URL = process.env.CONNECTION_MG_URL;
 const PORT = process.env.PORT|| 5000;
 
 mongoose.connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -63,3 +68,5 @@ mongoose.connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: tr
   .catch((error) => console.log(`${error} did not connect`));
 
 mongoose.set('useFindAndModify', false);
+
+export default app;

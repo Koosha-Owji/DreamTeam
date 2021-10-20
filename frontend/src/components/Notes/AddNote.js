@@ -1,7 +1,7 @@
 /**
  * NotePages.js, renders the add note box in which the user can input their note information and save
- * the new note. Also, if the currentId is valid the add note box displays the information of the corresponding 
- * note to be edited 
+ * the new note. Also, if the currentId is valid the add note box displays the information of the corresponding
+ * note to be edited
  * Created for IT Project COMP30022, Semester 2 2021
  * The University of Melbourne
  * Reference: James Grimshaw, Notes App [https://github.com/jrgrimshaw/notes-app-tutorial](2021)
@@ -10,7 +10,9 @@
 
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { MdModeEdit } from "react-icons/md";
 import { createNote, updateNote } from "../../actions/notes";
+import "./note.css";
 
 /**
  * For every note in notes list, create a new Note component with the available attributes 
@@ -21,7 +23,11 @@ import { createNote, updateNote } from "../../actions/notes";
  */
 const AddNote = ({ currentId, setCurrentId }) => {
   const dispatch = useDispatch();
-  const [noteText, setNoteText] = useState({ title: "", content: "" , count:""});
+  const [noteText, setNoteText] = useState({
+    title: "",
+    content: "",
+    count: "",
+  });
 
   const note = useSelector((state) =>
     currentId ? state.note.find((n) => n._id === currentId) : null
@@ -30,13 +36,13 @@ const AddNote = ({ currentId, setCurrentId }) => {
   // everytime someone clicks edit, change the add note to edit the current note
   useEffect(() => {
     if (note) {
-      setNoteText(noteText=>({
+      setNoteText((noteText) => ({
         ...noteText,
         title: note.title,
         content: note.content,
       }));
     }
-  }, [currentId,noteText.count,note]);
+  }, [currentId, noteText.count, note]);
 
   /**
    * Clears the information in the note Text, i.e, the information displayed in the Add Note component
@@ -54,25 +60,29 @@ const AddNote = ({ currentId, setCurrentId }) => {
    */
   const handleSaveClick = (event) => {
     if (noteText.content.trim().length > 0) {
-      // if the note is being updated
+      // IF THE NOTE IS BEING UPDATED
       if (currentId) {
         dispatch(updateNote(currentId, noteText));
         clear();
+        // getpost after updating
       }
 
-      // if a new note is being added
+      // IF ITS A NEW NOTE BEING ADDED
       else {
         event.preventDefault();
         dispatch(createNote(noteText));
         clear();
+        //setNoteText({title: '', content: '' });
+        // setCurrentId('');
       }
     }
   };
 
   return (
     <div className="note new">
+      <MdModeEdit cursor="pointer" color="#bbdefb" size="1.3em" />
       <textarea
-        rows="2"
+        rows="1"
         cols="10"
         placeholder="Title"
         name="title"
@@ -82,7 +92,7 @@ const AddNote = ({ currentId, setCurrentId }) => {
       <textarea
         rows="8"
         cols="10"
-        placeholder="Type to add new note"
+        placeholder="Type to add new note*"
         name="content"
         value={noteText.content}
         onChange={(e) => setNoteText({ ...noteText, content: e.target.value })}
