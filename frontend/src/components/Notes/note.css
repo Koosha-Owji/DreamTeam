@@ -3,11 +3,11 @@
   margin: 2%;
   border-radius: 10px;
   padding: 1rem;
-  min-height: 270px;
-  width: 215px;
+  min-height: 320px;
+  width: 270px;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: space-between; 
   white-space: pre-wrap;
 }
 
