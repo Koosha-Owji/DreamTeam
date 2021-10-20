@@ -17,7 +17,7 @@ const contactSchema = mongoose.Schema({
     description: {type: String, required: false},
     //labelId: {type: [String], required: false},
     user_id: {type: String, required: true}, // identifies the user to which the contact belongs
-    labels: {type: [String],ref:'labels', required: false}
+    labels: {type: [], required: false}
 })
 
 export default mongoose.model("Contact", contactSchema, "contact");

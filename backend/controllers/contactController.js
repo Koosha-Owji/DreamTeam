@@ -29,8 +29,7 @@
      const email_address = req.body.email_address;
      const phone_number = req.body.phone_number;
      const description = req.body.description;
-     const label_id = req.body.label_id;
-     const labels=[];
+     const labels=req.body.labels;
 
      if (!req.user_id) return res.status(400).json({ message: "User doesn't exist" });
      const user = await userModel.findOne({ _id: req.user_id});
@@ -41,7 +40,7 @@
          last_name, business, relationship,
          email_address, phone_number, description, labels, user_id: req.user_id
      });
-     newContact.labels.push(label_id)
+    //  newContact.labels.push(label_id)
      newContact.save()
      .then(()=>res.send(newContact))
      .catch((err) => res.status(400).json(err));
@@ -94,6 +93,7 @@
          contact.email_address = req.body.email_address;
          contact.phone_number = req.body.phone_number;
          contact.description = req.body.description;
+         contact.labels = req.body.labels;
  
          contact.save()
          .then(() => res.send(contact))
@@ -170,10 +170,10 @@
          // array of the contact
          await Contact.updateOne(
              {_id: req.params.contact_id}, 
-             {$pull: {labels: req.params.label_id}})
+             {labels: req.body})
  
          const contact = await Contact.findById(req.params.contact_id).exec();
-         console.log(contact, req.params.label_id, req.params.contact_id)
+         console.log(contact, req.params.contact_id)
          return res.send(contact);
  
      } catch (err) {

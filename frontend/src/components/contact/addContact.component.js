@@ -33,9 +33,7 @@ export default class AddContact extends Component {
 
         /**Function passed from contactList component to close dialogue once contact details are submitted in form*/
         this.closeDialogue= this.props.closeFromChild1;
-      
-
-
+    
         this.state = {
         first_name: '',
         last_name: '',

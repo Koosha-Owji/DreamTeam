@@ -4,7 +4,7 @@
  * The University of Melbourne
  * Implemented by DreamTeam: Anagha Giri, Koosha Owji, Chirag Singh, Olivia Ryan, Natasha Ireland
  */
- import React, {Component} from 'react';
+import React, {Component} from 'react';
 import Accordion from '@material-ui/core/Accordion';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
@@ -156,6 +156,7 @@ updateView2=()=>{
   
   /**This maps all current contacts into an accordian layout  */
   displayContactList=(contacts)=>{
+    console.log(contacts)
     if(!contacts.length) return null;
 
     return contacts.map((contact, index)=>(
@@ -213,7 +214,9 @@ updateView2=()=>{
 
   }
 
-  render(){
+  render(
+    // console.log(this.state.filtered)
+  ){
 
 
       return(

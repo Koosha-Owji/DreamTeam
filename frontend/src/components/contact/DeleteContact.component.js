@@ -12,6 +12,8 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
+import { useDispatch } from 'react-redux';
+import { delete_contact } from '../../actions/contact';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -27,6 +29,7 @@ const useStyles = makeStyles((theme) => ({
   
   
   export default function DeleteContact({id, deleteContact}) {
+    const dispatch = useDispatch();
     const classes = useStyles();
 
   
@@ -42,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
 
     /**This function closes the dialogue and pushes the delete contact request to the back end */
     function finaliseDelete(id){
-      deleteContact(id);
+      dispatch(delete_contact(id));
       handleClose();
     }
     return (

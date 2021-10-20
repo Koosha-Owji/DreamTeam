@@ -10,7 +10,7 @@ export const create_contact = (contact) => async (dispatch) => {
     try {
       const { data } = await api.create_contact(contact);
   
-      dispatch({ type: 'CREATE', Payload: data });
+      dispatch({ type: 'CREATE', payload: data });
   
     } catch (error) {
       console.log(error);
@@ -18,13 +18,12 @@ export const create_contact = (contact) => async (dispatch) => {
   };
 
   
-export const get_all_contacts = (contacts) => async (dispatch) => {
+export const get_all_contacts = () => async (dispatch) => {
   try {
-    const { data } = await api.get_all_contacts(contacts);
-
-    dispatch({ type: 'GET_ALL', payload: data });
+    const { data } = await api.get_all_contacts();
+    dispatch({ type: "GET_ALL", payload: data });
   } catch (error) {
-    console.log(error.message);
+    console.log(error);
   }
 };
 
@@ -56,9 +55,9 @@ export const get_contact = (id)=>async(dispatch)=>{
   }
 };
 
-export const delete_contact_label = (label_id, id)=> async(dispatch)=>{
+export const delete_contact_label = (labels, id)=> async(dispatch)=>{
   try{
-    const {data} = await api.delete_contact_label(id, label_id);
+    const {data} = await api.delete_contact_label(labels,id);
     dispatch({type:'UPDATE', payload:data})
   }catch(error){
     console.log(error.message);

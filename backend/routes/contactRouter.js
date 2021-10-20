@@ -27,7 +27,7 @@ contactRouter.patch('/update/:id',auth, update_contact);
 
 contactRouter.patch('/update/:contact_id/label/:label_id',auth,  label_contact);
 
-contactRouter.patch('/update/:contact_id/delabel/:label_id', auth, delabel_contact);
+contactRouter.patch('/update/:contact_id/delabel/', auth, delabel_contact);
 
 // export the router
 export default contactRouter;

@@ -4,7 +4,7 @@ import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import AddContact from './addContact.component';
+import AddContact from './AddContact';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function AddContactButton({updateView}) {
+export default function AddContactButton({new_labels}) {
   const classes = useStyles();
 
   const [open, setOpen] = React.useState(false);
@@ -55,16 +55,14 @@ export default function AddContactButton({updateView}) {
     setOpen(false);
   };
 
+  const handleSubmit = () => {
+    handleClose();
+  };
+
   /**This function is passed to child: AddContactComponent
    * When a new contact is created and successfully returned from BE, the dialogue is closed and
    * new contact sent to parent component: contactList to be displayed
    */
-  const closeFromChild = (contact) => {
-    setOpen(false);
-    updateView(contact);
-  }
-
-
 
   return (
     <div className={classes.root}>
@@ -75,7 +73,7 @@ export default function AddContactButton({updateView}) {
 
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Add New Contact</DialogTitle>
-        <AddContact closeFromChild1={closeFromChild} />
+        <AddContact handleSubmit = {handleSubmit} new_labels ={new_labels} />
         </Dialog>
     </div>
   );
