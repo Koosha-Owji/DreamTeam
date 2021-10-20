@@ -73,20 +73,24 @@ describe("Notes Controller", function () {
       const mReq = { user_id: "613ab597cbf2623120614c98", body: stubValue };
       const mReply = { code: sinon.stub().returnsThis(), send: sinon.stub() };
       const note = create_note(mReq, mReply);
+      const stub = sinon.stub(userModel, "findOne").resolves(true);
       expect(note.id).equal(stubValue.id);
       expect(note.content).equal(stubValue.content);
       expect(note.title).equal(stubValue.title);
       expect(note.user_id).equal(stubValue.user_id);
       expect(note.meeting_id).equal(stubValue.meeting_id);
+      stub.restore();
     });
 
     it("should not create a note when user id is empty", async function () {
       const req = { body: stubValue };
+      const stub = sinon.stub(userModel, "findOne").resolves(true);
       create_note(req, res);
       expect(status.calledOnce).equal(true);
       expect(status.args[0][0]).equal(400);
       expect(json.calledOnce).equal(true);
       expect(json.args[0][0].message).equal("User doesn't exist");
+      stub.restore();
     });
   });
 
