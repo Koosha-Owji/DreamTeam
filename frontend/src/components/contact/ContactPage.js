@@ -3,13 +3,14 @@ import ContactList from "./ContactList";
 import AddContactButton from "./AddContactButton.component";
 import ManageLabelButton from "./../label/ManageLabelsButton.component";
 import Grid from "@material-ui/core/Grid";
-// import { get_all_contacts} from "../../api/index";
 import {get_all_contacts} from "../../actions/contact"
 import {get_all_labels} from "../../api/index"
 import { useDispatch, useSelector } from "react-redux";
 import SearchBar from "material-ui-search-bar";
-
-
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 
 
 var contactsList = [];
@@ -87,6 +88,54 @@ const ContactPage = () => {
 
     searchFunc(searchString);
 
+    const [filterLabel, setFilterLabel]=React.useState("");
+
+    const handleFilter = (e) =>{
+      if(e){
+        setFilterLabel(e.target.value);
+        filterFunc(filterLabel);
+      }else{
+        setFilterLabel(e);
+        contactsList=contacts;
+      }
+    };
+
+    const filterFunc = (labelFilter)=>{
+      if(labelFilter!==""){
+        contactsList=contacts.filter(function(i){
+          try {
+            for(let t=0; t<i.labels.length; t++){
+              if(i.labels[t].value.match(labelFilter)){
+                return true;
+              }
+            }
+            return false;
+          } catch (e) {
+            contactsList = contacts;
+            return contactsList;
+          }
+        }
+        )
+      }else{
+        contactsList=contacts;
+      }
+    }
+
+    filterFunc(filterLabel);
+
+    
+
+       /**Display labels in a dropdown from which we can select one to assign to a contact */
+
+   const displayLabelDropdown=(labels)=>{
+    if(!labels.length) return null;
+      return labels.map((label, index)=>(
+        <MenuItem value={label._id} style={{backgroundColor:`${label.colour}`}}>{label.title}</MenuItem>
+
+      ))
+  }
+    
+
   return (
     <div>
       <div className="contactList" style={{ display: "flex" }}>
@@ -96,38 +145,40 @@ const ContactPage = () => {
         <Grid item xs={3}>
           <ManageLabelButton />
         </Grid>
-
+        <Grid item xs={3} style={{padding:"10px"}}>
         <SearchBar
           value={searchString}
           onChange={handleSearch}
           onRequestSearch={() => console.log("onRequestSearch")}
           style={{
             margin: "0 auto",
-            maxWidth: 800,
+            maxWidth: 800
           }}
         />
-        {/* <Grid item xs={3}>
+        </Grid>
+        <Grid item xs={3}>
           <FormControl
             fullWidth
-            variant="standard"
-            sx={{ m: 1, minWidth: 120 }}
+            variant="outlined"
+            sx={{ minWidth:120, margin:"0" }}
           >
-            <InputLabel id="demo-simple-select-filled-label">
+            <InputLabel id="demo-simple-select-filled-label" >
               Search by label
             </InputLabel>
             <Select
               labelId="demo-simple-select-filled-label"
               id="demo-simple-select-filled"
-              value={this.label_id}
-              onChange={this.onChangeLabel}
+              label="filter by label"
+              value={filterLabel}
+              onChange={handleFilter}
             >
-              <MenuItem value="">
+              <MenuItem value="none">
                 <em>None</em>
               </MenuItem>
-              {this.displayLabelDropdown(this.state.labels)}
+              {displayLabelDropdown(labels)}
             </Select>
           </FormControl>
-        </Grid> */}
+        </Grid>
       </div>
       {/* <input
         type="text"
