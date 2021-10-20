@@ -1,5 +1,6 @@
-import { MdDelete } from 'react-icons/md';
-import { MdModeEdit } from 'react-icons/md';
+import { MdDelete } from "react-icons/md";
+import { MdModeEdit } from "react-icons/md";
+import React from "react";
 
 const Note = ({
   Id,
@@ -17,16 +18,14 @@ const Note = ({
         size="1.3em"
         onClick={() => setCurrentId(Id)}
       />
-      <textarea
-        rows="2"
-        cols="10"
-      >{title}</textarea>
-      <textarea
-        rows="8"
-        cols="10"
-      >{text}</textarea>
+      <small align="left">
+        <b>{title}</b>
+      </small>
+      <small align="left">{text}</small>
       <div className="note_footer">
-        <textarea>{meetingTitle}</textarea>
+        <small align="left">
+          {meetingTitle}
+        </small>
         <MdDelete
           onClick={() => handleDeleteNote(Id)}
           className="delete_icon"
@@ -37,4 +36,4 @@ const Note = ({
   );
 };
 
-export default Note
+export default Note;

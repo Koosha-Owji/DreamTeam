@@ -4,21 +4,41 @@
  * The University of Melbourne
  * Implemented by DreamTeam: Anagha Giri, Koosha Owji, Chirag Singh, Olivia Ryan, Natasha Ireland
   */
- import axios from 'axios';
+//  import axios from 'axios';
 
- const API = axios.create({ baseURL: 'https://dream-team-crm-back.herokuapp.com/' });
+//  const API = axios.create({ baseURL: 'https://dream-team-crm-back.herokuapp.com/' });
+
+//  API.interceptors.request.use((req) => {
+//    if (localStorage.getItem('profile')) {
+//      req.headers.Authorization = `Bearer ${JSON.parse(localStorage.getItem('profile')).token}`;
+//    }
+
+//    return req;
+// });
+
+// const meetingURL = 'https://dream-team-crm-back.herokuapp.com/meeting';
+
+// const noteURL = 'https://dream-team-crm-back.herokuapp.com/note';
+
+ import axios from "axios";
+
+ const API = axios.create({
+   baseURL: "http://localhost:5000/",
+ });
 
  API.interceptors.request.use((req) => {
-   if (localStorage.getItem('profile')) {
-     req.headers.Authorization = `Bearer ${JSON.parse(localStorage.getItem('profile')).token}`;
+   if (localStorage.getItem("profile")) {
+     req.headers.Authorization = `Bearer ${
+       JSON.parse(localStorage.getItem("profile")).token
+     }`;
    }
 
    return req;
-});
+ });
 
-const meetingURL = 'https://dream-team-crm-back.herokuapp.com/meeting';
+ const meetingURL = "http://localhost:5000/meeting";
 
-const noteURL = 'https://dream-team-crm-back.herokuapp.com/note';
+ const noteURL = "http://localhost:5000/note";
 
 export const signIn = (formData) => API.post("/user/signin", formData);
 export const signUp = (formData) => API.post("/user/signup", formData);

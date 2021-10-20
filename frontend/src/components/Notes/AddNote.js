@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
+import { MdModeEdit } from "react-icons/md";
 import {createNote, updateNote} from '../../actions/notes';
 
 
@@ -51,30 +52,37 @@ const AddNote = ({currentId, setCurrentId}) => {
 
 
     return (
-    <div className = "note new" >
+      <div className="note new">
+        <MdModeEdit cursor="pointer" color="#bbdefb" size="1.3em" />
         <textarea
-            rows = '2'
-            cols ='10'
-            placeholder = 'Title'
-            name = 'title'
-            value = {noteText.title}
-            onChange={(e) => setNoteText({...noteText, title:e.target.value})}
+          rows="1"
+          cols="10"
+          placeholder="Title"
+          name="title"
+          value={noteText.title}
+          onChange={(e) => setNoteText({ ...noteText, title: e.target.value })}
         ></textarea>
         <textarea
-            rows = '8'
-            cols ='10'
-            placeholder = 'Type to add new note*'
-            name = "content"
-            value = {noteText.content}
-            onChange={(e) => setNoteText({...noteText, content:e.target.value})}
+          rows="8"
+          cols="10"
+          placeholder="Type to add new note*"
+          name="content"
+          value={noteText.content}
+          onChange={(e) =>
+            setNoteText({ ...noteText, content: e.target.value })
+          }
         ></textarea>
-        <div className = 'note_footer'>
-            <small>{currentId ? 'Edit ' : 'New '}Note</small>
-            <button className = "save" onClick={clear}>Cancel</button>
-            <button className = "save" onClick={handleSaveClick}>Save</button>
+        <div className="note_footer">
+          <small>{currentId ? "Edit " : "New "}Note</small>
+          <button className="save" onClick={clear}>
+            Cancel
+          </button>
+          <button className="save" onClick={handleSaveClick}>
+            Save
+          </button>
         </div>
-
-    </div>)
+      </div>
+    );
 }
 
 export default AddNote;
