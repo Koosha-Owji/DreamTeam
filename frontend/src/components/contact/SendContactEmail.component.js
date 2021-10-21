@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
               <Fab color="primary" aria-label="delete"  onClick={handleClickOpen} style={{display:'flex'}}>
                   <EmailIcon/>
               </Fab>
-              <Dialog open={open} maxWidth='xl' onClose={handleClose} aria-labelledby="form-dialog-title" fullWidth="false" >
+              <Dialog open={open} maxWidth='xs' onClose={handleClose} aria-labelledby="form-dialog-title" fullWidth="false" style={{padding:"20px"}}>
           <Google/>
           
         </Dialog>

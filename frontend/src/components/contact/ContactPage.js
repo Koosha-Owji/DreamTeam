@@ -120,13 +120,7 @@ const ContactPage = () => {
   return (
     <div>
       <div className="contactList" style={{ display: "flex" }}>
-        <Grid item xs={3}>
-          <AddContactButton labels = {labels} />
-        </Grid>
-        <Grid item xs={3}>
-          <ManageLabels labels={labels} finaliseDelete={finaliseDelete} finaliseCreate={finaliseCreate} />
-        </Grid>
-        <Grid item xs={3} style={{padding:"10px"}}>
+      <Grid item xs={3} style={{padding:"10px"}}>
         <SearchBar
           value={searchString}
           onChange={handleSearch}
@@ -144,7 +138,7 @@ const ContactPage = () => {
             sx={{ minWidth:120, margin:"0" }}
           >
             <InputLabel id="demo-simple-select-filled-label" >
-              Search by label
+              Filter by label
             </InputLabel>
             <Select
               labelId="demo-simple-select-filled-label"
@@ -160,13 +154,14 @@ const ContactPage = () => {
             </Select>
           </FormControl>
         </Grid>
+        <Grid item xs={3}>
+          <AddContactButton labels = {labels} />
+        </Grid>
+        <Grid item xs={3}>
+          <ManageLabels labels={labels} finaliseDelete={finaliseDelete} finaliseCreate={finaliseCreate} />
+        </Grid>
+        
       </div>
-      {/* <input
-        type="text"
-        className="input"
-        // onChange={this.handleChange}
-        placeholder="Search by first name"
-      /> */}
       <ContactList contacts={contactsList} labels = {labels} />
     </div>
   );
