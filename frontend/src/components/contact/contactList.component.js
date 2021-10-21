@@ -77,7 +77,6 @@ updateView2=()=>{
   /**This maps all current contacts into an accordian layout  */
   displayContactList=(contacts)=>{
     if(!contacts.length) return null;
-
     return contacts.map((contact, index)=>(
       <div key = {index} className ='contactListItem' style={{padding:'10px'}}>
         <Accordion>
@@ -98,7 +97,7 @@ updateView2=()=>{
         </Grid>
         
         <Grid item xs={1}>
-          <SendContactEmail/>
+          <SendContactEmail contactEmail={contact.email_address}/>
         </Grid>
         <Grid item xs={1} textA>
         <Update currId ={contact._id} allContacts={contacts} updateView2={this.updateView2} />

@@ -129,7 +129,7 @@ export default function TabsWrappedLabel() {
         <ContactsPage/>
       </TabPanel>
       <TabPanel value={value} index="two">
-        <Google/>
+        <Google contactEmail={""}/>
       </TabPanel>
       <TabPanel value={value} index="three">
         <MeetingPage/>
