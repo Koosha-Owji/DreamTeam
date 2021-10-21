@@ -10,7 +10,8 @@ import makeAnimated from "react-select/animated";
 import { create_contact } from "../../actions/contact";
 
 
-function AddMeeting({ handleSubmit, new_labels}) {
+function AddMeeting({ handleSubmit, labels}) {
+    console.log(labels)
   const [contactData, setContactData] = useState({
     first_name: "",
     last_name: "",
@@ -52,6 +53,14 @@ function AddMeeting({ handleSubmit, new_labels}) {
     });
   };
 
+  const labelOptions =()=>{
+    let options =[];
+    if(labels.length>0){
+    labels.map(item=>options.push({label:item.title, value:item}))
+    }
+    return options;
+  }
+
   return (
     <Container component="main" maxWidth="xs">
       <div>
@@ -61,7 +70,7 @@ function AddMeeting({ handleSubmit, new_labels}) {
           label="Contacts"
           value={contactData.labels}
           isMulti
-          options={new_labels}
+          options={labelOptions()}
           onChange={addLabels}
         />
         <TextField

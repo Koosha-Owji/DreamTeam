@@ -123,19 +123,29 @@
          <Container component="main" maxWidth="xs">
            <div>
  
-                 <FormControl fullWidth variant="standard" sx={{ m: 1, minWidth: 120 }}>
-                 <InputLabel id="demo-simple-select-filled-label">Assign to contact</InputLabel>
-                 <Select labelId="demo-simple-select-filled-label"
+                 {/* <FormControl fullWidth variant="standard" sx={{ m: 1, minWidth: 120 }}>
+                 <InputLabel id="demo-simple-select-filled-label">Assign to contact</InputLabel> */}
+                 {/* <Select labelId="demo-simple-select-filled-label"
                  id="demo-simple-select-filled"
                  value={this.state.contact_id}
                  onChange={this.onChangeContact}
                  >
                  <MenuItem value="">
                  <em>None</em>
-                 </MenuItem>
-                 {this.displayContactDropdown(this.state.contacts)}
-                 </Select>
-                 </FormControl>
+                 </MenuItem> */}
+                 {/* {this.displayContactDropdown(this.state.contacts)}
+                 </Select> */}
+                 {/* </FormControl> */}
+                 <TextField
+                autoFocus
+                margin="dense"
+                id="name"
+                label="Contact"
+                type="contact"
+                fullWidth
+                value = {this.state.contact_id}
+                onChange={this.onChangeContact}
+            ></TextField>
 
                  <TextField
                 autoFocus

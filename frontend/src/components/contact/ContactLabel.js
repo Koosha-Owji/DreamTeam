@@ -1,8 +1,6 @@
 import React from "react";
-// import AddContactLabel from "../label/AddContactLabel.component";
 import Chip from "@material-ui/core/Chip";
 import Grid from "@material-ui/core/Grid";
-// import { delete_contact_label } from "../../api/index";
 
 
 const ContactLabel = ({ labels, contact_id, handleDeleteLabel }) => {
@@ -17,9 +15,9 @@ const ContactLabel = ({ labels, contact_id, handleDeleteLabel }) => {
               <div className="labelListItem" style={{ padding: "10px" }}>
                 <Chip
                   label={label.label}
-                  color={label.color}
+                  color={label.colour}
                   variant="outlined"
-                  style={{ backgroundColor: `${label.color}` }}
+                  style={{ backgroundColor: `${label.value.colour}` }}
                   onDelete={() => handleDeleteLabel(label.value)}
                 />
               </div>

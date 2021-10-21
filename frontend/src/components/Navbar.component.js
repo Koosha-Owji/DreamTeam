@@ -118,7 +118,7 @@ export default function TabsWrappedLabel() {
         <Tabs value={value} onChange={handleChange} aria-label="wrapped label tabs example" centered >
           <Tab value="one" label="Contacts" icon= {<PermContactCalendarIcon/>}wrapped {...a11yProps('one')}/>
           <Tab value="two" label="Emails" icon= {<EmailIcon/>} {...a11yProps('two')}/>
-          <Tab value="three" label="Calendar" icon= {<TodayIcon/>} {...a11yProps('three')} />
+          <Tab value="three" label="Meetings" icon= {<TodayIcon/>} {...a11yProps('three')} />
           <Tab value="four" label="Notes" icon= {<NoteIcon/>} {...a11yProps('four')} />
           <Tab value="five" label="Orders" icon= {<WorkIcon/>} {...a11yProps('five')} />
           <Tab value="six" label="Profile" icon= {<PersonIcon/>} onClick={handleClickOpen} {...a11yProps('six')} />

@@ -11,7 +11,11 @@ import AddIcon from '@material-ui/icons/Add';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import ManageLabel from './../label/ManageLabels.component';
+import { useDispatch, useSelector } from "react-redux";
+import {get_all_labels, delete_label, create_label} from "../../actions/label"
+import CreateLabelButtonPage from './CreateLabelButton.component';
 
+import LabelList from "./LabelList"
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
@@ -48,9 +52,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function AddContactButton() {
+export default function ManageLabels({labels, finaliseDelete, finaliseCreate}) {
   const classes = useStyles();
 
+  const [currentId, setCurrentId] = React.useState(null);
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -61,6 +66,7 @@ export default function AddContactButton() {
     setOpen(false);
   };
 
+
   return (
     <div className={classes.root}>
             <Fab color="primary" aria-label="add" variant='extended' onClick={handleClickOpen}>
@@ -70,7 +76,8 @@ export default function AddContactButton() {
 
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" maxWidth="sm" fullWidth="false">
         <DialogTitle id="form-dialog-title">Manage Labels</DialogTitle>
-        <ManageLabel/>
+        <LabelList labels={labels} handleDeleteLabel={finaliseDelete} setCurrentId={setCurrentId}/>
+        <CreateLabelButtonPage finaliseUpdate={finaliseCreate}/>
         </Dialog>
     </div>
   );

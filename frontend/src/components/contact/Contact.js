@@ -13,7 +13,7 @@ import { delete_contact_label } from "../../actions/contact";
 import { useDispatch } from "react-redux";
 
 
-const Contact = ({contacts, contact, new_labels}) => {
+const Contact = ({contacts, contact, labels}) => {
   const dispatch = useDispatch();
 
   const handleDeleteLabel = (id) => {
@@ -55,7 +55,7 @@ const Contact = ({contacts, contact, new_labels}) => {
             <Update
               currId={contact._id}
               allContacts={contacts}
-              new_labels={new_labels}
+              labels={labels}
             />
           </Grid>
           <Grid item xs={1}>

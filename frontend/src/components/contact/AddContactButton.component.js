@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function AddContactButton({new_labels}) {
+export default function AddContactButton({labels}) {
   const classes = useStyles();
 
   const [open, setOpen] = React.useState(false);
@@ -73,7 +73,7 @@ export default function AddContactButton({new_labels}) {
 
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Add New Contact</DialogTitle>
-        <AddContact handleSubmit = {handleSubmit} new_labels ={new_labels} />
+        <AddContact handleSubmit = {handleSubmit} labels ={labels} />
         </Dialog>
     </div>
   );

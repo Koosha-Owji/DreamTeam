@@ -14,7 +14,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
-import Select from "react-select";
+ import Select from "react-select";
 import makeAnimated from "react-select/animated";
 
 
@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
   }));
   
   
-    const  UpdateContact=({currId, allContacts, new_labels})=> {
+    const  UpdateContact=({currId, allContacts, labels})=> {
       const dispatch = useDispatch();
     const classes = useStyles();
 
@@ -95,6 +95,17 @@ const useStyles = makeStyles((theme) => ({
       labels: labels_names_ids,
     });
   };
+
+ 
+  const labelOptions =()=>{
+    let options =[];
+    if(labels.length>0){
+    labels.map(item=>options.push({label:item.title, value:item}))
+    }
+    return options;
+  }
+  
+  
     return (
       <div className={classes.root}>
         <div className={classes.deleteContact}>
@@ -114,13 +125,14 @@ const useStyles = makeStyles((theme) => ({
             >
               <DialogTitle id="form-dialog-title">Update contact</DialogTitle>
               <Container component="main" maxWidth="xs">
+              
                 <Select
                   closeMenuOnSelect={false}
                   components={animatedComponents}
                   label="Contacts"
                   value={contactDetails.labels}
                   isMulti
-                  options={new_labels}
+                  options={labelOptions()}
                   onChange={addLabels}
                 />
 

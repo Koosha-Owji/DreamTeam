@@ -76,9 +76,11 @@
   * @returns {the response}
   */
  export const get_all_labels = async (req, res) => {
+     
      try {
          const labels = await label_model.find({user_id: req.user_id});
-         return res.json(labels);
+         
+         return res.send(labels);
      } catch (err) {
          return res.status(400).json({message: "label retrieval failed"});
      }

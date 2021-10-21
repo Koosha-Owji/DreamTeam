@@ -17,6 +17,8 @@ import UpdateOrderStatus from './UpdateOrderStatus.component';
 import { get_all_orders, delete_order } from '../../api/index';
 import OrderContact from './OrderContact.component';
 
+
+
 export default class OrderList extends Component{
 constructor(props){
     super(props);
@@ -70,6 +72,15 @@ componentDidMount() {
     
 
   }
+
+  getDate1 = (date) =>{
+    if(date){
+    var date_time = new Date(date);
+    return date_time.toDateString();
+    }else{
+      return ""
+    }
+  }
     
 /**Map all current orders into accordian display */
   displayOrders=(orders)=>{
@@ -83,10 +94,10 @@ componentDidMount() {
           aria-controls="panel1c-content"
           id="panel1c-header">
             <Grid item xs={3}>
-                <OrderContact contact_id={order.contact_id}/>
+            <Typography className='contact' style={{textAlign:'left'}}>Contact: {order.contact_id}</Typography>
             </Grid>
             <Grid item xs={3}>
-                <Typography className='dueDate' style={{textAlign:'left'}}>Due {order.due_date}</Typography>
+                <Typography className='dueDate' style={{textAlign:'left'}}>Due: {this.getDate1(order.due_date)}</Typography>
             </Grid>
             <Grid item xs={3}>
               <Typography className='status' style={{textAlign:'left'}}>Status: {order.stage}</Typography>
@@ -101,7 +112,7 @@ componentDidMount() {
               </AccordionSummary>
               <AccordionDetails className='orderExpand'> 
               <Grid item xs={3}>
-              <Typography className='dateOrdered' style={{textAlign:'left'}}>Date ordered: {order.order_date}</Typography>
+              <Typography className='dateOrdered' style={{textAlign:'left'}}>Date ordered: {this.getDate1(order.order_date)}</Typography>
               </Grid>
               <Grid item xs={3}>
               <Typography className='amount' style={{textAlign:'left'}}>Amount: {order.amount}</Typography>

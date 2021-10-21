@@ -55,7 +55,7 @@ export const add_contact_label=(label_id, id)=>API.patch(`contacts/update/${id}/
 export const delete_contact_label=(labels, contact_id)=>API.patch(`contacts/update/${contact_id}/delabel/`, labels);
 export const get_labels_by_contact=(contact_id)=>API.get(`label/by-contact/${contact_id}`)
 
-export const create_label = (newLabel)=>API.post('/label', newLabel);
+export const create_label = (label)=>API.post('/label', label);
 export const get_all_labels = () => API.get('/label');
 export const delete_label = (id)=>API.post(`/label/delete/${id}`);
 export const get_label =(id)=>API.get(`/label/${id}`);
