@@ -6,6 +6,7 @@
  */
 
  import label_model from '../models/label.js';
+ import userModel from "../models/user.js";
  import contact_model from '../models/contact.js';
  
  /**
@@ -16,6 +17,12 @@
   * @returns {the repsonse}
   */
  export const create_label = async (req, res) => {
+
+    if (!req.user_id)
+      return res.status(400).json({ message: "User doesn't exist" });
+
+    const user = await userModel.findOne({ _id: req.user_id });
+    if (!user) return res.status(400).json({ message: "User doesn't exist" });
  
      // Check for existing labels with the same title and colour. 
      const old_label = await label_model.findOne({
@@ -40,7 +47,7 @@
      // Save the label to the database
      try {
          await new_label.save();
-         return res.json({message: "Successfully added label!", label: new_label});
+         return res.status(200).json({message: "Successfully added label!", label: new_label});
      } catch (err) { return res.status(500).json({message: "Error saving new label"}); }
  }
  
@@ -54,6 +61,7 @@
      // add deletion of all references to the label in contacts
  
      try {
+         if(req.params.id){
          const label_id = req.params.id;
          // delete the label
          label_model.deleteOne({ _id: label_id }).exec();
@@ -61,10 +69,13 @@
          // delete all references to the label in contacts
          await contact_model.updateMany({labelId: label_id}, {$pull: {labelId: label_id}});
  
-         return res.send("Successfully deleted label if it exists");
+         return res.status(200).json("Successfully deleted label if it exists");
+         }else{
+           return  res.status(500).json({ message: "label deletion failed" });
+         }
  
      } catch (err) {
-         res.status(400).json({message: "Error while deleting label"});
+         res.status(200).json({message: "Error while deleting label"});
      }
  }
  
@@ -78,6 +89,7 @@
      try {
          console.log("Get all labels");
          const labels = await label_model.find();
+         if (!labels.length) return res.status(200).json("");
          return res.json(labels);
      } catch (err) {
          return res.status(400).json({message: "label retrieval failed"});
