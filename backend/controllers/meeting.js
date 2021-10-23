@@ -74,11 +74,11 @@ export const delete_meeting = async (req, res) => {
       .exec();
 
     // noteModel.deleteOne({ meeting_id: String(req.params.id) }).exec();
-    res.send(
-      "Successfully deleted meeting (or meeting does not exist or user is not authorised)"
-    );
+    return res
+      .status(200)
+      .send("Successfully deleted meeting (or meeting does not exist or user is not authorised)");
   } catch (error) {
-    res.status(500).json({ message: "Meeting deletion failed" });
+    return res.status(500).json({ message: "Meeting deletion failed" });
   }
 };
 
