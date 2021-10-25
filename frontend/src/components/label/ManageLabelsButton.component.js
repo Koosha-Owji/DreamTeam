@@ -10,9 +10,6 @@ import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import ManageLabel from './../label/ManageLabels.component';
-import { useDispatch, useSelector } from "react-redux";
-import {get_all_labels, delete_label, create_label} from "../../actions/label"
 import CreateLabelButtonPage from './CreateLabelButton.component';
 
 import LabelList from "./LabelList"
