@@ -46,6 +46,7 @@ import noteRouter from "./routes/note.js";
 import labelRouter from "./routes/label.js";
 import orderRouter from "./routes/orderRouter.js";
 import meetingRouter from "./routes/meeting.js";
+import emailRouter from "./routes/email.js";
 
 const app = express();
 
@@ -59,6 +60,7 @@ app.use("/note", noteRouter);
 app.use("/label", labelRouter);
 app.use("/orders", orderRouter);
 app.use("/meeting", meetingRouter);
+app.use("/email",emailRouter);
 
 const CONNECTION_URL = process.env.CONNECTION_MG_URL;
 const PORT = process.env.PORT|| 5000;

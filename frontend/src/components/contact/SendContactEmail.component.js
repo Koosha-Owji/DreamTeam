@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
   }));
   
   
-  export default function SendContactEmail() {
+  export default function SendContactEmail({contactEmail}) {
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
 
@@ -36,6 +36,7 @@ const useStyles = makeStyles((theme) => ({
   const handleClose = () => {
     setOpen(false);
   };
+
     return (
       <div className={classes.root}>
           <div className = {classes.deleteContact}>
@@ -43,8 +44,7 @@ const useStyles = makeStyles((theme) => ({
                   <EmailIcon/>
               </Fab>
               <Dialog open={open} maxWidth='xl' onClose={handleClose} aria-labelledby="form-dialog-title" fullWidth="false" >
-          <Google/>
-          
+          <Google contactEmail={contactEmail}/>
         </Dialog>
           </div>
           </div>
