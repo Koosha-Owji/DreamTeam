@@ -4,7 +4,7 @@ export const create_label = (label) => async (dispatch) => {
     try {
       const { data } = await api.create_label(label);
 
-      dispatch({ type: 'CREATE_LABEL', Payload: data });
+      dispatch({ type: 'CREATE_LABEL', payload: data });
 
     } catch (error) {
       console.log(error);

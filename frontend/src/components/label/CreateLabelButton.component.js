@@ -80,10 +80,9 @@ export default function CreateLabelButtonPage({finaliseUpdate}) {
 
   const onSubmit=(e)=> {
     e.preventDefault();
-
-    console.log(label)
     /**Closes the dialogue which is controlled from the parent component: ManageLabels */
     finaliseUpdate(label);
+    handleClose();
     
   }
 
