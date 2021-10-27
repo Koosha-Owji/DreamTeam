@@ -1,7 +1,7 @@
 import { GoogleLogin } from 'react-google-login';
 import { Button, Grid, Typography, Container,TextField } from '@material-ui/core';
 import useStyles from './Styles';
-import React,{ useState } from 'react';
+import React,{ useEffect, useState } from 'react';
 import { useDispatch,useSelector } from 'react-redux';
 import { sendEmail,linkEmail } from '../../actions/email';
 
@@ -13,15 +13,20 @@ const Icon = () => (
         />
     </svg>
     );
-
-const initialState = {toEmail: null, Subject: null, message: null};
-
-const Google = () => {
-
+const initialState = {toEmail: "", Subject: "", message: ""};
+const Google = ({contactEmail}) => {
     const classes = useStyles();
-    const [form, setForm] = useState(initialState);
+    const [form, setForm] = useState(initialState)
     const dispatch = useDispatch();
     const emailData = useSelector((state) => state.email);
+    useEffect(() => {
+        if(contactEmail){
+            setForm(form=>({
+                ...form,
+                toEmail: contactEmail
+            }));
+        }
+    },[contactEmail])
 
     const googleSuccess = async (res) => {
         const result = {code:res?.code};
@@ -33,14 +38,14 @@ const Google = () => {
     };
     const handleSubmit = (e) => {
         e.preventDefault(); 
-        if(form.toEmail!=null&&form.message!=null&&form.Subject!=null)
+        if(form.toEmail!=null&&form.Subject!=null)
         {
             dispatch(sendEmail(form));
             if(emailData)
             {
-            alert("Email sent!");
+                alert("Email sent!");
+                handleClose();
             }
-            setForm(e.target.reset());
         }
         else
         {
@@ -48,6 +53,9 @@ const Google = () => {
         }
       };
     const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
+    const handleClose = () => {
+        setForm({toEmail: contactEmail, Subject: "", message: ""})
+      };
 
 return (
     <Container component="main" maxWidth="xs" style ={{padding:"20px"}} >  
@@ -81,7 +89,7 @@ return (
                     fullWidth
                     id="toEmail"
                     label="Email address"
-                    autoComplete="email"
+                    value = {form.toEmail}
                     autoFocus
                     />
                 </Grid>
@@ -94,6 +102,7 @@ return (
                     fullWidth
                     id="Subject"
                     label="Subject"
+                    value = {form.Subject}
                     autoFocus
                     />
                 </Grid>
@@ -108,6 +117,7 @@ return (
                     rows={6}
                     id="message"
                     label="Text"
+                    value = {form.message}
                     autoFocus
                     />
                 </Grid>

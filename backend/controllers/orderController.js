@@ -1,7 +1,24 @@
+/**
+ * orderController.js, controller functions for order (get, get all, update, delete, create)
+ * Created for IT Project COMP30022, Semester 2 2021
+ * The University of Melbourne
+ * Implemented by DreamTeam: Anagha Giri, Koosha Owji, Chirag Singh, Olivia Ryan, Natasha Ireland
+ */
+
 import orderModel from "../models/order.js";
 import contactModel from "../models/contact.js";
 import userModel from "../models/user.js";
 import mongoose from 'mongoose';
+
+ /**
+  * Create new order
+  * @param {order product} product
+  * @param {order stage} stage
+  * @param {order amount} amount
+  * @param {order order_date} order_date
+  * @param {contact due_date} due_date
+  * @returns {status message} 
+  */
 
 export const create_order = async (req, res) =>{
    
@@ -29,12 +46,22 @@ export const create_order = async (req, res) =>{
     return res.status(400).json({message: "Error saving new order"}); }
 };
 
-// Retrieve all contacts belonging to a single user
+/**
+  * Get all orders of logged in user
+  * @param {logged in user's id} user_id
+  * @returns {all orders}  
+  */
 export const get_all_orders = async (req, res) => {
     orderModel.find({user_id: req.user_id})
     .then(orders => res.json(orders))
     .catch(err => res.status(400).json('Error: ' + err));
 };
+
+ /**
+  * Get one existing order
+  * @param {id of order to be retruned} id
+  * @returns {order} 
+  */
 
 export const get_order = async(req,res) =>{
 
@@ -43,6 +70,11 @@ export const get_order = async(req,res) =>{
     .catch(err => res.status(400).json('Error: ' + err));
 }
 
+/**
+  * Delete order by input id
+  * @param {id of order to be deleted} id
+  * @returns {status message} 
+  */
 
 export const delete_order = async(req,res)=>{
     orderModel.findByIdAndDelete(req.params.id)
@@ -50,6 +82,16 @@ export const delete_order = async(req,res)=>{
     .then(console.log('Order deleted'))
     .catch(err => res.status(400).json('Error: ' + err));
 }
+
+ /**
+  * Update existing order details
+  * @param {order product} product
+  * @param {order stage} stage
+  * @param {order amount} amount
+  * @param {order order_date} order_date
+  * @param {contact due_date} due_date
+  * @returns {status message} 
+  */
 
 export const update_order = async(req, res)=>{
 

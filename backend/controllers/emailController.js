@@ -1,6 +1,7 @@
 import nodemailer from 'nodemailer';
 import userModel from "../models/user.js";
 import {OAuth2Client} from 'google-auth-library';
+import CryptoJS from 'crypto-js';
 
 import dotenv from "dotenv";
 dotenv.config();
@@ -22,7 +23,8 @@ export const link_email = async (req,res) => {
         audience: process.env.CLIENT_ID,
       });
       const payload = ticket.getPayload();
-      await userModel.findByIdAndUpdate(req.user_id, {refresh_token: tokens.refresh_token,email_service:payload.email}).exec();
+      var ciphertext = CryptoJS.AES.encrypt(tokens.refresh_token, process.env.JWT_SECRET).toString();
+      await userModel.findByIdAndUpdate(req.user_id, {refresh_token: ciphertext,email_service:payload.email}).exec();
     }
     return res.status(200).json({message:"serivce is linked!"});
   } catch (error) {
@@ -32,7 +34,9 @@ export const link_email = async (req,res) => {
 export const send_email = async (req, res) => {
     try {
         const user = await userModel.findOne({ _id: req.user_id});
-        oauth2Client.setCredentials({ refresh_token: user.refresh_token });
+        var bytes  = CryptoJS.AES.decrypt(user.refresh_token, process.env.JWT_SECRET);
+        var originalText = bytes.toString(CryptoJS.enc.Utf8);
+        oauth2Client.setCredentials({ refresh_token: originalText });
         const accessToken = await oauth2Client.getAccessToken();
         const transport = nodemailer.createTransport({
           service: "gmail",
@@ -41,7 +45,7 @@ export const send_email = async (req, res) => {
             user: user.email_service,
             clientId: process.env.CLIENT_ID,
             clientSecret: process.env.CLIENT_SECRET,
-            refreshToken: user.refresh_token,
+            refreshToken: originalText,
             accessToken: accessToken,
           },
         });
