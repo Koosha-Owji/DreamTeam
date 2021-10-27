@@ -1,24 +1,73 @@
-DreamTeam
+# DreamTeam CRM
+
+### Summary
+
+DreamTeam\
 Personal CRM for IT Capstone Project
 
-### `npm start`
+This is a customer relationships manager web application designed to help users manage their relationships with customers, clients, colleagues, etc. 
+
+### `npm run dev`
 
 Runs the app in the development mode.\
-Need to run the backend and frontend folder separately with the script
+Make sure you are in the backend directory. 
+```bash
+cd backend
+
+npm run dev
+```
+
+To run the frontend, move to the front end directory and run `npm start`
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+```bash
+cd frontend
+
+npm start
+```
 
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
 
+You may need to run `npm install` before running the app - see below. 
+
+### `npm install`
+
+You may need to run this command in the backend, frontend and root directories in order to install dependencies. 
+```bash
+# root
+npm install
+
+# frontend
+cd frontend
+npm install
+
+# backend
+cd backend
+npm install
+```
+
+### `npm start`
+
+Runs the app locally.\
+Need to run the backend and frontend folder separately with the script
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+
 ### `npm test`
 
 Please cd into the backend folder before running the script.
+```bash
+cd backend
+
+npm test
+```
 
 ### `npm run build`
 
 Builds the app for production to the `build` folder.\
 It correctly bundles React in production mode and optimizes the build for the best performance.
-
+```bash
+npm run build
+```
 The build is minified and the filenames include the hashes.\
 Your app is ready to be deployed!
 
