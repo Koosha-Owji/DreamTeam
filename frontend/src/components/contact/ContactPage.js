@@ -33,7 +33,6 @@ const ContactPage = () => {
   }, [dispatch]);
 
   var labels = useSelector((state) => state.label);
-  console.log(labels);
 
   /*Maintain list of all labels in state*/
   React.useEffect(() => {
@@ -70,7 +69,6 @@ const ContactPage = () => {
 
   /*Filter contacts page: compare label e with contact labels..if match: render contact to page*/
   const handleFilter = (e) => {
-    console.log(e.target.value);
     if (e) {
       setFilterLabel(e.target.value);
      
@@ -102,7 +100,6 @@ const ContactPage = () => {
       contactsList = contacts;
     }
     if (labelFilter !== "none") {
-      console.log(labelFilter);
       contactsList = contactsList.filter(function (i) {
         try {
           for (let t = 0; t < i.labels.length; t++) {

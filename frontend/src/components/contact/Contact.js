@@ -54,7 +54,7 @@ const Contact = ({contacts, contact, labels}) => {
           </Grid>
 
           <Grid item xs={1}>
-            <SendContactEmail />
+            <SendContactEmail contactEmail={contact.email_address}/>
           </Grid>
           <Grid item xs={1} textA>
             <Update
