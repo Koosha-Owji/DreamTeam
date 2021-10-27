@@ -1,3 +1,9 @@
+/**
+ * AddContactButton.component.js, controls pop up window where user completes form when adding a contact
+ * Created for IT Project COMP30022, Semester 2 2021
+ * The University of Melbourne
+ * Implemented by DreamTeam: Anagha Giri, Koosha Owji, Chirag Singh, Olivia Ryan, Natasha Ireland
+ */
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
@@ -59,10 +65,6 @@ export default function AddContactButton({labels}) {
     handleClose();
   };
 
-  /**This function is passed to child: AddContactComponent
-   * When a new contact is created and successfully returned from BE, the dialogue is closed and
-   * new contact sent to parent component: contactList to be displayed
-   */
 
   return (
     <div className={classes.root}>

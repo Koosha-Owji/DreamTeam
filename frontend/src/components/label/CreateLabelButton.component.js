@@ -17,9 +17,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import CreateLabel from './CreateLabel.component';
-import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -61,7 +59,6 @@ const useStyles = makeStyles((theme) => ({
 export default function CreateLabelButtonPage({finaliseUpdate}) {
   const classes = useStyles();
 
-  const dispatch=useDispatch();
 
   const [label, setLabel]=useState({
     title:"",

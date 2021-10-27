@@ -1,3 +1,9 @@
+/**
+ * ContactLabel.component.js, contact's labels are displayed in vertical list of chips
+ * Created for IT Project COMP30022, Semester 2 2021
+ * The University of Melbourne
+ * Implemented by DreamTeam: Anagha Giri, Koosha Owji, Chirag Singh, Olivia Ryan, Natasha Ireland
+ */
 import React from "react";
 import Chip from "@material-ui/core/Chip";
 import Grid from "@material-ui/core/Grid";

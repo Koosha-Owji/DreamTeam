@@ -1,17 +1,21 @@
+/**
+ * AddContact.component.js, user can add a contact
+ * Created for IT Project COMP30022, Semester 2 2021
+ * The University of Melbourne
+ * Implemented by DreamTeam: Anagha Giri, Koosha Owji, Chirag Singh, Olivia Ryan, Natasha Ireland
+ */
 import React, { useState } from "react";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Container from "@material-ui/core/Container";
-// import InputAdornment from "@mui/material/InputAdornment";
-// import { createMeeting, updateMeeting } from "../../actions/meetings";
 import { useDispatch } from "react-redux";
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
 import { create_contact } from "../../actions/contact";
 
 
-function AddMeeting({ handleSubmit, labels}) {
-    console.log(labels)
+function AddContact({ handleSubmit, labels}) {
+  /*Form data, initially blank*/
   const [contactData, setContactData] = useState({
     first_name: "",
     last_name: "",
@@ -38,12 +42,10 @@ function AddMeeting({ handleSubmit, labels}) {
       }
       handleSubmit();
     }
-  
 
-  // everytime someone clicks edit, change the add note to edit the current note
 
   const animatedComponents = makeAnimated();
-
+    /*Add labels to a contact when they are created */
   const addLabels = (e) => {
     var labels_names_ids = e;
 
@@ -78,7 +80,7 @@ function AddMeeting({ handleSubmit, labels}) {
           margin="dense"
           id="name"
           label="First Name*"
-          type="meeting_title"
+          type="first_name"
           fullWidth
           value={contactData.first_name}
           onChange={(e) =>
@@ -90,7 +92,7 @@ function AddMeeting({ handleSubmit, labels}) {
           margin="dense"
           id="name"
           label="Last Name"
-          type="meeting_agenda"
+          type="last_name"
           fullWidth
           value={contactData.last_name}
           onChange={(e) =>
@@ -102,7 +104,7 @@ function AddMeeting({ handleSubmit, labels}) {
           margin="dense"
           id="name"
           label="Business"
-          type="contacts"
+          type="business"
           fullWidth
           value={contactData.business}
           onChange={(e) =>
@@ -117,6 +119,7 @@ function AddMeeting({ handleSubmit, labels}) {
           margin="dense"
           id="name"
           label="Relationship"
+          type="relationships"
           fullWidth
           value={contactData.relationship}
           onChange={(e) =>
@@ -140,7 +143,6 @@ function AddMeeting({ handleSubmit, labels}) {
           id="name"
           label="Phone"
           fullWidth
-          placeholder="End Time"
           value={contactData.phone_number}
           onChange={(e) =>
             setContactData({ ...contactData, phone_number: e.target.value })
@@ -153,7 +155,6 @@ function AddMeeting({ handleSubmit, labels}) {
           id="name"
           label="Description"
           fullWidth
-          placeholder="End Time"
           value={contactData.description}
           onChange={(e) =>
             setContactData({ ...contactData, description: e.target.value })
@@ -169,4 +170,4 @@ function AddMeeting({ handleSubmit, labels}) {
     </Container>
   );
 }
-export default AddMeeting;
+export default AddContact;

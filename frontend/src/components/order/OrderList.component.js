@@ -4,7 +4,8 @@
  * Created for IT Project COMP30022, Semester 2 2021
  * The University of Melbourne
  * Implemented by DreamTeam: Anagha Giri, Koosha Owji, Chirag Singh, Olivia Ryan, Natasha Ireland
- */import React, {Component} from 'react';
+ */
+import React, {Component} from 'react';
 import Accordion from '@material-ui/core/Accordion';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
@@ -15,7 +16,6 @@ import AddOrderButton from './AddOrderButton.component';
 import DeleteOrder from './DeleteOrder.component';
 import UpdateOrderStatus from './UpdateOrderStatus.component';
 import { get_all_orders, delete_order } from '../../api/index';
-import OrderContact from './OrderContact.component';
 
 
 

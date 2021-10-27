@@ -1,3 +1,9 @@
+/**
+ * Contact.component.js, contact details listed in an accordian
+ * Created for IT Project COMP30022, Semester 2 2021
+ * The University of Melbourne
+ * Implemented by DreamTeam: Anagha Giri, Koosha Owji, Chirag Singh, Olivia Ryan, Natasha Ireland
+ */
 import Accordion from "@material-ui/core/Accordion";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
@@ -40,7 +46,6 @@ const Contact = ({contacts, contact, labels}) => {
             </Typography>
           </Grid>
           <Grid item xs={6}>
-            {/* <ContactLabel contact_id={contact._id} /> */}
             <ContactLabel
               labels={contact.labels}
               contact_id={contact._id}

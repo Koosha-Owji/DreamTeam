@@ -1,3 +1,9 @@
+/**
+ * ContactPage.component.js, main page for all contact functions
+ * Created for IT Project COMP30022, Semester 2 2021
+ * The University of Melbourne
+ * Implemented by DreamTeam: Anagha Giri, Koosha Owji, Chirag Singh, Olivia Ryan, Natasha Ireland
+ */
 import React from "react";
 import ContactList from "./ContactList";
 import AddContactButton from "./AddContactButton.component";
@@ -19,6 +25,8 @@ import Select from "@mui/material/Select";
 var contactsList = [];
 const ContactPage = () => {
   const dispatch = useDispatch();
+
+  /*Maintain list of all contacts in state*/
   const contacts = useSelector((state) => state.contact);
   React.useEffect(() => {
     dispatch(get_all_contacts());
@@ -27,22 +35,28 @@ const ContactPage = () => {
   var labels = useSelector((state) => state.label);
   console.log(labels);
 
+  /*Maintain list of all labels in state*/
   React.useEffect(() => {
     dispatch(get_all_labels());
   }, [dispatch]);
+
+  /*Delete a label, sent call to middleware*/
   const finaliseDelete = (id) => {
     dispatch(delete_label(id));
   };
+
+  /*Add a new label, send call to middleware*/
   const finaliseCreate = (label) => {
     dispatch(create_label(label));
   };
 
   const [searchString, setSearchString] = React.useState("");
 
+  /*Search contacts page
+  Take string input and compare to first_name of each contact.. if match: render to page*/
   const handleSearch = (e) => {
     if (e) {
       setSearchString(e.trim().toLowerCase());
-      // searchFunc(searchString);
       searchAndFilter(searchString, filterLabel);
     } else {
       setSearchString(e);
@@ -50,40 +64,16 @@ const ContactPage = () => {
     }
   };
 
-  // const searchFunc = (search) => {
-  //   console.log(search)
-  //   if (search.length > 0) {
-  //     contactsList = contacts.filter(function (i) {
-  //       try {
-  //         return (
-  //           i.first_name.toLowerCase().match(search) ||
-  //           i.last_name.toLowerCase().match(search)
-
-  //         );
-  //       } catch (e) {
-  //         contactsList = contacts;
-  //         return contactsList;
-  //       }
-  //     });
-  //   } else {
-  //     contactsList = contacts;
-  //   }
-  // };
-
-  // searchFunc(searchString);
+  
 
   const [filterLabel, setFilterLabel] = React.useState("none");
 
+  /*Filter contacts page: compare label e with contact labels..if match: render contact to page*/
   const handleFilter = (e) => {
     console.log(e.target.value);
     if (e) {
-      // if (e.target.value === "none") {
-      //   setFilterLabel("");
-      //   console.log(filterLabel);
-      // } else {
       setFilterLabel(e.target.value);
-      // }
-      // filterFunc(filterLabel);
+     
       searchAndFilter(searchString, filterLabel);
     } else {
       setFilterLabel(e);
@@ -91,29 +81,11 @@ const ContactPage = () => {
     }
   };
 
-  // const filterFunc = (labelFilter)=>{
-  //   if(labelFilter!==""){
-  //     contactsList=contacts.filter(function(i){
-  //       try {
-  //         for(let t=0; t<i.labels.length; t++){
-  //           if(i.labels[t].value._id.match(labelFilter)){
-  //             return true;
-  //           }
-  //         }
-  //         return false;
-  //       } catch (e) {
-  //         contactsList = contacts;
-  //         return contactsList;
-  //       }
-  //     }
-  //     )
-  //   }else{
-  //     contactsList=contacts;
-  //   }
-  // }
 
+
+  /*Does the comparisons for the search string or label filter*/
   const searchAndFilter = (search, labelFilter) => {
-    // console.log(search);
+   
     if (search.length > 0) {
       contactsList = contacts.filter(function (i) {
         try {
@@ -140,17 +112,13 @@ const ContactPage = () => {
           }
           return false;
         } catch (e) {
-          // contactsList = contacts;
           return contactsList;
         }
       });
-    } // else {
-    //   contactsList = contactsList;
-    // }
+    }
   };
   searchAndFilter(searchString, filterLabel);
 
-  // filterFunc(filterLabel);
 
   /**Display labels in a dropdown from which we can select one to assign to a contact */
 

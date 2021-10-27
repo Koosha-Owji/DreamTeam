@@ -17,11 +17,9 @@ import Typography from '@material-ui/core/Typography';
   * and passing it with all the required functionalities
   * @param {a list of labels retrieved from the database} labels 
   * @param {a function that handles when the labels click the delete button} handleDeleteNote
-  * @param {a fucntion that sets the currentId to be the id of the note being edited} setCurrentId 
   * @returns {a list of Note components to be rendered} 
   */
- const LabelList = ({ labels, handleDeleteLabel, setCurrentId }) => {
-   console.log(labels)
+ const LabelList = ({ labels, handleDeleteLabel }) => {
    return !Array.isArray(labels) ? (
      <tr>You have no labels! </tr>
    ) : (
