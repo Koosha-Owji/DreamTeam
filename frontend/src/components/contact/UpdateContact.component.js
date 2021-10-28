@@ -10,14 +10,14 @@ import { makeStyles } from '@material-ui/core/styles';
 import UpdateIcon from '@material-ui/icons/Update';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
-
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
-
+ import Select from "react-select";
+import makeAnimated from "react-select/animated";
 import { useState, useEffect } from 'react';
-import { useSelector} from 'react-redux';
-import { update_contact } from '../../api/index'
+import { useDispatch, useSelector} from 'react-redux';
+import { update_contact } from '../../actions/contact'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -32,7 +32,8 @@ const useStyles = makeStyles((theme) => ({
   }));
   
   
-    const  UpdateContact=({currId, allContacts, updateView2})=> {
+    const  UpdateContact=({currId, allContacts, labels})=> {
+      const dispatch = useDispatch();
     const classes = useStyles();
 
     const [contactDetails, setContactDetails]=useState({
@@ -60,22 +61,16 @@ const useStyles = makeStyles((theme) => ({
             relationship:contact.relationship, 
             phone_number: contact.phone_number,
             email_address:contact.email_address, 
-            description:contact.description
+            description:contact.description,
+            labels: contact.labels,
         }));
         }
     }, [currId,contact,contactDetails.count])
 
     const handleSaveClick = (event) => {
       if (contactDetails){
-          
-        /**Call the update contact function, return the updated contact and pass it to parent component:
-         * contactList so that it can be rendered to page
-         */
-        update_contact(currId, contactDetails)
-        .then(handleClose())
-        .then(response=>{
-          updateView2()})
-        .catch(err=>console.log(err))
+        dispatch(update_contact(currId, contactDetails))
+        handleClose();
       }
 
     }
@@ -87,99 +82,173 @@ const useStyles = makeStyles((theme) => ({
       setOpen(false);
     };
 
+  const animatedComponents = makeAnimated();
+
+  const addLabels = (e) => {
+    var labels_names_ids = e;
+
+    setContactDetails({
+      ...contactDetails,
+      labels: labels_names_ids,
+    });
+  };
+
+ 
+  const labelOptions =()=>{
+    let options =[];
+    if(labels.length>0){
+    labels.map(item=>options.push({label:item.title, value:item}))
+    }
+    return options;
+  }
+  
   
     return (
       <div className={classes.root}>
-            <div className = {classes.deleteContact}>
-                <div className ='updateContact'>
-                <Fab color="primary" aria-label="update"  onClick={handleClickOpen}style={{display:'flex'}} >
-                  <UpdateIcon/>
-                </Fab>
-                <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-                  <DialogTitle id="form-dialog-title">Update contact</DialogTitle>
-                  <Container component="main" maxWidth="xs">
-        <TextField
-                autoFocus
-                margin="dense"
-                id="name"
-                label="First Name"
-                type="first_name"
-                fullWidth
-                value = {contactDetails.first_name}
-                onChange={(e) => setContactDetails({...contactDetails, first_name:e.target.value})}
-            ></TextField>
-            <TextField
-                autoFocus
-                margin="dense"
-                id="name"
-                label="Last Name"
-                type="last_name"
-                fullWidth
-                value = {contactDetails.last_name}
-                onChange={(e) => setContactDetails({...contactDetails, last_name:e.target.value})}
-            ></TextField>
-             <TextField
-                autoFocus
-                margin="dense"
-                id="name"
-                label="Business"
-                type="business"
-                fullWidth
-                value = {contactDetails.business}
-                onChange={(e) => setContactDetails({...contactDetails, business:e.target.value})}
-            ></TextField>
-             <TextField
-                autoFocus
-                margin="dense"
-                id="name"
-                label="Relationship"
-                type="relationship"
-                fullWidth
-                value = {contactDetails.relationship}
-                onChange={(e) => setContactDetails({...contactDetails, relationship:e.target.value})}
-            ></TextField>
-            <TextField
-                autoFocus
-                margin="dense"
-                id="name"
-                label="Email Address"
-                type="email"
-                fullWidth
-                value = {contactDetails.email_address}
-                onChange={(e) => setContactDetails({...contactDetails, email_address:e.target.value})}
-            ></TextField>
-             <TextField
-                autoFocus
-                margin="dense"
-                id="name"
-                label="Phone number"
-                type="phone_number"
-                fullWidth
-                value = {contactDetails.phone_number}
-                onChange={(e) => setContactDetails({...contactDetails, phone_number:e.target.value})}
-            ></TextField>
-             <TextField
-                autoFocus
-                margin="dense"
-                id="name"
-                label="Description"
-                type="description"
-                fullWidth
-                value = {contactDetails.description}
-                onChange={(e) => setContactDetails({...contactDetails, description:e.target.value})}
-            ></TextField>
-            <div className = 'note_footer'>
-                <Button className = "Add to contacts" onClick={handleSaveClick}>Save changes</Button>
-            </div>
-      </Container>
-                  
-                </Dialog>
-                </div>
+        <div className={classes.deleteContact}>
+          <div className="updateContact">
+            <Fab
+              color="primary"
+              aria-label="update"
+              onClick={handleClickOpen}
+              style={{ display: "flex" }}
+            >
+              <UpdateIcon />
+            </Fab>
+            <Dialog
+              open={open}
+              onClose={handleClose}
+              aria-labelledby="form-dialog-title"
+            >
+              <DialogTitle id="form-dialog-title">Update contact</DialogTitle>
+              <Container component="main" maxWidth="xs">
+              
+                <Select
+                  closeMenuOnSelect={false}
+                  components={animatedComponents}
+                  label="Contacts"
+                  value={contactDetails.labels}
+                  isMulti
+                  options={labelOptions()}
+                  onChange={addLabels}
+                />
 
+                <TextField
+                  autoFocus
+                  margin="dense"
+                  id="name"
+                  label="First Name"
+                  type="first_name"
+                  fullWidth
+                  value={contactDetails.first_name}
+                  onChange={(e) =>
+                    setContactDetails({
+                      ...contactDetails,
+                      first_name: e.target.value,
+                    })
+                  }
+                ></TextField>
+                <TextField
+                  autoFocus
+                  margin="dense"
+                  id="name"
+                  label="Last Name"
+                  type="last_name"
+                  fullWidth
+                  value={contactDetails.last_name}
+                  onChange={(e) =>
+                    setContactDetails({
+                      ...contactDetails,
+                      last_name: e.target.value,
+                    })
+                  }
+                ></TextField>
+                <TextField
+                  autoFocus
+                  margin="dense"
+                  id="name"
+                  label="Business"
+                  type="business"
+                  fullWidth
+                  value={contactDetails.business}
+                  onChange={(e) =>
+                    setContactDetails({
+                      ...contactDetails,
+                      business: e.target.value,
+                    })
+                  }
+                ></TextField>
+                <TextField
+                  autoFocus
+                  margin="dense"
+                  id="name"
+                  label="Relationship"
+                  type="relationship"
+                  fullWidth
+                  value={contactDetails.relationship}
+                  onChange={(e) =>
+                    setContactDetails({
+                      ...contactDetails,
+                      relationship: e.target.value,
+                    })
+                  }
+                ></TextField>
+                <TextField
+                  autoFocus
+                  margin="dense"
+                  id="name"
+                  label="Email Address"
+                  type="email"
+                  fullWidth
+                  value={contactDetails.email_address}
+                  onChange={(e) =>
+                    setContactDetails({
+                      ...contactDetails,
+                      email_address: e.target.value,
+                    })
+                  }
+                ></TextField>
+                <TextField
+                  autoFocus
+                  margin="dense"
+                  id="name"
+                  label="Phone number"
+                  type="phone_number"
+                  fullWidth
+                  value={contactDetails.phone_number}
+                  onChange={(e) =>
+                    setContactDetails({
+                      ...contactDetails,
+                      phone_number: e.target.value,
+                    })
+                  }
+                ></TextField>
+                <TextField
+                  autoFocus
+                  margin="dense"
+                  id="name"
+                  label="Description"
+                  type="description"
+                  fullWidth
+                  value={contactDetails.description}
+                  onChange={(e) =>
+                    setContactDetails({
+                      ...contactDetails,
+                      description: e.target.value,
+                    })
+                  }
+                ></TextField>
+                <div className="note_footer">
+                  <Button className="Add to contacts" onClick={handleSaveClick}>
+                    Save changes
+                  </Button>
                 </div>
-            </div>
-                
-  );
+              </Container>
+            </Dialog>
+          </div>
+        </div>
+      </div>
+    );
 };
 
 export default UpdateContact

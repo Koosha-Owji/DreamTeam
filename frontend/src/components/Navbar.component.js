@@ -22,7 +22,7 @@ import Slide from '@material-ui/core/Slide';
 import NotePages from './Notes/NotePages';
 import Google from './Email/Google.component';
 import ProfilePage from './profile/ProfilePage.component';
-import ContactsPage from './contact/contactList.component';
+import ContactsPage from './contact/ContactPage';
 import OrderPage from './order/OrderList.component';
 import MeetingPage from './Meetings/MeetingPage.js'
 
@@ -112,13 +112,13 @@ export default function TabsWrappedLabel() {
     <div className={classes.root} >
       <Dialog open={open} TransitionComponent={Transition}
         keepMounted onClose={handleClose} aria-labelledby="form-dialog-title" fullWidth maxWidth="xs">
-            <ProfilePage/>  
+            <ProfilePage/>
         </Dialog>
       <AppBar position="static">
         <Tabs value={value} onChange={handleChange} aria-label="wrapped label tabs example" centered >
           <Tab value="one" label="Contacts" icon= {<PermContactCalendarIcon/>}wrapped {...a11yProps('one')}/>
           <Tab value="two" label="Emails" icon= {<EmailIcon/>} {...a11yProps('two')}/>
-          <Tab value="three" label="Calendar" icon= {<TodayIcon/>} {...a11yProps('three')} />
+          <Tab value="three" label="Meetings" icon= {<TodayIcon/>} {...a11yProps('three')} />
           <Tab value="four" label="Notes" icon= {<NoteIcon/>} {...a11yProps('four')} />
           <Tab value="five" label="Orders" icon= {<WorkIcon/>} {...a11yProps('five')} />
           <Tab value="six" label="Profile" icon= {<PersonIcon/>} onClick={handleClickOpen} {...a11yProps('six')} />
