@@ -42,25 +42,41 @@ The Dream Team CRM is designed for users to manage relationships in a business c
 Requires a .env file with attributes: MONGO_USERNAME and MONGO_PASSWORD. These are read in backend/index.js to connect to the database for the CRM storage.
 1. Clone or save code onto local machine
 2. Open two terminals 
-3. cd into backend and run `npm install` in one of the terminals
-4. cd into front end and run `npm install` in the other terminal 
+3. cd into backend and run `npm install` 
+4. cd into front end and run `npm install` 
 
 ## Usage 
 Open two terminals A and B\
-Terminal A: `cd backend`\
-Terminal A: `npm start`\
-Terminal B: `cd frontend`\
-Terminal B: `npm start`
+Terminal A:
+```bash
+% cd backend
+% npm start
 
-The app will run in development.\
+> backend@1.0.0 start /<dir>/backend
+> node server.js
+```
+Terminal B:
+```bash
+% cd frontend
+% npm start
+
+> dreamcrm@0.1.0 start /<dir>/frontend
+> react-scripts start
+```
+To run the app in development, use `npm run dev` instead of `npm start` in the backend.\
 Open [http://localhost:3000](http://localhost:3000) to view the app in the browser.
 
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
 
 ##### Testing 
-`cd backend`\
-`npm test`\
+```bash
+% cd backend
+% npm test
+
+> backend@1.0.0 test /<dir>/backend
+> mocha --exit
+```
 Test results will print to command line. 
 
 ##### Build 
