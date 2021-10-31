@@ -1,10 +1,16 @@
+/**
+ * AddContactButton.component.js, controls pop up window where user completes form when adding a contact
+ * Created for IT Project COMP30022, Semester 2 2021
+ * The University of Melbourne
+ * Implemented by DreamTeam: Anagha Giri, Koosha Owji, Chirag Singh, Olivia Ryan, Natasha Ireland
+ */
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import AddContact from './addContact.component';
+import AddContact from './AddContact';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -42,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function AddContactButton({updateView}) {
+export default function AddContactButton({labels}) {
   const classes = useStyles();
 
   const [open, setOpen] = React.useState(false);
@@ -55,15 +61,9 @@ export default function AddContactButton({updateView}) {
     setOpen(false);
   };
 
-  /**This function is passed to child: AddContactComponent
-   * When a new contact is created and successfully returned from BE, the dialogue is closed and
-   * new contact sent to parent component: contactList to be displayed
-   */
-  const closeFromChild = (contact) => {
-    setOpen(false);
-    updateView(contact);
-  }
-
+  const handleSubmit = () => {
+    handleClose();
+  };
 
 
   return (
@@ -75,7 +75,7 @@ export default function AddContactButton({updateView}) {
 
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Add New Contact</DialogTitle>
-        <AddContact closeFromChild1={closeFromChild} />
+        <AddContact handleSubmit = {handleSubmit} labels ={labels} />
         </Dialog>
     </div>
   );

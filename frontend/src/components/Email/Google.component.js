@@ -58,8 +58,8 @@ const Google = ({contactEmail}) => {
       };
 
 return (
-    <Container component="main" maxWidth="xs">  
-        <GoogleLogin
+    <Container component="main" maxWidth="xs" style ={{padding:"20px"}} >  
+        <GoogleLogin 
             clientId="678095570684-gnjgmcakmnmd64lmb3qom978v31jfucg.apps.googleusercontent.com"
             render={(renderProps) => (
                 <Button className={classes.googleButton} color="primary" fullWidth onClick={renderProps.onClick} disabled={renderProps.disabled} startIcon={<Icon />} variant="contained">

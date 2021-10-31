@@ -6,9 +6,9 @@ import { BrowserRouter as Router, Route} from "react-router-dom";
 import Login from "./components/Login.component";
 import SignUp from "./components/SignUp.component";
 import Navbar from "./components/Navbar.component";
-import ContactsPage from "./components/contact/contactList.component";
+import ContactsPage from "./components/contact/ContactPage";
 import NotesPage from "./components/Notes/NotePages";
-import ManageLabels from './components/label/ManageLabels.component';
+import ManageLabels from './components/label/LabelList';
 import OrderPage from './components/order/OrderList.component';
 import ErrorBoundary from './components/ErrorBoundary.component';
 const App = () => {
