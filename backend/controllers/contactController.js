@@ -36,17 +36,28 @@ export const create_contact = async (req, res) =>{
     if (!req.user_id) return res.status(400).json({ message: "User doesn't exist" });
     const user = await userModel.findOne({ _id: req.user_id});
     if (! user) return res.status(400).json({ message: "User doesn't exist" });
+
+    if (req.body.first_name && req.body.email_address){
+        const newContact =new Contact({
+            first_name,
+            last_name, business, relationship,
+            email_address, phone_number, description, labels, user_id: req.user_id
+        });
+      (await newContact)
+        .save()
+        .then((newContact) => res.json(newContact))
+        .catch((err) => res.status(400).json(err));
+        newContact.labels.push(label_id)
+        newContact.save()
+      } else {
+        return res.status(400).json({ message: "Contact does not have any first name and/or email" });
+      }
    
-    const newContact =new Contact({
-        first_name,
-        last_name, business, relationship,
-        email_address, phone_number, description, labels, user_id: req.user_id
-    });
-    newContact.labels.push(label_id)
-    newContact.save()
     
-    .then(() => res.json("Added new contact!"))
-    .catch((err) => res.status(400).json(err));
+    
+    
+    // .then(() => res.json("Added new contact!"))
+    // .catch((err) => res.status(400).json(err));
 };
 
 /**
