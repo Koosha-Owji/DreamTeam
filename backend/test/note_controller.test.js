@@ -1,3 +1,10 @@
+/**
+ * note_controller.test.js, contains unit tests for the Notes Controller
+ * Created for IT Project COMP30022, Semester 2 2021
+ * The University of Melbourne
+ * Implemented by DreamTeam: Anagha Giri, Koosha Owji, Chirag Charan Singh, Olivia Ryan, Natasha Ireland
+ */
+
 import { createRequire } from "module";
 import {
   create_note,
@@ -14,41 +21,6 @@ const chai = require("chai");
 const expect = chai.expect;
 const faker = require("faker");
 const sinon = require("sinon");
-
-// describe("Note Controller", function () {
-//   describe("Create Note", function () {
-//     let status, json, res;
-//     beforeEach(() => {
-//       status = sinon.stub();
-//       json = sinon.spy();
-//       res = { json, status };
-//       status.returns(res);
-//     });
-//     const stubValue = [
-//       {
-//         id: faker.datatype.uuid(),
-//         title: faker.random.words(),
-//         content: faker.random.words(),
-//         meeting_id: faker.datatype.uuid(),
-//       },
-//     ];
-//     it(" Create a valid note", function () {
-//       const req = { user_id: faker.datatype.uuid(), body: stubValue };
-//       const stub = sinon.stub(userModel, "findOne").resolves(true);
-//       const stub1 = sinon.stub(noteModel, "create").resolves([stubValue]);
-//       const stub2 = sinon.stub("save").returns();
-
-//       create_note(req, res);
-
-//       expect(json.args[0][0]._id).equal(stubValue._id);
-//       expect(json.args[0][0].title).equal(stubValue.title);
-//       expect(json.args[0][0].content).equal(stubValue.content);
-//       expect(json.args[0][0].meeting_id).equal(stubValue.meeting_id);
-//       stub.restore();
-//       stub1.restore();
-//     });
-//   });
-// });
 
 describe("Notes Controller", function () {
   describe("Create Note", function () {

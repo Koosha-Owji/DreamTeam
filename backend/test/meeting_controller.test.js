@@ -1,14 +1,18 @@
+/**
+ * meeting_controller.test.js, contains unit tests for the Meetings Controller
+ * Created for IT Project COMP30022, Semester 2 2021
+ * The University of Melbourne
+ * Implemented by DreamTeam: Anagha Giri, Koosha Owji, Chirag Charan Singh, Olivia Ryan, Natasha Ireland
+ */
+
 import { createRequire } from "module";
 import {
   create_meeting,
   delete_meeting,
   get_all_meetings,
-
-  add_attendee,
-  remove_attendee,
   update_meeting,
-  mark_as_completed
-} from "../controllers/meeting.js";
+  mark_as_completed,
+} from "../controllers/meetingController.js";
 import meetingModel from "../models/meeting.js";
 
 const require = createRequire(import.meta.url);
@@ -18,179 +22,177 @@ const expect = chai.expect;
 const faker = require("faker");
 const sinon = require("sinon");
 
+describe("Meeting Controller", function () {
+  describe("Create Meeting", function () {
+    let status, json, res;
+    beforeEach(() => {
+      status = sinon.stub();
+      json = sinon.spy();
+      res = { json, status };
+      status.returns(res);
+    });
 
-describe( "Meeting Controller", function() {
+    it("Create Valid Meeting Without Attendees", async () => {
+      const stubValue = [
+        {
+          id: faker.datatype.uuid(),
+          //date_time: faker.providers.date_time(),
+          agenda: faker.random.words(),
+          title: faker.random.words(),
+          date: faker.random.words(),
+          time: faker.random.words(),
+          endtime: faker.random.words(),
+        },
+      ];
+      const mReq = { user_id: faker.datatype.uuid(), body: stubValue };
+      const mReply = { code: sinon.stub().returnsThis(), send: sinon.stub() };
+      const meeting = create_meeting(mReq, mReply);
+      const stub = sinon.stub(meetingModel, "findOne").resolves(true);
 
-    describe( "Create Meeting", function() {
-        let status, json, res;
-        beforeEach(() => {
-            status = sinon.stub();
-            json = sinon.spy();
-            res = { json, status };
-            status.returns(res);
-        });
+      expect(meeting.id).equal(stubValue.id);
+      expect(meeting.agenda).equal(stubValue.agenda);
+      expect(meeting.title).equal(stubValue.title);
+      expect(meeting.user_id).equal(stubValue.user_id);
+      //expect(meeting.date_time).equal(stubValue.date_time);
+      expect(meeting.date).equal(stubValue.date);
+      expect(meeting.time).equal(stubValue.time);
+      expect(meeting.endtime).equal(stubValue.endtime);
 
-        
+      stub.restore();
+    });
 
+    it("Create Valid Meeting With Attendees", async () => {
+      const stubValue = [
+        {
+          id: faker.datatype.uuid(),
+          //date_time: faker.providers.date_time(),
+          agenda: faker.random.words(),
+          title: faker.random.words(),
+          date: faker.random.words(),
+          time: faker.random.words(),
+          endtime: faker.random.words(),
 
-        it( "Create Valid Meeting Without Attendees", async () => {
-            const stubValue = [
-                {
-                    id: faker.datatype.uuid(),
-                    //date_time: faker.providers.date_time(),
-                    agenda: faker.random.words(),
-                    title: faker.random.words(),
-                    date: faker.random.words(),
-                    time: faker.random.words(),
-                    endtime: faker.random.words(),
-                },
-            ];
-            const mReq = { user_id: faker.datatype.uuid(), body: stubValue };
-            const mReply = { code: sinon.stub().returnsThis(), send: sinon.stub() };
-            const meeting = create_meeting(mReq, mReply);
-            const stub = sinon.stub(meetingModel, "findOne").resolves(true);
+          non_contact_attendees: faker.random.words(),
+          contact_name_id: faker.datatype.uuid(),
+          contact_name: faker.random.words(),
+        },
+      ];
+      const mReq = { user_id: faker.datatype.uuid(), body: stubValue };
+      const mReply = { code: sinon.stub().returnsThis(), send: sinon.stub() };
+      const meeting = create_meeting(mReq, mReply);
+      const stub = sinon.stub(meetingModel, "findOne").resolves(true);
 
-            expect(meeting.id).equal(stubValue.id);
-            expect(meeting.agenda).equal(stubValue.agenda);
-            expect(meeting.title).equal(stubValue.title);
-            expect(meeting.user_id).equal(stubValue.user_id);
-            //expect(meeting.date_time).equal(stubValue.date_time);
-            expect(meeting.date).equal(stubValue.date);
-            expect(meeting.time).equal(stubValue.time);
-            expect(meeting.endtime).equal(stubValue.endtime);
+      expect(meeting.id).equal(stubValue.id);
+      expect(meeting.agenda).equal(stubValue.agenda);
+      expect(meeting.title).equal(stubValue.title);
+      expect(meeting.user_id).equal(stubValue.user_id);
+      //expect(meeting.date_time).equal(stubValue.date_time);
+      expect(meeting.date).equal(stubValue.date);
+      expect(meeting.time).equal(stubValue.time);
+      expect(meeting.endtime).equal(stubValue.endtime);
 
-            stub.restore();
-        })
+      expect(meeting.non_contact_attendees).equal(
+        stubValue.non_contact_attendees
+      );
+      expect(meeting.contact_name_id).equal(stubValue.contact_name_id);
+      expect(meeting.contact_name).equal(stubValue.contact_name);
 
-        it( "Create Valid Meeting With Attendees", async () => {
-            const stubValue = [
-                {
-                    id: faker.datatype.uuid(),
-                    //date_time: faker.providers.date_time(),
-                    agenda: faker.random.words(),
-                    title: faker.random.words(),
-                    date: faker.random.words(),
-                    time: faker.random.words(),
-                    endtime: faker.random.words(),
+      stub.restore();
+    });
+  });
 
-                    non_contact_attendees: faker.random.words(),
-                    contact_name_id: faker.datatype.uuid(),
-                    contact_name: faker.random.words()
-                },
-            ];
-            const mReq = { user_id: faker.datatype.uuid(), body: stubValue };
-            const mReply = { code: sinon.stub().returnsThis(), send: sinon.stub() };
-            const meeting = create_meeting(mReq, mReply);
-            const stub = sinon.stub(meetingModel, "findOne").resolves(true);
+  describe("Delete Meeting", function () {
+    let status, json, res, send;
+    beforeEach(() => {
+      status = sinon.stub();
+      json = sinon.spy();
+      send = sinon.spy();
+      res = { json, status, send };
+      status.returns(res);
+    });
 
-            expect(meeting.id).equal(stubValue.id);
-            expect(meeting.agenda).equal(stubValue.agenda);
-            expect(meeting.title).equal(stubValue.title);
-            expect(meeting.user_id).equal(stubValue.user_id);
-            //expect(meeting.date_time).equal(stubValue.date_time);
-            expect(meeting.date).equal(stubValue.date);
-            expect(meeting.time).equal(stubValue.time);
-            expect(meeting.endtime).equal(stubValue.endtime);
-            
-            expect(meeting.non_contact_attendees).equal(stubValue.non_contact_attendees);
-            expect(meeting.contact_name_id).equal(stubValue.contact_name_id);
-            expect(meeting.contact_name).equal(stubValue.contact_name);
+    var stub = sinon.stub(meetingModel, "deleteOne").returns([]);
 
-            stub.restore();
-        })
-    })
+    it("Delete a valid meeting", async () => {
+      const req = {
+        user_id: "6138417c3c1d6df851c7099c",
+        params: { id: "614a9b278de39946c435029d" },
+      };
+      await delete_meeting(req, res);
+      expect(status.args[0][0]).equal(200);
+      expect(send.args[0][0]).equal(
+        "Successfully deleted meeting (or meeting does not exist or user is not authorised)"
+      );
+    });
+    meetingModel.deleteOne.restore();
+    stub = sinon
+      .stub(meetingModel, "deleteOne")
+      .throws(new Error("mongo error"));
 
-    describe( "Delete Meeting", function () {
-        let status, json, res, send;
-        beforeEach(() => {
-            status = sinon.stub();
-            json = sinon.spy();
-            send = sinon.spy();
-            res = { json, status, send };
-            status.returns(res);
-        });
+    it("Fail to delete a meeting", async () => {
+      const req = {
+        user_id: "6138417c3c1d6df851c7099c",
+      };
+      await delete_meeting(req, res);
+      expect(status.args[0][0]).equal(500);
+      expect(json.args[0][0].message).equal("Meeting deletion failed");
+    });
+    stub.restore();
+  });
 
-        var stub = sinon.stub(meetingModel, "deleteOne").returns([]);
+  describe("Get all meetings", function () {
+    let newReq;
+    let status, json, res;
+    beforeEach(() => {
+      status = sinon.stub();
+      json = sinon.spy();
+      res = { json, status };
+      status.returns(res);
+    });
 
-        it( "Delete a valid meeting", async () => {
-            const req = {
-                user_id: "6138417c3c1d6df851c7099c",
-                params: { id: "614a9b278de39946c435029d" },
-            };
-            await delete_meeting(req, res);
-            expect(status.args[0][0]).equal(200);
-            expect(send.args[0][0]).equal(
-                "Successfully deleted meeting (or meeting does not exist or user is not authorised)"
-            );
-        })
-        meetingModel.deleteOne.restore()
-        stub = sinon.stub(meetingModel, "deleteOne").throws(new Error("mongo error"));
+    it("should return the meetings that match the user id", async function () {
+      const stubValue = [
+        {
+          //id: faker.datatype.uuid(),
+          //date_time: faker.providers.date_time(),
+          agenda: faker.random.words(),
+          title: faker.random.words(),
+          date: faker.random.words(),
+          time: faker.random.words(),
+          endtime: faker.random.words(),
 
-        it( "Fail to delete a meeting", async () => {
-            const req = {
-                user_id: "6138417c3c1d6df851c7099c"
-            };
-            await delete_meeting(req, res);
-            expect(status.args[0][0]).equal(500);
-            expect(json.args[0][0].message).equal("Meeting deletion failed");
-        })
-        stub.restore();
-        
-    }) 
+          non_contact_attendees: faker.random.words(),
+          contact_name_id: faker.datatype.uuid(),
+          contact_name: faker.random.words(),
+        },
+      ];
+      //const stub = sinon.stub(meetingModel, "find").resolves(stubValue);
+      const stub = sinon.stub(meetingModel, "find").resolves(stubValue);
+      const req = { user_id: faker.datatype.uuid() };
 
-    describe( "Get all meetings", function () {
-        let newReq;
-        let status, json, res;
-        beforeEach(() => {
-            status = sinon.stub();
-            json = sinon.spy();
-            res = { json, status };
-            status.returns(res);
-        });
+      // const meeting = json.args[0][0];
 
-        it("should return the meetings that match the user id", async function () {
-            const stubValue = [
-                {
-                    //id: faker.datatype.uuid(),
-                    //date_time: faker.providers.date_time(),
-                    agenda: faker.random.words(),
-                    title: faker.random.words(),
-                    date: faker.random.words(),
-                    time: faker.random.words(),
-                    endtime: faker.random.words(),
+      // const meetings = await get_all_meetings(req, res);
+      // const meeting = meetings[0];
+      await get_all_meetings(req, res);
+      //const meeting = res.json[0];
+      const meeting = json.args[0][0];
 
-                    non_contact_attendees: faker.random.words(),
-                    contact_name_id: faker.datatype.uuid(),
-                    contact_name: faker.random.words()
-                },
-            ];
-            //const stub = sinon.stub(meetingModel, "find").resolves(stubValue);
-            const stub = sinon.stub(meetingModel, "find").resolves(stubValue);
-            const req = { user_id: faker.datatype.uuid() };
-    
-            // const meeting = json.args[0][0];
+      expect(meeting[0].title).equal(stubValue[0].title);
+      expect(meeting[0]._id).equal(stubValue[0]._id);
+      expect(meeting[0].agenda).equal(stubValue[0].agenda);
+      expect(meeting[0].user_id).equal(stubValue[0].user_id);
+      expect(meeting[0].date).equal(stubValue[0].date);
+      expect(meeting[0].time).equal(stubValue[0].time);
+      expect(meeting[0].endtime).equal(stubValue[0].endtime);
+      expect(meeting[0].non_contact_attendees).equal(
+        stubValue[0].non_contact_attendees
+      );
+      expect(meeting[0].contact_name_id).equal(stubValue[0].contact_name_id);
+      expect(meeting[0].contact_name).equal(stubValue[0].contact_name);
+      expect(status.args[0][0]).equal(200);
 
-            // const meetings = await get_all_meetings(req, res);
-            // const meeting = meetings[0];
-            await get_all_meetings(req, res);
-            //const meeting = res.json[0];
-            const meeting = json.args[0][0];
-            console.log(meeting);
-
-    
-            expect(meeting[0].title).equal(stubValue[0].title);
-            expect(meeting[0]._id).equal(stubValue[0]._id);
-            expect(meeting[0].agenda).equal(stubValue[0].agenda);
-            expect(meeting[0].user_id).equal(stubValue[0].user_id);
-            expect(meeting[0].date).equal(stubValue[0].date);
-            expect(meeting[0].time).equal(stubValue[0].time);
-            expect(meeting[0].endtime).equal(stubValue[0].endtime);
-            expect(meeting[0].non_contact_attendees).equal(stubValue[0].non_contact_attendees);
-            expect(meeting[0].contact_name_id).equal(stubValue[0].contact_name_id);
-            expect(meeting[0].contact_name).equal(stubValue[0].contact_name);
-            expect(status.args[0][0]).equal(200);
-    
-            stub.restore();
-        });
-    })
-})
+      stub.restore();
+    });
+  });
+});

@@ -1,3 +1,12 @@
+/**
+ * AddMeeting.js, pop up for the users to input the meeting information when creating a new meeting
+ * Additionally, when updating a meeting the pop up is prefilled with the meeting information
+ * which the user can update
+ * Created for IT Project COMP30022, Semester 2 2021
+ * The University of Melbourne
+ * Implemented by DreamTeam: Anagha Giri, Koosha Owji, Chirag Charan Singh, Olivia Ryan, Natasha Ireland
+ */
+
 import React, { useState, useEffect } from "react";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
@@ -11,6 +20,7 @@ import makeAnimated from "react-select/animated";
 var new_contacts = [];
 
 function AddMeeting({ handleSubmit, currentId, setCurrentId, contacts }) {
+  // Form data
   const [meetingData, setMeetingData] = useState({
     title: "",
     agenda: "",
@@ -26,11 +36,12 @@ function AddMeeting({ handleSubmit, currentId, setCurrentId, contacts }) {
 
   const dispatch = useDispatch();
 
+  // If this meeting already exists, retrieve the information
   const meeting = useSelector((state) =>
     currentId ? state.meeting.find((n) => n._id === currentId) : null
   );
 
-  // everytime someone clicks edit, change the add note to edit the current note
+  // everytime someone clicks edit, change the add meeting pop up to edit the selected meeting
   useEffect(() => {
     if (meeting) {
       setMeetingData((meetingData) => ({
@@ -47,6 +58,11 @@ function AddMeeting({ handleSubmit, currentId, setCurrentId, contacts }) {
     }
   }, [currentId, meetingData.count, meeting]);
 
+  /**
+   * Everytime the Save button is clicked, this function checks the currentId to deduce whether the meeting is edited or saved
+   * and then performs the appropriate actions on it
+   * @param {the event that occured, i.e clicking the save button} event
+   */
   const handleSaveClick = (e) => {
     e.preventDefault();
 
@@ -69,8 +85,12 @@ function AddMeeting({ handleSubmit, currentId, setCurrentId, contacts }) {
     }
   };
 
+  // creates the animation when assigning a contact to a meeting
   const animatedComponents = makeAnimated();
 
+  /**
+   * Creates a new contacts list with appropriate formatting for the Contact Dropdown to display
+   */
   const fixContacts = () => {
     contacts.map((contact) => {
       if (new_contacts.length < contacts.length) {
@@ -84,10 +104,15 @@ function AddMeeting({ handleSubmit, currentId, setCurrentId, contacts }) {
   };
   fixContacts();
 
+  /**
+   * Everytime a contact is added to a meeting, this function updates the meetingData information with 
+   * newly added contact
+   * @param {the event that occured, i.e clicking the add button} event
+   */
   const addContacts = (e) => {
     var contact_names_ids = e;
     var contact_names = [];
-    
+
     e.reduce((acc, item) => {
       for (let key in item) {
         if (key === "label") {
@@ -102,7 +127,6 @@ function AddMeeting({ handleSubmit, currentId, setCurrentId, contacts }) {
       contact_name_id: contact_names_ids,
       contact_name: contact_names,
     });
-
   };
 
   return (

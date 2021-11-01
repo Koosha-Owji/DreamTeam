@@ -15,7 +15,6 @@ const contactSchema = mongoose.Schema({
     email_address: {type: String, required: true}, 
     phone_number: {type: String, required: false},
     description: {type: String, required: false},
-    //labelId: {type: [String], required: false},
     user_id: {type: String, required: true}, // identifies the user to which the contact belongs
     labels: {type: [], required: false}
 })
