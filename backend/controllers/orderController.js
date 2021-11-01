@@ -1,41 +1,69 @@
+/**
+ * orderController.js, controller functions for order (get, get all, update, delete, create)
+ * Created for IT Project COMP30022, Semester 2 2021
+ * The University of Melbourne
+ * Implemented by DreamTeam: Anagha Giri, Koosha Owji, Chirag Singh, Olivia Ryan, Natasha Ireland
+ */
+
 import orderModel from "../models/order.js";
 import contactModel from "../models/contact.js";
 import userModel from "../models/user.js";
 import mongoose from 'mongoose';
 
+ /**
+  * Create new order
+  * @param {order product} product
+  * @param {order stage} stage
+  * @param {order amount} amount
+  * @param {order order_date} order_date
+  * @param {contact due_date} due_date
+  * @returns {status message} 
+  */
+
 export const create_order = async (req, res) =>{
-    console.log(req.body, req.user_id);
+   
+    //console.log(req.body, req.user_id);
     const product = req.body.product;
    const stage = req.body.stage;
    const amount = req.body.amount;
    const order_date = req.body.startDate;
    const due_date = req.body.dueDate;
    const user_id=req.user_id;
+   if (!req.user_id) return res.status(400).json({ message: "User doesn't exist" });
    const user = await userModel.findOne({ _id: req.user_id});
    if (! user) return res.status(400).json({ message: "User not found" });
    const contact = await contactModel.findOne({_id: req.body.contact_id});
    if (!contact) return res.status(400).json({message: "Contact not found"});
    
    const newOrder =new orderModel({
-       product, stage, amount,order_date, due_date, user_id, contact_id: req.body.contact_id
+       product, stage, amount,order_date, due_date, user_id, contact_id
    });
-   console.log("made new order", newOrder)
    try {
        await newOrder.save()
        console.log("New order saved", newOrder)
-        return res.json({message:"Added new order!", order:newOrder});
+       return res.json({message:"Added new order!", order:newOrder});
         
 } catch (err) { 
     console.log("caught", err)
     return res.status(400).json({message: "Error saving new order"}); }
 };
 
-// Retrieve all contacts belonging to a single user
+/**
+  * Get all orders of logged in user
+  * @param {logged in user's id} user_id
+  * @returns {all orders}  
+  */
 export const get_all_orders = async (req, res) => {
     orderModel.find({user_id: req.user_id})
     .then(orders => res.json(orders))
     .catch(err => res.status(400).json('Error: ' + err));
 };
+
+ /**
+  * Get one existing order
+  * @param {id of order to be retruned} id
+  * @returns {order} 
+  */
 
 export const get_order = async(req,res) =>{
 
@@ -44,13 +72,27 @@ export const get_order = async(req,res) =>{
     .catch(err => res.status(400).json('Error: ' + err));
 }
 
+/**
+  * Delete order by input id
+  * @param {id of order to be deleted} id
+  * @returns {status message} 
+  */
 
 export const delete_order = async(req,res)=>{
     orderModel.findByIdAndDelete(req.params.id)
-    .then(() => res.json('Order deleted.'))
-    .then(console.log('Order deleted'))
+    .then(() => res.status(200).json('Order deleted.'))
     .catch(err => res.status(400).json('Error: ' + err));
 }
+
+ /**
+  * Update existing order details
+  * @param {order product} product
+  * @param {order stage} stage
+  * @param {order amount} amount
+  * @param {order order_date} order_date
+  * @param {contact due_date} due_date
+  * @returns {status message} 
+  */
 
 export const update_order = async(req, res)=>{
 
