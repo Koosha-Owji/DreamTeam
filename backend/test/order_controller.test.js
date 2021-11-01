@@ -1,3 +1,9 @@
+/**
+ * order_controller.test.js, contains unit tests for the Orders Controller
+ * Created for IT Project COMP30022, Semester 2 2021
+ * The University of Melbourne
+ * Implemented by DreamTeam: Anagha Giri, Koosha Owji, Chirag Charan Singh, Olivia Ryan, Natasha Ireland
+ */
 import { createRequire } from "module";
 import {
   create_order,
