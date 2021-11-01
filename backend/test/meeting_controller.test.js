@@ -165,24 +165,29 @@ describe( "Meeting Controller", function() {
                 },
             ];
             //const stub = sinon.stub(meetingModel, "find").resolves(stubValue);
-            const stub = sinon.stub(meetingModel, "find").returns(stubValue);
+            const stub = sinon.stub(meetingModel, "find").resolves(stubValue);
             const req = { user_id: faker.datatype.uuid() };
     
+            // const meeting = json.args[0][0];
+
             // const meetings = await get_all_meetings(req, res);
-            //const meeting = meetings[0];
+            // const meeting = meetings[0];
             await get_all_meetings(req, res);
-            const meeting = res.json[0];
+            //const meeting = res.json[0];
+            const meeting = json.args[0][0];
+            console.log(meeting);
+
     
-            expect(meeting.title).equal(stubValue[0].title);
-            expect(meeting._id).equal(stubValue[0]._id);
-            expect(meeting.agenda).equal(stubValue[0].agenda);
-            expect(meeting.user_id).equal(stubValue[0].user_id);
-            expect(meeting.date).equal(stubValue[0].date);
-            expect(meeting.time).equal(stubValue[0].time);
-            expect(meeting.endtime).equal(stubValue[0].endtime);
-            expect(meeting.non_contact_attendees).equal(stubValue[0].non_contact_attendees);
-            expect(meeting.contact_name_id).equal(stubValue[0].contact_name_id);
-            expect(meeting.contact_name).equal(stubValue[0].contact_name);
+            expect(meeting[0].title).equal(stubValue[0].title);
+            expect(meeting[0]._id).equal(stubValue[0]._id);
+            expect(meeting[0].agenda).equal(stubValue[0].agenda);
+            expect(meeting[0].user_id).equal(stubValue[0].user_id);
+            expect(meeting[0].date).equal(stubValue[0].date);
+            expect(meeting[0].time).equal(stubValue[0].time);
+            expect(meeting[0].endtime).equal(stubValue[0].endtime);
+            expect(meeting[0].non_contact_attendees).equal(stubValue[0].non_contact_attendees);
+            expect(meeting[0].contact_name_id).equal(stubValue[0].contact_name_id);
+            expect(meeting[0].contact_name).equal(stubValue[0].contact_name);
             expect(status.args[0][0]).equal(200);
     
             stub.restore();

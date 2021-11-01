@@ -87,14 +87,14 @@ export const get_all_meetings = async (req, res) => {
   // To-add: retrieve all notes associated with the meetings
 
   try {
-    const meetings = await meetingModel.find({ user_id: req.user_id }).exec();
+    const meetings = await meetingModel.find({ user_id: req.user_id });
 
     // if the user has no notes, return a message
     if (!meetings)
       return res.json({ message: "No meetings associated with this user" });
 
     // if the user has notes, return the notes
-    return res.json(meetings);
+    return res.status(200).json(meetings);
   } catch (err) {
     res.status(500).json({ message: "Meeting retrieval failed" });
   }
