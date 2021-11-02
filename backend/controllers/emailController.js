@@ -1,3 +1,10 @@
+/**
+ * contactController.js, controller functions for contact (get, get all, update, delete, create)
+ * Created for IT Project COMP30022, Semester 2 2021
+ * The University of Melbourne
+ * Implemented by DreamTeam: Anagha Giri, Koosha Owji, Chirag Singh, Olivia Ryan, Natasha Ireland
+ */
+
 import nodemailer from 'nodemailer';
 import userModel from "../models/user.js";
 import {OAuth2Client} from 'google-auth-library';
@@ -11,7 +18,11 @@ const oauth2Client = new OAuth2Client(
   process.env.CLIENT_SECRET,
   "postmessage"
 );
-
+/**  Links your Gmail account to your DreamCrm account
+ * @param {request with user id and google token } req
+ * @param {Response by message} res
+ * @return {Response}
+ */
 export const link_email = async (req,res) => {
   try {
     const user = await userModel.findOne({ _id: req.user_id});
@@ -31,6 +42,11 @@ export const link_email = async (req,res) => {
     res.status(500).json({message:"something went wrong!"});
   }
 }
+/** Sends Email from your Gmail account using nodemailer
+ * @param {request with user id, receiver email, email subject and email message } req
+ * @param {Response by message} res
+ * @return {Response}
+ */
 export const send_email = async (req, res) => {
     try {
         const user = await userModel.findOne({ _id: req.user_id});

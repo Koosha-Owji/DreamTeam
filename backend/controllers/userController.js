@@ -1,3 +1,10 @@
+/**
+ * contactController.js, controller functions for contact (get, get all, update, delete, create)
+ * Created for IT Project COMP30022, Semester 2 2021
+ * The University of Melbourne
+ * Implemented by DreamTeam: Anagha Giri, Koosha Owji, Chirag Singh, Olivia Ryan, Natasha Ireland
+ */
+
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
@@ -7,7 +14,11 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const secret = process.env.JWT_SECRET;
-
+/**  Signing in the user to DreamCRM
+ * @param {request with email address, password } req
+ * @param {Response by sending the user and jwt token} res
+ * @return {Response}
+ */
 export const signin = async (req, res) => {
   const { email_address, password } = req.body;
 
@@ -27,7 +38,11 @@ export const signin = async (req, res) => {
     res.status(500).json({ message: "Something went wrong" });
   }
 };
-
+/**  Signing up the user to DreamCRM
+ * @param {request with first name, last name, email address, department, role and password } req
+ * @param {Response by sending the user and jwt token} res
+ * @return {Response}
+ */
 export const signup = async (req, res) => {
   const {first_name, last_name, email_address,department,role, password } = req.body;
 
