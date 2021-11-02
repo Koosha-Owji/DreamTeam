@@ -1,3 +1,10 @@
+/**
+ * AddContact.component.js, user can add a contact
+ * Created for IT Project COMP30022, Semester 2 2021
+ * The University of Melbourne
+ * Implemented by DreamTeam: Anagha Giri, Koosha Owji, Chirag Singh, Olivia Ryan, Natasha Ireland
+ */
+
 import { GoogleLogin } from 'react-google-login';
 import { Button, Grid, Typography, Container,TextField } from '@material-ui/core';
 import useStyles from './Styles';

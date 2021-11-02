@@ -1,3 +1,10 @@
+/**
+ * note_page_integration.test.js, contains integration tests for the Notes Page
+ * Created for IT Project COMP30022, Semester 2 2021
+ * The University of Melbourne
+ * Implemented by DreamTeam: Anagha Giri, Koosha Owji, Chirag Charan Singh, Olivia Ryan, Natasha Ireland
+ */
+
 import { createRequire } from "module";
 const require = createRequire(import.meta.url);
 

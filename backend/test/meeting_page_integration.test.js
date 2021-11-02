@@ -1,3 +1,10 @@
+/**
+ * meeting_page_integration.test.js, contains integration test for the Meeting page
+ * Created for IT Project COMP30022, Semester 2 2021
+ * The University of Melbourne
+ * Implemented by DreamTeam: Anagha Giri, Koosha Owji, Chirag Charan Singh, Olivia Ryan, Natasha Ireland
+ */
+
 import { createRequire } from "module";
 const require = createRequire(import.meta.url);
 
@@ -59,7 +66,7 @@ describe("Meetings Page", function () {
         date: "2021-10-10",
         time: "05:50:59",
         non_contact_attendees: "Name1, Name2, Name3",
-        endtime: "06:50:38"
+        endtime: "06:50:38",
       };
       authenticatedUser
         .post("/meeting/create")
@@ -158,7 +165,7 @@ describe("Meetings Page", function () {
         date: "2021-10-10",
         time: "05-50-59",
         non_contact_attendees: "Name1, Name2, Name3",
-        endtime: "06-50-59"
+        endtime: "06-50-59",
       };
       authenticatedUser
         .post("/meeting/create")

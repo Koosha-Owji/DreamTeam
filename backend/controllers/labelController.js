@@ -86,16 +86,6 @@
      }
  }
  
- // Retrieve a single label based on any attributes
- // export const get_one_label = async (req, res) => {
- //     try {
- //         const label = await label_model.findOne(req.body).exec();
- //         res.json(label);
- //     } catch (err) {
- //         res.status(400).json({message: "failed to find a label with params:", params: req.body});
- //     }
- // }
- 
  /**
   * Retrieve all labels associated with a contact by passing a list of label_ids
   * @param {requet with "contact_id" in the body} req 

@@ -1,3 +1,9 @@
+/**
+ * NotePages.js, contains the frontend layout of the Meetings Page
+ * Created for IT Project COMP30022, Semester 2 2021
+ * The University of Melbourne
+ * Implemented by DreamTeam: Anagha Giri, Koosha Owji, Chirag Charan Singh, Olivia Ryan, Natasha Ireland
+ */
 import React, { useEffect } from "react";
 import "./meetings.css";
 // import { nanoid } from "nanoid";
@@ -18,11 +24,6 @@ import { get_all_contacts } from "./../../api/index";
 
 function MeetingPage() {
   const dispatch = useDispatch();
-  // Notes from database will go here
-
-  // UPCOMING AND PAST
-  // can possibly traverse through meetingList and then check if the date and time is in past or not and then
-  // can send the appropriate list to the MeetingsList
   var meetingList1 = [];
   var sortedMeetings = [];
   var flag;
@@ -34,15 +35,18 @@ function MeetingPage() {
     dispatch(getAllMeetings());
   }, [dispatch]);
 
+  // handles pop up open for add meetings
   const handleClickOpen = () => {
     setOpen(true);
   };
 
+  // handles closing of pop up for add meetings
   const handleClose = () => {
     setOpen(false);
     setCurrentId("");
   };
 
+  // handles Submit when adding a new meeting
   const handleSubmit = () => {
     handleClose();
     dispatch(getAllMeetings());
@@ -59,7 +63,6 @@ function MeetingPage() {
     if (meeting) {
       handleClickOpen();
     }
-    // console.log("CurrentID changed");
   }, [currentId, meeting]);
 
   const [meetingType, setMeetingType] = React.useState("upcoming");
@@ -67,7 +70,11 @@ function MeetingPage() {
   const handleMeetingTypeChange = (event, meetingType) => {
     setMeetingType(meetingType);
   };
-
+  /**
+   * Checks the meetingType of meetings and if that matches to the overall meetingType, the meeting is
+   * added to the meeting List to be rendered.
+   * @params {meeting Type to compare meetings} meetingType
+   */
   const setMeetingList = (meetingType) => {
     const current = new Date();
     current.setSeconds(59);
@@ -97,7 +104,7 @@ function MeetingPage() {
     }
   };
 
-  flag =true
+  flag = true;
   const [contacts, setContacts] = React.useState([]);
   React.useEffect(() => {
     const handleContacts = () => {

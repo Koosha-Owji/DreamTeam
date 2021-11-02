@@ -1,3 +1,10 @@
+/**
+ * AddMeetingNote.js, pop up for the users to creating a new note connected to the selected meeting
+ * Created for IT Project COMP30022, Semester 2 2021
+ * The University of Melbourne
+ * Implemented by DreamTeam: Anagha Giri, Koosha Owji, Chirag Charan Singh, Olivia Ryan, Natasha Ireland
+ */
+
 import Fab from "@material-ui/core/Fab";
 import Dialog from "@material-ui/core/Dialog";
 import React from "react";
@@ -7,7 +14,7 @@ import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { createNote, updateNote } from "../../actions/notes";
 import { getMeetingNote } from "../../api/index";
-import "../Notes/note.css"
+import "../Notes/note.css";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,14 +29,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 var noteId;
 
-export default function AddMeetingNote({ id , meeting_title1}) {
+export default function AddMeetingNote({ id, meeting_title1 }) {
   const dispatch = useDispatch();
-  // const [noteId, setNoteId] = React.useState(null);
 
+  // Note Data, intially empty
   const [noteText, setNoteText] = useState({
     title: "",
     content: "",
-    meeting_title : meeting_title1,
+    meeting_title: meeting_title1,
     meeting_id: id,
   });
 
@@ -41,6 +48,7 @@ export default function AddMeetingNote({ id , meeting_title1}) {
 
   const [open, setOpen] = React.useState(false);
 
+  // when the note button is clicked, display the note formatting
   const handleClickOpen = () => {
     setOpen(true);
     getMeetingNote(id)
@@ -68,6 +76,11 @@ export default function AddMeetingNote({ id , meeting_title1}) {
       });
   };
 
+  /**
+   * Everytime the Save button is clicked, this function checks the noetId to deduce whether the note is edited or saved
+   * and then performs the appropriate actions on it
+   * @param {the event that occured, i.e clicking the save button} event
+   */
   const handleSaveNote = (event) => {
     if (noteText.content.trim().length > 0) {
       // IF THE NOTE IS BEING UPDATED
@@ -98,7 +111,7 @@ export default function AddMeetingNote({ id , meeting_title1}) {
           onClick={handleClickOpen}
           style={{ display: "flex" }}
         >
-            <Note />
+          <Note />
         </Fab>
         <Dialog
           open={open}

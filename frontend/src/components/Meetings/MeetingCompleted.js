@@ -1,3 +1,10 @@
+/**
+ * MeetingCompleted.js, handles marking of meetings as comepleted
+ * Created for IT Project COMP30022, Semester 2 2021
+ * The University of Melbourne
+ * Implemented by DreamTeam: Anagha Giri, Koosha Owji, Chirag Charan Singh, Olivia Ryan, Natasha Ireland
+ */
+
 import Fab from "@material-ui/core/Fab";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
@@ -38,6 +45,7 @@ export default function MeetingCompleted({ meeting }) {
     setOpen(false);
   };
 
+  // confirm before marking meeting as completed
   function finaliseCompleted(meeting) {
     const current = new Date();
 

@@ -31,8 +31,6 @@ export const create_order = async (req, res) =>{
    const contact_id=req.body.contact_id;
    const user = await userModel.findOne({ _id: req.user_id});
    if (! user) return res.status(400).json({ message: "User not found" });
-//    const contact = await contactModel.findOne({_id: req.body.contact_id});
-//    if (!contact) return res.status(400).json({message: "Contact not found"});
    
    const newOrder =new orderModel({
        product, stage, amount,order_date, due_date, user_id, contact_id

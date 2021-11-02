@@ -1,5 +1,5 @@
 /**
- * NotePages.js, renders the add note box in which the user can input their note information and save
+ * AddNote.js, renders the add note box in which the user can input their note information and save
  * the new note. Also, if the currentId is valid the add note box displays the information of the corresponding
  * note to be edited
  * Created for IT Project COMP30022, Semester 2 2021
@@ -15,8 +15,6 @@ import { createNote, updateNote } from "../../actions/notes";
 import "./note.css";
 
 /**
- * For every note in notes list, create a new Note component with the available attributes 
- * and passing it with all the required functionalities
  * @param {current Id of the note being edited or null if its a new note} currentId
  * @param {a fucntion that sets the currentId to be the id of the note being edited} setCurrentId 
  * @returns {an AddNote component to be rendered and depending on currentId, displays the required note information} 
@@ -56,7 +54,6 @@ const AddNote = ({ currentId, setCurrentId }) => {
    * Everytime the Save button is clicked, this function checks the currentId to deduce whether the note is edited or saved
    * and then performs the appropriate actions on it, and then clears the noteText
    * @param {the event that occured, i.e clicking the save button} event
-   * @returns {an AddNote component to be rendered and depending on currentId, displays the required note information}
    */
   const handleSaveClick = (event) => {
     if (noteText.content.trim().length > 0) {

@@ -1,7 +1,13 @@
+/**
+ * meeting.js, mongoose schema for meetings stored in CRM
+ * Created for IT Project COMP30022, Semester 2 2021
+ * The University of Melbourne
+ * Implemented by DreamTeam: Anagha Giri, Koosha Owji, Chirag Singh, Olivia Ryan, Natasha Ireland
+ */
+
 import mongoose from "mongoose";
 
 const meetingSchema = mongoose.Schema({
-  // time : {type: Date, required: false},
   date_time: { type: Date, required: true },
   title: { type: String, required: true },
   agenda: { type: String, required: false },
@@ -12,7 +18,6 @@ const meetingSchema = mongoose.Schema({
   date: { type: String, required: true },
   time: { type: String, required: true },
   endtime: { type: String, required: true },
-  //note_id: {type: String, required: false} // meetings have at most one note
 });
 
 export default mongoose.model("Meeting", meetingSchema);
