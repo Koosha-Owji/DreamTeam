@@ -1,18 +1,10 @@
 import * as React from 'react';
-//import { styled } from '@mui/material/styles';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
-// import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
-// import CardActions from '@mui/material/CardActions';
-// import Collapse from '@mui/material/Collapse';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import { cyan } from '@material-ui/core/colors';
-// import FavoriteIcon from '@mui/icons-material/Favorite';
-// import ShareIcon from '@mui/icons-material/Share';
-// import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-// import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -33,6 +25,8 @@ const useStyles = makeStyles((theme)=> ({
         margin: theme.spacing(3, 0, 2),
       },
   }));
+
+// card component that pops up when users press the profile button on the navbar
 export default function ProfileCard() {
     var user1 = useSelector((state) => state.auth.authData);
     const dispatch = useDispatch();
@@ -69,33 +63,27 @@ export default function ProfileCard() {
                     </Avatar>
                   }
                 action={
-                    // <Fab variant="extended" color="primary" aria-label="update" style={{display:'flex'}} >
-                    //     <UpdateIcon/>
-                    // </Fab>
-                    //<Grid item xs={1} textA>
                     <Update profile={user1}/>
-                    //</Grid>
                 }
                 titleTypographyProps={{variant:'h5', align:"left"  }}
                 title={user1.result.first_name + " " + user1.result.last_name}
-                //subheader={user.email_address}
                 />
             <CardContent>
-                {/* <Typography color="text.secondary" sx={{ fontSize:100, fontWeight:"medium"}}> */}
-                {/* <Typography variant="h5" component="div">
-                {name}
-                </Typography> */}
-                {/* <Typography mt={2} sx={{ mb: 1.5}} variant="caption text" color="text.secondary"> */}
+
                 <Typography variant="subtitle1" align="left">
                 Email Address: {user1.result.email_address}
                 </Typography>
+
                 <Typography mt={10} variant="subtitle1" align="left" color="text.secondary">
                 Department: {user1.result.department}
                 </Typography>
+
                 <Typography mt={2} variant="subtitle1" align="left" color="text.secondary">
                 Role: {user1.result.role}
                 </Typography>
+
                 <form className={classes.form} onSubmit={handleSubmit} noValidate>
+                
                 <TextField
                   autoFocus
                   required
@@ -106,6 +94,7 @@ export default function ProfileCard() {
                   fullWidth
                   onChange={(e) => setPasswordDetails({...passwordDetails, current_password:e.target.value})}
                 ></TextField>
+
                 <TextField
                   autoFocus
                   margin="dense"
@@ -115,6 +104,7 @@ export default function ProfileCard() {
                   fullWidth
                   onChange={(e) => setPasswordDetails({...passwordDetails, new_password:e.target.value})}
                 ></TextField>
+
                 <TextField
                   autoFocus
                   margin="dense"
@@ -124,12 +114,16 @@ export default function ProfileCard() {
                   fullWidth
                   onChange={(e) => setPasswordDetails({...passwordDetails, repeatNew_password:e.target.value})}
                 ></TextField>
+
+                {/* Button for saving profile changes */}
                 <Button 
                   type="submit"
                   fullWidth
                   variant="contained"
                   color="primary"
                   className={classes.submit} >Save changes</Button>
+
+                  {/* Password rules */}
                   <PasswordChecklist
 				            rules={["minLength","number","capital","match"]}
 				            minLength={5}
