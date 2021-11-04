@@ -1,3 +1,9 @@
+/**
+ * AddContact.component.js, user can add a contact
+ * Created for IT Project COMP30022, Semester 2 2021
+ * The University of Melbourne
+ * Implemented by DreamTeam: Anagha Giri, Koosha Owji, Chirag Singh, Olivia Ryan, Natasha Ireland
+ */
 import Fab from '@material-ui/core/Fab';
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
@@ -10,8 +16,7 @@ import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 
 import { useState, useEffect } from 'react';
-import {useDispatch, /*useSelector*/} from 'react-redux';
-//import { FormLabel, Typography } from '@material-ui/core';
+import {useDispatch} from 'react-redux';
 import { update_user } from '../../actions/user';
 import { useHistory } from 'react-router-dom';
 
@@ -32,7 +37,6 @@ const useStyles = makeStyles((theme) => ({
 }));
   
 
-//const  UpdateProfile=({profile})=> {
 const  UpdateProfile=({profile})=> {
     const classes = useStyles();
     const history = useHistory();
@@ -50,9 +54,6 @@ const  UpdateProfile=({profile})=> {
         _id: profile.result._id,
         count:''
     });
-
-    //const contact = useSelector((state) => currId ? allContacts.find((n) => n._id === currId) : null);
-
 
     const [open, setOpen] = React.useState(false);
     
