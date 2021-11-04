@@ -28,7 +28,7 @@ export const create_order = async (req, res) =>{
    const order_date = req.body.startDate;
    const due_date = req.body.dueDate;
    const user_id=req.user_id;
-   const contact_id=req.body.contact_id;
+   if (!req.user_id) return res.status(400).json({ message: "User doesn't exist" });
    const user = await userModel.findOne({ _id: req.user_id});
    if (! user) return res.status(400).json({ message: "User not found" });
    
@@ -37,10 +37,9 @@ export const create_order = async (req, res) =>{
    });
    try {
        await newOrder.save()
-        return res.send(newOrder);
+       return res.json({message:"Added new order!", order:newOrder});
         
 } catch (err) { 
-    console.log("caught", err)
     return res.status(400).json({message: "Error saving new order"}); }
 };
 
@@ -76,8 +75,7 @@ export const get_order = async(req,res) =>{
 
 export const delete_order = async(req,res)=>{
     orderModel.findByIdAndDelete(req.params.id)
-    .then(() => res.json('Order deleted.'))
-    .then(console.log('Order deleted'))
+    .then(() => res.status(200).json('Order deleted.'))
     .catch(err => res.status(400).json('Error: ' + err));
 }
 
